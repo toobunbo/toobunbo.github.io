@@ -1,0 +1,18 @@
+#menu_text {
+    color: antiquewhite;
+    background-color: aliceblue;
+    margin: auto;
+    padding: 80px;
+}
+#flex_container {
+    display: flex ;
+}
+#left_side{
+    background-color: bisque;
+}
+#table {
+    border: 0cap;
+}
+nav {
+    overflow: hidden;
+}
