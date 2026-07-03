@@ -1,0 +1,51 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Prepare web root
+        run: |
+          mkdir public
+          
+          # Copy shared assets/styles
+          cp -r assets components explorations guidelines screenshots tokens uploads public/ || true
+          cp styles.css _ds_bundle.js _ds_manifest.json public/
+          
+          # Copy everything from ui_kits/website to the root public folder
+          cp -r ui_kits/website/* public/
+          
+          # Fix relative paths in HTML files (../../ to ./)
+          find public -maxdepth 1 -name "*.html" -exec sed -i 's/\.\.\/\.\.\///g' {} +
+          
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'public'
+          
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
