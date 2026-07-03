@@ -38,10 +38,6 @@ jobs:
           # Fix relative paths in HTML files (../../ to ./)
           find public -maxdepth 1 -name "*.html" -exec sed -i 's/\.\.\/\.\.\///g' {} +
           
-          # Use landing.html as the main index.html
-          mv public/index.html public/manga-cover.html || true
-          mv public/landing.html public/index.html || true
-          
       - name: Setup Pages
         uses: actions/configure-pages@v5
         

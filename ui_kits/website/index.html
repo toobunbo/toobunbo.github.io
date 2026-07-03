@@ -1,210 +1,153 @@
-<!-- @dsCard group="Website" viewport="1180x760" name="Landing — manga cover" subtitle="Masthead + issue cover hero + archive grid" -->
-<!-- @startingPoint section="Website" subtitle="CYBERKNIGHT landing / issue cover" viewport="1180x900" -->
+<!-- @dsCard group="Website" viewport="1280x820" name="Landing — cover (mascot)" subtitle="Full-bleed cover: nav + wordmark + About/Team + knight mascot" -->
+<!-- @startingPoint section="Website" subtitle="CYBERKNIGHT mascot cover landing" viewport="1280x820" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CYBERKNIGHT — Landing</title>
+<title>CYBERKNIGHT</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../styles.css">
 <style>
-  html,body{margin:0}
-  body{background:var(--paper);background-image:var(--paper-grain);background-size:4px 4px;color:var(--ink);min-height:100vh}
-  a{color:inherit}
-  .foot{border-top:var(--bw-rule) solid var(--ink);margin-top:40px}
-  .foot .inner{max-width:var(--container);margin:0 auto;padding:22px var(--gutter);display:flex;align-items:center;gap:16px;font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:.5px}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    background:var(--paper);
+    background-image:var(--paper-grain);
+    background-size:4px 4px;
+    color:var(--ink);
+    height:100vh;
+    overflow:hidden;
+    position:relative;
+    font-family:var(--font-body);
+  }
 
-  /* ---- archive sections ---- */
-  .arc{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
-  .arc-sec{display:flex;align-items:flex-end;gap:14px;border-bottom:var(--bw-heavy) solid var(--ink);padding-bottom:10px;margin-bottom:26px}
-  .arc-sec .kanji{font-family:var(--font-jp);font-weight:800;font-size:34px;letter-spacing:4px;line-height:1}
-  .arc-sec .romaji{font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:3px;color:var(--accent);text-transform:uppercase;padding-bottom:4px}
-  .arc-sec .desc{margin-left:auto;font-family:var(--font-mono);font-size:12px;color:var(--ink-3);padding-bottom:4px}
-  .arc-block2{margin-top:56px}
+  /* faint storyboard marks */
+  .storyboard{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .sb-mark{position:absolute;font-family:var(--font-jp);font-weight:800;color:var(--ink);opacity:.04;writing-mode:vertical-rl;letter-spacing:8px;line-height:1}
+  .sb-slogan{
+    position:absolute;
+    font-family:var(--font-display);
+    font-size:clamp(30px,3.6vw,52px);line-height:.98;letter-spacing:1px;
+    color:var(--ink);opacity:.05;
+  }
+  .sb-panel{position:absolute;border:1px solid var(--ink);opacity:.05;background:repeating-linear-gradient(-45deg,transparent 0 13px,var(--ink) 13px 13.6px)}
 
-  .ac-card{position:relative;background:var(--card);border:var(--bw-rule) solid var(--ink);box-shadow:var(--shadow-block);padding:13px;padding-left:16px;transition:transform .1s ease,box-shadow .1s ease;text-decoration:none;color:var(--ink);display:block}
-  .ac-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent)}
-  .ac-card:hover{transform:translate(-3px,-3px);box-shadow:var(--shadow-block-lg)}
-  .ac-card:active{transform:translate(1px,1px);box-shadow:var(--shadow-seal)}
-  .ac-thumb{position:relative;height:172px;border:var(--bw-rule) solid var(--ink);overflow:hidden;background:#221E17;background-image:linear-gradient(to bottom, rgba(20,17,12,0) 55%, var(--card) 100%),radial-gradient(rgba(245,238,223,.28) 1.1px, transparent 1.5px);background-size:auto,7px 7px}
-  .ac-chip{position:absolute;top:11px;left:11px;font-family:var(--font-jp);font-weight:800;font-size:13px;letter-spacing:2px;background:var(--accent);color:#fff;padding:5px 9px 4px;display:inline-flex;align-items:center;gap:6px;box-shadow:var(--shadow-seal)}
-  .ac-chip small{font-family:var(--font-mono);font-weight:600;font-size:9.5px;letter-spacing:1px}
-  .ac-chip.ink{background:var(--ink)}
-  .ac-kmark{position:absolute;right:12px;top:10px;font-family:var(--font-jp);font-weight:800;font-size:50px;color:rgba(245,238,223,.10);writing-mode:vertical-rl;letter-spacing:4px;line-height:1}
-  .ac-hanko{position:absolute;right:11px;bottom:12px;font-family:var(--font-jp);font-weight:800;font-size:14px;letter-spacing:2px;padding:5px 8px 4px;border:2px solid var(--seal-hard);color:var(--seal-hard);background:var(--card);display:inline-flex;flex-direction:column;align-items:center;line-height:1}
-  .ac-hanko small{font-family:var(--font-mono);font-weight:400;font-size:7px;letter-spacing:1px;margin-top:2px;opacity:.8}
-  .ac-hanko.mid{border-color:var(--seal-mid);color:var(--seal-mid)}
-  .ac-hanko.easy{border-color:var(--seal-easy);color:var(--seal-easy)}
-  .ac-body{padding:15px 5px 5px}
-  .ac-body h3{font-family:var(--font-body);font-weight:700;font-size:20px;margin:0 0 6px;letter-spacing:-.2px;line-height:1.22}
-  .ac-meta{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-3);margin-bottom:13px}
-  .ac-cat{display:flex;align-items:center;gap:8px;margin-bottom:15px}
-  .ac-cat .bar{width:4px;height:14px;background:var(--accent)}
-  .ac-cat .en{font-family:var(--font-mono);font-size:11.5px;font-weight:600;letter-spacing:2px;color:var(--ink)}
-  .ac-cat .jp{font-family:var(--font-jp);font-weight:700;font-size:11.5px;color:var(--ink-3);letter-spacing:2px}
-  .ac-foot{font-family:var(--font-mono);font-size:11.5px;font-weight:600;letter-spacing:1px;color:var(--accent);display:flex;align-items:center;gap:8px}
-  .ac-foot .arw{transition:transform .16s ease}
-  .ac-card:hover .ac-foot .arw{transform:translateX(4px)}
-  .arc-grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
-  .ctf-split{display:grid;grid-template-columns:390px 1fr;gap:28px;align-items:start}
-  .board{width:100%;border-collapse:collapse;border:var(--bw-rule) solid var(--ink);background:var(--card)}
-  .board thead th{font-family:var(--font-mono);font-size:10.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-2);text-align:left;padding:11px 14px;background:var(--paper-2);border-bottom:var(--bw-rule) solid var(--ink)}
-  .board tbody td{padding:11px 14px;border-bottom:1px solid var(--rule);font-family:var(--font-body);font-size:15px;vertical-align:middle}
-  .board tbody tr:last-child td{border-bottom:none}
-  .board tbody tr{transition:background .12s;cursor:pointer}
-  .board tbody tr:hover{background:var(--accent-soft)}
-  .board .num{font-family:var(--font-display);font-size:19px;color:var(--accent);width:48px}
-  .board .chal{font-weight:700}
-  .catchip{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:1px;padding:3px 7px;border:1px solid var(--accent-line);color:var(--accent);border-radius:2px;text-transform:uppercase;white-space:nowrap}
-  .dseal{font-family:var(--font-jp);font-weight:800;font-size:13px;border:2px solid;padding:2px 6px 1px;border-radius:2px;display:inline-block;line-height:1}
-  .dseal.hard{color:var(--seal-hard);border-color:var(--seal-hard)}
-  .dseal.mid{color:var(--seal-mid);border-color:var(--seal-mid)}
-  .dseal.easy{color:var(--seal-easy);border-color:var(--seal-easy)}
-  .flag-ok{font-family:var(--font-mono);font-size:12px;color:var(--ink);font-weight:600}
-  .flag-ok::before{content:"\25C6 ";color:var(--accent)}
-  .board .go{font-family:var(--font-mono);font-size:15px;color:var(--accent);text-align:right}
-  .board-cap{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);margin-top:10px;display:flex;justify-content:space-between}
+  /* big mascot bleeding off the right edge */
+  .mascot{
+    position:absolute;right:-16px;bottom:0;
+    height:106%;z-index:1;
+    mix-blend-mode:multiply;
+    pointer-events:none;
+    filter:drop-shadow(8px 8px 0 rgba(30,27,22,.08));
+  }
+
+  .shell{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;padding:26px var(--gutter)}
+
+  /* top nav */
+  .nav{display:flex;align-items:center;gap:22px}
+  .nav .corner{font-family:var(--font-mono);font-size:11px;letter-spacing:2px;color:var(--ink-3);text-transform:uppercase}
+  .nav .links{margin-left:auto;display:flex;gap:22px}
+  .nav a{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:1.5px;color:var(--ink-2);text-decoration:none;position:relative;padding-bottom:3px;transition:color .12s ease}
+  .nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--accent);transition:right .16s ease}
+  .nav a:hover{color:var(--ink)}
+  .nav a:hover::after{right:0}
+
+  /* hero */
+  .hero{flex:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(30px,5vh,48px);max-width:640px}
+  .kanji-sub{font-family:var(--font-jp);font-weight:700;font-size:14px;letter-spacing:12px;color:var(--ink-3);margin-bottom:8px;padding-left:10px}
+  .wordmark{font-family:var(--font-display);font-size:clamp(56px,9vw,108px);line-height:.88;letter-spacing:2px}
+  .wordmark .k{color:var(--accent)}
+
+  /* index (目次) — a manga table-of-contents block */
+  .index{max-width:430px}
+  .index-head{display:flex;align-items:center;gap:10px;border-bottom:var(--bw-heavy) solid var(--ink);padding-bottom:8px;margin-bottom:2px}
+  .index-head .en{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:3px;color:var(--ink-2)}
+  .index-head .jp{font-family:var(--font-jp);font-weight:700;font-size:12px;letter-spacing:4px;color:var(--ink-3)}
+  .index-head .n{margin-left:auto;font-family:var(--font-mono);font-size:11px;color:var(--ink-3)}
+
+  .entry{
+    display:flex;align-items:center;gap:18px;
+    padding:16px 6px 16px 4px;
+    border-bottom:var(--bw-rule) solid var(--ink);
+    text-decoration:none;color:var(--ink);
+    position:relative;
+    transition:padding-left .16s ease,background .12s ease;
+  }
+  .entry:hover{padding-left:16px;background:var(--accent-soft)}
+  .entry .no{
+    font-family:var(--font-display);font-size:26px;color:var(--accent);
+    line-height:1;letter-spacing:1px;flex:none;width:64px;
+  }
+  .entry .no small{font-family:var(--font-jp);font-weight:700;font-size:12px;color:var(--ink-3);display:block;letter-spacing:2px;margin-top:3px}
+  .entry h2{font-family:var(--font-body);font-weight:700;font-size:23px;margin:0;letter-spacing:-.2px}
+  .entry .jp{font-family:var(--font-jp);font-weight:700;font-size:12px;letter-spacing:4px;color:var(--ink-3);margin-top:3px}
+  .entry .arw{margin-left:auto;font-family:var(--font-mono);font-size:20px;color:var(--accent);transition:transform .16s ease}
+  .entry:hover .arw{transform:translateX(6px)}
+
+  .foot-jp{position:absolute;left:var(--gutter);bottom:22px;z-index:3;font-family:var(--font-mono);font-size:11px;letter-spacing:1px;color:var(--ink-3)}
+  .theme-tog{position:absolute;right:var(--gutter);bottom:20px;z-index:4;font-family:var(--font-mono);font-size:11px;letter-spacing:.5px;padding:6px 11px;cursor:pointer;border:var(--bw-rule) solid var(--ink);border-radius:var(--r-2);background:transparent;color:var(--ink)}
+
+  /* the mascot's light shadows read a bit heavy on the dark negative — soften */
+  html[data-theme="dark"] .mascot{mix-blend-mode:screen;filter:drop-shadow(8px 8px 0 rgba(0,0,0,.3))}
 </style>
 </head>
 <body>
-  <div id="root"></div>
-  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
-  <script src="../../_ds_bundle.js"></script>
-  <script type="text/babel">
-    const { Seal, Tag, Button, ChapterCard } = window.CYBERKNIGHTDesignSystem_302981;
-    const { useState, useEffect } = React;
+  <div class="storyboard">
+    <div class="sb-panel" style="top:9%;left:3%;width:180px;height:135px;transform:rotate(-2deg)"></div>
+    <div class="sb-panel" style="bottom:9%;left:6%;width:150px;height:120px;transform:rotate(1.5deg)"></div>
+    <div class="sb-mark" style="top:12%;left:34%;font-size:88px">攻性思考</div>
+    <div class="sb-mark" style="bottom:8%;left:8%;font-size:88px">騎士道</div>
+  </div>
 
-    /* ---- Masthead ---- */
-    function Masthead({ theme, onToggleTheme }){
-      const nav = ["ARCHIVE","CTF","BUG BOUNTY","RESEARCH","ABOUT"];
-      return (
-        <header style={{borderBottom:"var(--bw-heavy) solid var(--ink)",background:"var(--paper)",position:"sticky",top:0,zIndex:20}}>
-          <div style={{maxWidth:"var(--container)",margin:"0 auto",padding:"12px var(--gutter)",display:"flex",alignItems:"center",gap:"20px"}}>
-            <div style={{display:"flex",alignItems:"baseline",gap:"10px"}}>
-              <span style={{fontFamily:"var(--font-display)",fontSize:"26px",letterSpacing:"1px",lineHeight:1}}>CYBER<span style={{color:"var(--accent)"}}>KNIGHT</span></span>
-              <span style={{fontFamily:"var(--font-jp)",fontWeight:700,fontSize:"12px",letterSpacing:"3px",color:"var(--ink-3)"}}>部</span>
-            </div>
-            <nav style={{display:"flex",gap:"18px",marginLeft:"8px"}}>
-              {nav.map(n=>(<a key={n} href="#" style={{fontFamily:"var(--font-mono)",fontSize:"11.5px",fontWeight:500,letterSpacing:"1px",color:"var(--ink-2)",textDecoration:"none"}}>{n}</a>))}
-            </nav>
-            <div style={{marginLeft:"auto",display:"flex",alignItems:"center",gap:"12px"}}>
-              <span style={{fontFamily:"var(--font-mono)",fontSize:"11px",color:"var(--ink-3)"}}>ISSUE&nbsp;#42</span>
-              <button onClick={onToggleTheme} style={{fontFamily:"var(--font-mono)",fontSize:"11px",letterSpacing:".5px",padding:"6px 11px",cursor:"pointer",border:"var(--bw-rule) solid var(--ink)",borderRadius:"var(--r-2)",background:"transparent",color:"var(--ink)"}}>{theme==="dark"?"反転 ON":"反転 OFF"}</button>
-            </div>
-          </div>
-        </header>
-      );
-    }
+  <img class="mascot" src="../../assets/knight-mascot.png" alt="CYBERKNIGHT mascot">
 
-    /* ---- CoverHero ---- */
-    function CoverHero(){
-      return (
-        <section style={{maxWidth:"var(--container)",margin:"0 auto",padding:"var(--sp-12) var(--gutter) var(--sp-10)",display:"grid",gridTemplateColumns:"1.5fr 1fr",gap:"var(--sp-10)",alignItems:"center"}}>
-          <div>
-            <div style={{display:"flex",alignItems:"center",gap:"12px",marginBottom:"18px"}}>
-              <Seal jp="連載" en="SERIAL" variant="solid" />
-              <span style={{fontFamily:"var(--font-mono)",fontSize:"12px",letterSpacing:"2px",color:"var(--ink-3)",textTransform:"uppercase"}}>CH.07 · CTF WRITEUP</span>
-            </div>
-            <h1 style={{fontFamily:"var(--font-display)",fontSize:"var(--fs-display)",lineHeight:1.02,letterSpacing:"1px",margin:"0 0 18px"}}>CATCHING ROOT<br/>FROM A HARMLESS<br/><span style={{color:"var(--accent)"}}>DESERIALIZE</span></h1>
-            <p style={{fontFamily:"var(--font-body)",fontSize:"17px",lineHeight:1.7,color:"var(--ink-2)",maxWidth:"48ch",margin:"0 0 22px"}}>A base64 blob hits unserialize() on an import endpoint. One gadget chain later we have arbitrary file write — and the 「難」 seal comes down.</p>
-            <div style={{display:"flex",gap:"6px",flexWrap:"wrap",marginBottom:"24px"}}>
-              <Tag>pwn</Tag><Tag>deserialization</Tag><Tag>php</Tag><Tag>rce</Tag>
-            </div>
-            <div style={{display:"flex",gap:"12px",alignItems:"center"}}>
-              <Button variant="primary" size="lg" as="a" href="reading.html">Read chapter</Button>
-              <span style={{fontFamily:"var(--font-mono)",fontSize:"12px",color:"var(--ink-3)"}}>nyx@ckn · 2026.06.28 · 14 min</span>
-            </div>
-          </div>
-          <div style={{position:"relative",border:"var(--bw-rule) solid var(--ink)",background:"var(--card)",boxShadow:"var(--shadow-block-lg)",aspectRatio:"3/4",overflow:"hidden"}}>
-            <div style={{position:"absolute",inset:0,backgroundImage:"repeating-linear-gradient(-45deg, transparent 0 11px, rgba(30,27,22,0.05) 11px 12px)"}} />
-            <div style={{position:"absolute",top:"14px",left:"14px",fontFamily:"var(--font-mono)",fontSize:"11px",letterSpacing:"2px",color:"var(--ink-3)"}}>VOL.07</div>
-            <div style={{position:"absolute",top:"12px",right:"12px"}}><Seal jp="難" en="HARD" tone="hard" size="lg" /></div>
-            <div style={{position:"absolute",left:0,right:0,bottom:0,top:"20%",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"var(--font-jp)",fontWeight:800,fontSize:"clamp(70px,11vw,120px)",color:"var(--ink)",lineHeight:.9,letterSpacing:"6px",writingMode:"vertical-rl"}}>電脳騎士</div>
-            <div style={{position:"absolute",left:"14px",bottom:"14px",fontFamily:"var(--font-display)",fontSize:"20px",color:"var(--accent)",letterSpacing:"1px"}}>CYBERKNIGHT</div>
-          </div>
-        </section>
-      );
-    }
+  <div class="shell">
+    <div class="nav">
+      <span class="corner">規律の中の自由</span>
+      <span class="links">
+        <a href="archive.html">ARCHIVE</a>
+        <a href="#">RESEARCH</a>
+      </span>
+    </div>
 
-    /* ---- shared card frame ---- */
-    function Card({chip, chipInk, kmark, hanko, title, meta, catEn, catJp, foot}){
-      return (
-        <a className="ac-card">
-          <div className="ac-thumb">
-            <span className={"ac-chip"+(chipInk?" ink":"")}>{chip.jp}<small>{chip.en}</small></span>
-            <span className="ac-kmark">{kmark}</span>
-            {hanko && <span className={"ac-hanko "+(hanko.tone||"")}>{hanko.jp}<small>{hanko.en}</small></span>}
-          </div>
-          <div className="ac-body">
-            <h3>{title}</h3>
-            <div className="ac-meta">{meta}</div>
-            <div className="ac-cat"><span className="bar"></span><span className="en">{catEn}</span><span className="jp">{catJp}</span></div>
-            <div className="ac-foot">{foot}<span className="arw">→</span></div>
-          </div>
-        </a>
-      );
-    }
-
-    const BLOG = [
-      {chip:{jp:"論説",en:"BLOG"},chipInk:true,kmark:"論説",title:"Why we stopped trusting our own deserializers",meta:"rei@ckn · 2026.06.30 · 8 min",catEn:"RESEARCH",catJp:"研究",foot:"đọc tiếp "},
-      {chip:{jp:"論説",en:"BLOG"},chipInk:true,kmark:"解析",title:"A field guide to timing side-channels",meta:"rei@ckn · 2026.06.22 · 12 min",catEn:"RESEARCH",catJp:"研究",foot:"đọc tiếp "},
-    ];
-    const BOARD = [
-      {n:"12",chal:"Escaping the Jailed Shell",cat:"WEB",d:"難",dc:"hard"},
-      {n:"11",chal:"Padding Oracle, Slowly",cat:"CRYPTO",d:"中",dc:"mid"},
-      {n:"10",chal:"One Byte to Rule ret2libc",cat:"PWN",d:"難",dc:"hard"},
-      {n:"09",chal:"Carving the Corrupted PCAP",cat:"FORENSICS",d:"中",dc:"mid"},
-      {n:"08",chal:"Ghost in the Metadata",cat:"OSINT",d:"易",dc:"easy"},
-      {n:"07",chal:"SSTI via welcome mail",cat:"WEB",d:"易",dc:"easy"},
-      {n:"06",chal:"Blind SQLi speedrun",cat:"WEB",d:"中",dc:"mid"},
-    ];
-    function ArchiveGrid(){
-      return (
-        <section className="arc" style={{paddingBottom:"var(--sp-16)"}}>
-          <div className="arc-sec"><span className="kanji">論説</span><span className="romaji">Ronsetsu · Blog</span><span className="desc">Bài viết chuyên ngành — thành viên</span></div>
-          <div className="arc-grid2">{BLOG.map((b,i)=><Card key={i} {...b} />)}</div>
-
-          <div className="arc-sec arc-block2"><span className="kanji">連載</span><span className="romaji">Renzai · CTF Writeups</span><span className="desc">Featured + bảng check challenges</span></div>
-          <div className="ctf-split">
-            <Card chip={{jp:"連載",en:"CH.12"}} kmark="攻性" hanko={{jp:"難",en:"HARD",tone:"hard"}} title="Escaping the Jailed Shell" meta="HackTheBox · Web · 12 min" catEn="WEB" catJp="アクション" foot="READ " />
-            <div>
-              <table className="board">
-                <thead><tr><th>#</th><th>Challenge</th><th>Category</th><th>Diff</th><th>Flag</th><th></th></tr></thead>
-                <tbody>
-                  {BOARD.map(r=>(
-                    <tr key={r.n}><td className="num">{r.n}</td><td className="chal">{r.chal}</td><td><span className="catchip">{r.cat}</span></td><td><span className={"dseal "+r.dc}>{r.d}</span></td><td className="flag-ok">captured</td><td className="go">→</td></tr>
-                  ))}
-                </tbody>
-              </table>
-              <div className="board-cap"><span>7 / 42 challenges shown</span><span>xem toàn bộ bảng →</span></div>
-            </div>
-          </div>
-        </section>
-      );
-    }
-
-    function App(){
-      const [theme,setTheme] = useState("light");
-      useEffect(()=>{ document.documentElement.setAttribute("data-theme", theme); },[theme]);
-      return (
-        <div>
-          <Masthead theme={theme} onToggleTheme={()=>setTheme(t=>t==="light"?"dark":"light")} />
-          <CoverHero />
-          <ArchiveGrid />
-          <footer className="foot"><div className="inner">
-            <span style={{fontFamily:"var(--font-display)",fontSize:"16px"}}>CYBER<span style={{color:"var(--accent)"}}>KNIGHT</span></span>
-            <span>連載中 · a club drawing its own manga</span>
-            <span style={{marginLeft:"auto"}}>© 2026 · ink on paper</span>
-          </div></footer>
+    <div class="hero">
+      <div>
+        <div class="kanji-sub">サイバーナイト</div>
+        <div class="wordmark">CYBER<br><span class="k">KNIGHT</span></div>
+      </div>
+      <div class="index">
+        <div class="index-head">
+          <span class="en">INDEX</span>
+          <span class="jp">目次</span>
+          <span class="n">02</span>
         </div>
-      );
-    }
-    ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+        <a class="entry" href="#about">
+          <span class="no">01<small>序章</small></span>
+          <div><h2>About</h2><div class="jp">部について</div></div>
+          <span class="arw">→</span>
+        </a>
+        <a class="entry" href="#team">
+          <span class="no">02<small>部員</small></span>
+          <div><h2>Team Member</h2><div class="jp">部員紹介</div></div>
+          <span class="arw">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <span class="foot-jp">連載中 · ink on paper</span>
+  <button class="theme-tog" id="tog">反転 OFF</button>
+
+  <script>
+    const tog = document.getElementById('tog');
+    tog.addEventListener('click', () => {
+      const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      document.documentElement.setAttribute('data-theme', dark ? 'light' : 'dark');
+      tog.textContent = dark ? '反転 OFF' : '反転 ON';
+    });
   </script>
 </body>
 </html>
