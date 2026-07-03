@@ -1,0 +1,86 @@
+<!-- @dsCard group="Components" viewport="700x620" name="Core primitives" subtitle="Button · Seal · Tag · CodeBlock · Callout · ChapterCard" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  html,body{margin:0}
+  body{background:var(--paper);background-image:var(--paper-grain);background-size:4px 4px;color:var(--ink);font-family:var(--font-body);padding:24px}
+  .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:14px}
+  .sec{font-family:var(--font-mono);font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-3);margin:20px 0 8px;display:flex;align-items:center;gap:8px}
+  .sec::after{content:"";flex:1;height:1px;background:var(--rule)}
+  .sec:first-child{margin-top:0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+  <script src="../../_ds_bundle.js"></script>
+  <script type="text/babel">
+    const { Button, Seal, Tag, CodeBlock, Callout, ChapterCard } = window.CYBERKNIGHTDesignSystem_302981;
+    function Demo(){
+      return (
+        <div>
+          <div className="sec">Button</div>
+          <div className="row">
+            <Button variant="primary">Read chapter</Button>
+            <Button variant="secondary">Share</Button>
+            <Button variant="ghost">Cancel</Button>
+            <Button variant="primary" size="sm">Sm</Button>
+            <Button variant="secondary" size="lg">Large</Button>
+            <Button variant="primary" disabled>Disabled</Button>
+          </div>
+
+          <div className="sec">Seal — status &amp; difficulty</div>
+          <div className="row">
+            <Seal jp="連載" en="SERIAL" variant="solid" />
+            <Seal jp="番外編" en="GAIDEN" tone="ink" />
+            <Seal jp="調査中" en="WIP" tone="sub" />
+            <Seal jp="易" en="EASY" tone="easy" />
+            <Seal jp="中" en="MED" tone="mid" />
+            <Seal jp="難" en="HARD" tone="hard" size="lg" />
+          </div>
+
+          <div className="sec">Tag</div>
+          <div className="row">
+            <Tag>pwn</Tag><Tag>web</Tag><Tag>deserialization</Tag>
+            <Tag>bug-bounty</Tag><Tag active>crypto</Tag>
+          </div>
+
+          <div className="sec">CodeBlock</div>
+          <CodeBlock title="reproduce.sh" lines={[
+            {text:"# chapter 01 — repro", kind:"com"},
+            {text:"./solve.py --flag", prompt:"nyx@ckn:~$"},
+            {text:"[+] leaking heap … ok", kind:"acc"},
+            {text:"[+] flag{ink_on_paper}", kind:"green"},
+          ]} />
+
+          <div className="sec">Callout</div>
+          <Callout label="DISCLOSURE" tone="accent" title="Reported &amp; patched">
+            Disclosed to the vendor and fixed in v2.4.1 before publication.
+          </Callout>
+
+          <div className="sec">ChapterCard</div>
+          <ChapterCard
+            chapter="CH.07" kind="CTF WRITEUP"
+            title="Catching root from a harmless-looking deserialize"
+            excerpt="A base64 blob hits unserialize() — a gadget chain leads to arbitrary file write, then RCE."
+            tags={["pwn","deserialization"]}
+            author="nyx@ckn" date="2026.06.28"
+            difficulty={{jp:"難",en:"HARD",tone:"hard"}}
+            status={{jp:"連載",en:"SERIAL",variant:"solid"}}
+          />
+        </div>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById("root")).render(<Demo/>);
+  </script>
+</body>
+</html>

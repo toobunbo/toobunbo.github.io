@@ -1,0 +1,305 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/core/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Reggae One|Shippori Mincho|IBM Plex Mono))/i]",
+        "message": "Font not provided by the design system. Available: Reggae One, Shippori Mincho, IBM Plex Mono."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|variant|size|as|disabled|block|iconLeft|iconRight|style|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: children, variant, size, as, disabled, block, iconLeft, iconRight, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:primary|secondary|ghost)$/]",
+        "message": "<Button> variant must be one of 'primary' | 'secondary' | 'ghost'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<Button> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Callout'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|tone|title|children|style|key|ref|className|style|children)$/]",
+        "message": "<Callout> doesn't accept that prop. Declared props: label, tone, title, children, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Callout'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:accent|sub|ink|green)$/]",
+        "message": "<Callout> tone must be one of 'accent' | 'sub' | 'ink' | 'green'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SealSpec'] > JSXAttribute > JSXIdentifier[name!=/^(?:jp|en|tone|variant|key|ref|className|style|children)$/]",
+        "message": "<SealSpec> doesn't accept that prop. Declared props: jp, en, tone, variant."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SealSpec'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:accent|easy|mid|hard|ink|sub)$/]",
+        "message": "<SealSpec> tone must be one of 'accent' | 'easy' | 'mid' | 'hard' | 'ink' | 'sub'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='SealSpec'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:outline|solid)$/]",
+        "message": "<SealSpec> variant must be one of 'outline' | 'solid'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CodeLine'] > JSXAttribute > JSXIdentifier[name!=/^(?:text|kind|prompt|key|ref|className|style|children)$/]",
+        "message": "<CodeLine> doesn't accept that prop. Declared props: text, kind, prompt."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CodeLine'] > JSXAttribute[name.name='kind'] > Literal[value!=/^(?:com|acc|green|)$/]",
+        "message": "<CodeLine> kind must be one of 'com' | 'acc' | 'green' | ''."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Seal'] > JSXAttribute > JSXIdentifier[name!=/^(?:jp|en|variant|tone|size|rotate|style|key|ref|className|style|children)$/]",
+        "message": "<Seal> doesn't accept that prop. Declared props: jp, en, variant, tone, size, rotate, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Seal'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:outline|solid)$/]",
+        "message": "<Seal> variant must be one of 'outline' | 'solid'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Seal'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:accent|easy|mid|hard|ink|sub)$/]",
+        "message": "<Seal> tone must be one of 'accent' | 'easy' | 'mid' | 'hard' | 'ink' | 'sub'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Seal'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<Seal> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Tag'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|hash|active|as|style|key|ref|className|style|children)$/]",
+        "message": "<Tag> doesn't accept that prop. Declared props: children, hash, active, as, style."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "Button": {
+        "replaces": []
+      },
+      "Callout": {
+        "replaces": []
+      },
+      "SealSpec": {
+        "replaces": []
+      },
+      "CodeLine": {
+        "replaces": []
+      },
+      "Seal": {
+        "replaces": []
+      },
+      "Tag": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--accent",
+      "--accent-ink",
+      "--accent-line",
+      "--accent-soft",
+      "--accent-strong",
+      "--bw-hair",
+      "--bw-heavy",
+      "--bw-rule",
+      "--card",
+      "--card-2",
+      "--code-acc",
+      "--code-bg",
+      "--code-com",
+      "--code-fg",
+      "--code-green",
+      "--container",
+      "--focus",
+      "--font-body",
+      "--font-display",
+      "--font-jp",
+      "--font-mono",
+      "--fs-body",
+      "--fs-body-sm",
+      "--fs-caption",
+      "--fs-chapter",
+      "--fs-code",
+      "--fs-code-sm",
+      "--fs-display",
+      "--fs-h1",
+      "--fs-h2",
+      "--fs-h3",
+      "--fs-hero",
+      "--fs-micro",
+      "--fs-tag",
+      "--fs-title",
+      "--fw-black",
+      "--fw-body",
+      "--fw-bold",
+      "--fw-medium",
+      "--gutter",
+      "--hair",
+      "--ink",
+      "--ink-2",
+      "--ink-3",
+      "--lh-body",
+      "--lh-code",
+      "--lh-heading",
+      "--lh-tight",
+      "--ls-display",
+      "--ls-jp",
+      "--ls-kicker",
+      "--measure",
+      "--paper",
+      "--paper-2",
+      "--paper-grain",
+      "--r-0",
+      "--r-1",
+      "--r-2",
+      "--r-pill",
+      "--rule",
+      "--rule-strong",
+      "--seal-easy",
+      "--seal-hard",
+      "--seal-mid",
+      "--shadow-block",
+      "--shadow-block-lg",
+      "--shadow-seal",
+      "--sp-1",
+      "--sp-10",
+      "--sp-12",
+      "--sp-16",
+      "--sp-2",
+      "--sp-20",
+      "--sp-3",
+      "--sp-4",
+      "--sp-5",
+      "--sp-6",
+      "--sp-8",
+      "--sub",
+      "--sub-soft",
+      "--term"
+    ],
+    "tokenKinds": {
+      "--paper": "color",
+      "--paper-2": "color",
+      "--card": "color",
+      "--card-2": "color",
+      "--ink": "color",
+      "--ink-2": "color",
+      "--ink-3": "color",
+      "--rule": "color",
+      "--rule-strong": "color",
+      "--hair": "color",
+      "--accent": "color",
+      "--accent-strong": "color",
+      "--accent-ink": "color",
+      "--accent-soft": "color",
+      "--accent-line": "color",
+      "--sub": "color",
+      "--sub-soft": "color",
+      "--term": "color",
+      "--seal-easy": "color",
+      "--seal-mid": "color",
+      "--seal-hard": "color",
+      "--code-bg": "color",
+      "--code-fg": "color",
+      "--code-com": "color",
+      "--code-acc": "color",
+      "--code-green": "color",
+      "--focus": "color",
+      "--paper-grain": "other",
+      "--font-display": "font",
+      "--font-body": "font",
+      "--font-mono": "font",
+      "--font-jp": "font",
+      "--fs-hero": "font",
+      "--fs-display": "font",
+      "--fs-title": "font",
+      "--fs-chapter": "font",
+      "--fs-h1": "font",
+      "--fs-h2": "font",
+      "--fs-h3": "font",
+      "--fs-body": "font",
+      "--fs-body-sm": "font",
+      "--fs-caption": "font",
+      "--fs-micro": "font",
+      "--fs-code": "font",
+      "--fs-code-sm": "font",
+      "--fs-tag": "font",
+      "--fw-body": "font",
+      "--fw-medium": "font",
+      "--fw-bold": "font",
+      "--fw-black": "font",
+      "--lh-tight": "font",
+      "--lh-heading": "font",
+      "--lh-body": "font",
+      "--lh-code": "font",
+      "--ls-display": "font",
+      "--ls-kicker": "font",
+      "--ls-jp": "font",
+      "--sp-1": "spacing",
+      "--sp-2": "spacing",
+      "--sp-3": "spacing",
+      "--sp-4": "spacing",
+      "--sp-5": "spacing",
+      "--sp-6": "spacing",
+      "--sp-8": "spacing",
+      "--sp-10": "spacing",
+      "--sp-12": "spacing",
+      "--sp-16": "spacing",
+      "--sp-20": "spacing",
+      "--r-0": "spacing",
+      "--r-1": "spacing",
+      "--r-2": "spacing",
+      "--r-pill": "spacing",
+      "--bw-hair": "spacing",
+      "--bw-rule": "spacing",
+      "--bw-heavy": "spacing",
+      "--shadow-block": "shadow",
+      "--shadow-block-lg": "shadow",
+      "--shadow-seal": "shadow",
+      "--measure": "spacing",
+      "--container": "spacing",
+      "--gutter": "spacing"
+    },
+    "fontFamilies": [
+      "IBM Plex Mono",
+      "Reggae One",
+      "Shippori Mincho"
+    ]
+  }
+}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBERKNIGHT — Archive grid v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper);background-image:var(--paper-grain);background-size:4px 4px;color:var(--ink);font-family:var(--font-body)}
+  .wrap{max-width:1180px;margin:0 auto;padding:56px var(--gutter) 80px}
+
+  .sec{display:flex;align-items:flex-end;gap:14px;border-bottom:var(--bw-heavy) solid var(--ink);padding-bottom:10px;margin-bottom:26px}
+  .sec .kanji{font-family:var(--font-jp);font-weight:800;font-size:34px;letter-spacing:4px;line-height:1}
+  .sec .romaji{font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:3px;color:var(--accent);text-transform:uppercase;padding-bottom:4px}
+  .sec .desc{margin-left:auto;font-family:var(--font-mono);font-size:12px;color:var(--ink-3);padding-bottom:4px}
+  .block2{margin-top:56px}
+
+  /* ============ shared card frame ============ */
+  .card{position:relative;background:var(--card);border:var(--bw-rule) solid var(--ink);box-shadow:var(--shadow-block);padding:13px;padding-left:16px;transition:transform .1s ease,box-shadow .1s ease;text-decoration:none;color:var(--ink);display:block}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent)}
+  .card:hover{transform:translate(-3px,-3px);box-shadow:var(--shadow-block-lg)}
+  .card:active{transform:translate(1px,1px);box-shadow:var(--shadow-seal)}
+  .thumb{position:relative;height:172px;border:var(--bw-rule) solid var(--ink);overflow:hidden;background:#221E17;background-image:linear-gradient(to bottom, rgba(20,17,12,0) 55%, var(--card) 100%),radial-gradient(rgba(245,238,223,.28) 1.1px, transparent 1.5px);background-size:auto,7px 7px}
+  .thumb .chip{position:absolute;top:11px;left:11px;font-family:var(--font-jp);font-weight:800;font-size:13px;letter-spacing:2px;background:var(--accent);color:#fff;padding:5px 9px 4px;display:inline-flex;align-items:center;gap:6px;box-shadow:var(--shadow-seal)}
+  .thumb .chip small{font-family:var(--font-mono);font-weight:600;font-size:9.5px;letter-spacing:1px}
+  .thumb .chip.ink{background:var(--ink)}
+  .thumb .kmark{position:absolute;right:12px;top:10px;font-family:var(--font-jp);font-weight:800;font-size:50px;color:rgba(245,238,223,.10);writing-mode:vertical-rl;letter-spacing:4px;line-height:1}
+  .thumb .hanko{position:absolute;right:11px;bottom:12px;font-family:var(--font-jp);font-weight:800;font-size:14px;letter-spacing:2px;padding:5px 8px 4px;border:2px solid var(--seal-hard);color:var(--seal-hard);background:var(--card);display:inline-flex;flex-direction:column;align-items:center;line-height:1}
+  .thumb .hanko small{font-family:var(--font-mono);font-weight:400;font-size:7px;letter-spacing:1px;margin-top:2px;opacity:.8}
+  .thumb .hanko.mid{border-color:var(--seal-mid);color:var(--seal-mid)}
+  .body{padding:15px 5px 5px}
+  .body h3{font-family:var(--font-body);font-weight:700;font-size:20px;margin:0 0 6px;letter-spacing:-.2px;line-height:1.22}
+  .body .meta{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-3);margin-bottom:13px}
+  .body .cat{display:flex;align-items:center;gap:8px;margin-bottom:15px}
+  .body .cat .bar{width:4px;height:14px;background:var(--accent)}
+  .body .cat .en{font-family:var(--font-mono);font-size:11.5px;font-weight:600;letter-spacing:2px;color:var(--ink)}
+  .body .cat .jp{font-family:var(--font-jp);font-weight:700;font-size:11.5px;color:var(--ink-3);letter-spacing:2px}
+  .body .foot{font-family:var(--font-mono);font-size:11.5px;font-weight:600;letter-spacing:1px;color:var(--accent);display:flex;align-items:center;gap:8px}
+  .body .foot .arw{transition:transform .16s ease}
+  .card:hover .body .foot .arw{transform:translateX(4px)}
+
+  /* Blog: 2 wide cards */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+
+  /* CTF: split — feature card left, scoreboard right */
+  .ctf-split{display:grid;grid-template-columns:390px 1fr;gap:28px;align-items:start}
+
+  .board{width:100%;border-collapse:collapse;border:var(--bw-rule) solid var(--ink);background:var(--card)}
+  .board thead th{font-family:var(--font-mono);font-size:10.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-2);text-align:left;padding:11px 14px;background:var(--paper-2);border-bottom:var(--bw-rule) solid var(--ink)}
+  .board tbody td{padding:11px 14px;border-bottom:1px solid var(--rule);font-family:var(--font-body);font-size:15px;vertical-align:middle}
+  .board tbody tr:last-child td{border-bottom:none}
+  .board tbody tr{transition:background .12s;cursor:pointer}
+  .board tbody tr:hover{background:var(--accent-soft)}
+  .board .num{font-family:var(--font-display);font-size:19px;color:var(--accent);width:48px}
+  .board .chal{font-weight:700}
+  .catchip{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:1px;padding:3px 7px;border:1px solid var(--accent-line);color:var(--accent);border-radius:2px;text-transform:uppercase;white-space:nowrap}
+  .catchip.ink{border-color:var(--rule);color:var(--ink-2)}
+  .dseal{font-family:var(--font-jp);font-weight:800;font-size:13px;border:2px solid;padding:2px 6px 1px;border-radius:2px;display:inline-block;line-height:1}
+  .dseal.hard{color:var(--seal-hard);border-color:var(--seal-hard)}
+  .dseal.mid{color:var(--seal-mid);border-color:var(--seal-mid)}
+  .dseal.easy{color:var(--seal-easy);border-color:var(--seal-easy)}
+  .flag-ok{font-family:var(--font-mono);font-size:12px;color:var(--ink);font-weight:600}
+  .flag-ok::before{content:"◆ ";color:var(--accent)}
+  .board .go{font-family:var(--font-mono);font-size:15px;color:var(--accent);text-align:right}
+  .board-cap{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);margin-top:10px;display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ 論説 BLOG — 2 wide ============ -->
+  <div class="sec"><span class="kanji">論説</span><span class="romaji">Ronsetsu · Blog</span><span class="desc">Bài viết chuyên ngành — thành viên</span></div>
+  <div class="grid2">
+    <a class="card">
+      <div class="thumb"><span class="chip ink">論説<small>BLOG</small></span><span class="kmark">論説</span></div>
+      <div class="body"><h3>Why we stopped trusting our own deserializers</h3><div class="meta">rei@ckn · 2026.06.30 · 8 min</div><div class="cat"><span class="bar"></span><span class="en">RESEARCH</span><span class="jp">研究</span></div><div class="foot">đọc tiếp <span class="arw">→</span> 8 min</div></div>
+    </a>
+    <a class="card">
+      <div class="thumb"><span class="chip ink">論説<small>BLOG</small></span><span class="kmark">解析</span></div>
+      <div class="body"><h3>A field guide to timing side-channels</h3><div class="meta">rei@ckn · 2026.06.22 · 12 min</div><div class="cat"><span class="bar"></span><span class="en">RESEARCH</span><span class="jp">研究</span></div><div class="foot">đọc tiếp <span class="arw">→</span> 12 min</div></div>
+    </a>
+  </div>
+
+  <!-- ============ 連載 CTF WRITEUPS — split ============ -->
+  <div class="sec block2"><span class="kanji">連載</span><span class="romaji">Renzai · CTF Writeups</span><span class="desc">Featured + bảng check challenges</span></div>
+  <div class="ctf-split">
+    <!-- feature card -->
+    <a class="card">
+      <div class="thumb"><span class="chip">連載<small>CH.12</small></span><span class="kmark">攻性</span><span class="hanko">難<small>HARD</small></span></div>
+      <div class="body"><h3>Escaping the Jailed Shell</h3><div class="meta">HackTheBox · Web · 12 min</div><div class="cat"><span class="bar"></span><span class="en">WEB</span><span class="jp">アクション</span></div><div class="foot">READ <span class="arw">→</span> p.12</div></div>
+    </a>
+    <!-- scoreboard -->
+    <div>
+      <table class="board">
+        <thead><tr><th>#</th><th>Challenge</th><th>Category</th><th>Diff</th><th>Flag</th><th></th></tr></thead>
+        <tbody>
+          <tr><td class="num">12</td><td class="chal">Escaping the Jailed Shell</td><td><span class="catchip">WEB</span></td><td><span class="dseal hard">難</span></td><td class="flag-ok">captured</td><td class="go">→</td></tr>
+          <tr><td class="num">11</td><td class="chal">Padding Oracle, Slowly</td><td><span class="catchip">CRYPTO</span></td><td><span class="dseal mid">中</span></td><td class="flag-ok">captured</td><td class="go">→</td></tr>
+          <tr><td class="num">10</td><td class="chal">One Byte to Rule ret2libc</td><td><span class="catchip">PWN</span></td><td><span class="dseal hard">難</span></td><td class="flag-ok">captured</td><td class="go">→</td></tr>
+          <tr><td class="num">09</td><td class="chal">Carving the Corrupted PCAP</td><td><span class="catchip">FORENSICS</span></td><td><span class="dseal mid">中</span></td><td class="flag-ok">captured</td><td class="go">→</td></tr>
+          <tr><td class="num">08</td><td class="chal">Ghost in the Metadata</td><td><span class="catchip">OSINT</span></td><td><span class="dseal easy">易</span></td><td class="flag-ok">captured</td><td class="go">→</td></tr>
+          <tr><td class="num">07</td><td class="chal">SSTI via welcome mail</td><td><span class="catchip">WEB</span></td><td><span class="dseal easy">易</span></td><td class="flag-ok">captured</td><td class="go">→</td></tr>
+          <tr><td class="num">06</td><td class="chal">Blind SQLi speedrun</td><td><span class="catchip">WEB</span></td><td><span class="dseal mid">中</span></td><td class="flag-ok">captured</td><td class="go">→</td></tr>
+        </tbody>
+      </table>
+      <div class="board-cap"><span>7 / 42 challenges shown</span><span>xem toàn bộ bảng →</span></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!-- @dsCard group="Brand" viewport="700x150" name="Surfaces — panel & block-print shadow" subtitle="Heavy ink borders, offset solid shadow, hard corners" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  html,body{margin:0}
+  body{background:var(--paper);background-image:var(--paper-grain);background-size:4px 4px;padding:22px;color:var(--ink);display:flex;gap:20px;align-items:center;font-family:var(--font-mono)}
+  .panel{background:var(--card);border:2px solid var(--ink);box-shadow:var(--shadow-block);padding:16px 18px;width:210px}
+  .panel h4{font-family:var(--font-body);font-weight:700;font-size:15px;margin:0 0 4px}
+  .panel p{font-size:10.5px;color:var(--ink-2);margin:0;line-height:1.5}
+  .spec{font-size:10px;color:var(--ink-3);line-height:1.9}
+  .spec b{color:var(--ink)}
+</style></head>
+<body>
+  <div class="panel">
+    <h4>Chapter panel</h4>
+    <p>2px ink border · 6px/6px offset solid shadow · no blur · hard corners</p>
+  </div>
+  <div class="spec">
+    border&nbsp;&nbsp; <b>2px solid --ink</b><br>
+    shadow&nbsp;&nbsp; <b>6px 6px 0 / .14</b><br>
+    radius&nbsp;&nbsp; <b>0px (sharp)</b><br>
+    hover&nbsp;&nbsp;&nbsp; <b>lift -2px, shadow → 10px</b><br>
+    press&nbsp;&nbsp;&nbsp; <b>translate 1px,1px</b>
+  </div>
+</body></html>

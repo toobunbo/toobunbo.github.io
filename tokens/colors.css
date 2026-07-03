@@ -1,0 +1,99 @@
+/* CYBERKNIGHT — color tokens
+   Story: a real printed manga page. Light mode is the DEFAULT — cream paper,
+   warm black ink (never #000). Dark mode is a calculated NEGATIVE PRINT:
+   paper⇄ink swap, vermilion lifts one step to stay lively on a dark ground.
+   Selected direction: A (Kappan) + P2 paper (#F5EEDF). */
+
+:root {
+  /* --- base: paper ground (brighter cream) --- */
+  --paper:        #FBF6EC;   /* page background */
+  --paper-2:      #F2E9D6;   /* recessed / sunken areas, code gutter on light */
+  --card:         #FFFDF7;   /* raised surface: cards, panels */
+  --card-2:       #FBF4E6;   /* alternating rows, hover fill */
+
+  /* --- base: ink (warm charcoal, never pure black) --- */
+  --ink:          #1E1B16;   /* primary text, heavy rules */
+  --ink-2:        #524B3E;   /* secondary text, captions */
+  --ink-3:        #8A8069;   /* muted text, metadata, placeholders */
+
+  /* --- rules & hairlines --- */
+  --rule:         #D9CBAE;   /* standard 1px borders */
+  --rule-strong:  #1E1B16;   /* heavy manga panel borders (= ink) */
+  --hair:         #E6DBC1;   /* faint dividers */
+
+  /* --- 朱 vermilion: the brand ink / seal color (PRIMARY accent) --- */
+  --accent:       #B93E2A;
+  --accent-strong:#A8371F;   /* hover / pressed */
+  --accent-ink:   #FDF9F0;   /* text on vermilion fill */
+  --accent-soft:  rgba(185, 62, 42, 0.09);  /* tint fill, inline-code bg */
+  --accent-line:  rgba(185, 62, 42, 0.28);  /* tinted border */
+
+  /* --- 藍 indigo: quiet secondary (links, info) --- */
+  --sub:          #274B6B;
+  --sub-soft:     rgba(39, 75, 107, 0.09);
+
+  /* --- 墨緑 sumi-green: CAGED to terminal/code accents only --- */
+  --term:         #2C6B4A;
+
+  /* --- semantic difficulty seals --- */
+  --seal-easy:    #2C6B4A;   /* 易 */
+  --seal-mid:     #9A7A24;   /* 中 */
+  --seal-hard:    #B93E2A;   /* 難 */
+
+  /* --- code surface (a dark terminal window, even in light mode) --- */
+  --code-bg:      #1A1710;
+  --code-fg:      #E7DCC6;
+  --code-com:     #7D7458;   /* comments */
+  --code-acc:     #E8845E;   /* highlighted tokens (warm) */
+  --code-green:   #5FD08A;   /* terminal green — lives here only */
+
+  /* --- focus ring --- */
+  --focus:        rgba(185, 62, 42, 0.45);
+
+  --paper-grain:  radial-gradient(rgba(120,100,60,0.035) 1px, transparent 1.4px); /* @kind other */
+
+  color-scheme: light;
+}
+
+/* ============ DARK MODE — negative print ============ */
+:root[data-theme="dark"] {
+  --paper:        #16130D;
+  --paper-2:      #100E09;
+  --card:         #201C14;
+  --card-2:       #262115;
+
+  --ink:          #ECE2CF;
+  --ink-2:        #9C927C;
+  --ink-3:        #6E6552;
+
+  --rule:         #3A3427;
+  --rule-strong:  #ECE2CF;
+  --hair:         #2A251B;
+
+  --accent:       #E85E44;   /* lifted one step so it stays lively on dark */
+  --accent-strong:#F0705A;
+  --accent-ink:   #16130D;
+  --accent-soft:  rgba(232, 94, 68, 0.13);
+  --accent-line:  rgba(232, 94, 68, 0.34);
+
+  --sub:          #6E96C4;
+  --sub-soft:     rgba(110, 150, 196, 0.14);
+
+  --term:         #5FD08A;
+
+  --seal-easy:    #5FD08A;
+  --seal-mid:     #D8B24E;
+  --seal-hard:    #E85E44;
+
+  --code-bg:      #0F0D08;
+  --code-fg:      #E7DCC6;
+  --code-com:     #6E6552;
+  --code-acc:     #EF9A78;
+  --code-green:   #5FD08A;
+
+  --focus:        rgba(232, 94, 68, 0.5);
+
+  --paper-grain:  radial-gradient(rgba(255,240,200,0.03) 1px, transparent 1.4px); /* @kind other */
+
+  color-scheme: dark;
+}

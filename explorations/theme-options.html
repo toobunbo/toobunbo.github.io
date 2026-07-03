@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBERKNIGHT — Theme Options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=Rampart+One&family=Shippori+Mincho:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --paper: #F0E7D4;
+    --card: #FAF4E6;
+    --ink: #1E1B16;
+    --ink2: #524B3E;
+    --rule: #D3C4A6;
+    --hair: #C3B18F;
+  }
+  html { -webkit-font-smoothing: antialiased; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Shippori Mincho", serif;
+    background-image:
+      radial-gradient(rgba(120,100,60,0.035) 1px, transparent 1.4px);
+    background-size: 4px 4px;
+    padding: 56px 40px 120px;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+
+  .doc-head { border-bottom: 3px solid var(--ink); padding-bottom: 20px; margin-bottom: 8px; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .doc-head .title { font-family: "Reggae One", serif; font-size: 40px; letter-spacing: 1px; line-height: 1; }
+  .doc-head .jp { font-family: "Shippori Mincho"; font-weight: 700; font-size: 15px; color: var(--ink2); margin-top: 10px; letter-spacing: 4px; }
+  .doc-head .meta { text-align: right; font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--ink2); line-height: 1.7; }
+  .doc-head .meta b { color: var(--ink); }
+  .lede { font-size: 16.5px; line-height: 1.75; max-width: 780px; margin: 26px 0 8px; color: #33301f; }
+  .lede b { font-weight: 700; }
+
+  .verdict { border: 2px solid var(--ink); background: var(--card); margin: 34px 0 60px; }
+  .verdict .vh { background: var(--ink); color: var(--paper); font-family: "Reggae One", serif; font-size: 15px; letter-spacing: 1px; padding: 9px 18px; display: flex; justify-content: space-between; }
+  .verdict .vh span { font-family: "IBM Plex Mono", monospace; letter-spacing: 0; font-size: 11px; opacity: .8; }
+  .verdict .vb { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .verdict .vcell { padding: 16px 20px; border-right: 1px solid var(--rule); }
+  .verdict .vcell:last-child { border-right: none; }
+  .verdict .swatchrow { display: flex; gap: 6px; margin-bottom: 10px; }
+  .verdict .sw { width: 30px; height: 30px; border: 1px solid rgba(0,0,0,.2); }
+  .verdict .vcell h4 { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: .5px; margin-bottom: 6px; }
+  .verdict .vcell p { font-size: 13.5px; line-height: 1.6; color: var(--ink2); font-family: "Shippori Mincho", serif; }
+  .verdict .tag { display: inline-block; font-family: "IBM Plex Mono", monospace; font-size: 10.5px; padding: 2px 7px; margin-top: 8px; border: 1px solid; }
+  .t-yes { color: #1a7a4a; border-color: #1a7a4a; }
+  .t-no { color: #b93e2a; border-color: #b93e2a; }
+  .t-mid { color: #9a7a24; border-color: #9a7a24; }
+
+  .opt { margin-bottom: 74px; border: 2px solid var(--ink); background: var(--card); box-shadow: 8px 8px 0 rgba(30,27,22,.14); }
+  .opt-head { display: flex; align-items: stretch; border-bottom: 2px solid var(--ink); }
+  .opt-num { background: var(--accent); color: #fff; font-family: "Reggae One", serif; font-size: 46px; padding: 14px 26px; display: flex; align-items: center; line-height: 1; border-right: 2px solid var(--ink); }
+  .opt-titles { padding: 14px 24px; display: flex; flex-direction: column; justify-content: center; }
+  .opt-titles .kanji { font-family: "Shippori Mincho"; font-weight: 800; font-size: 30px; letter-spacing: 6px; line-height: 1; }
+  .opt-titles .romaji { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink2); margin-top: 8px; }
+  .opt-fonts { margin-left: auto; padding: 12px 22px; border-left: 1px solid var(--rule); font-family: "IBM Plex Mono", monospace; font-size: 11px; line-height: 1.85; color: var(--ink2); display: flex; flex-direction: column; justify-content: center; }
+  .opt-fonts b { color: var(--ink); }
+
+  .opt-body { display: grid; grid-template-columns: 1.35fr 1fr; }
+  .col { padding: 26px 28px; }
+  .col.left { border-right: 1px solid var(--rule); }
+
+  .wordmark { font-family: var(--display); font-size: 60px; line-height: .95; letter-spacing: var(--display-ls, 1px); color: var(--ink); }
+  .wordmark .accent { color: var(--accent); }
+  .wm-sub { font-family: "Shippori Mincho"; font-weight: 700; font-size: 15px; letter-spacing: 8px; color: var(--ink2); margin-top: 10px; }
+
+  .divider { height: 1px; background: var(--rule); margin: 22px 0; }
+
+  .chapter { font-family: var(--display); font-size: 15px; letter-spacing: 1px; color: var(--accent); text-transform: uppercase; margin-bottom: 4px; }
+  .h1 { font-family: var(--body); font-weight: 700; font-size: 25px; line-height: 1.25; letter-spacing: -.2px; margin-bottom: 12px; }
+  .body-copy { font-family: var(--body); font-weight: 400; font-size: 15px; line-height: 1.72; color: #2c281d; max-width: 62ch; }
+  .body-copy code { font-family: var(--mono); font-size: 13px; background: rgba(185,62,42,.08); color: var(--accent); padding: 1px 5px; border-radius: 2px; }
+  .body-copy .lnk { color: var(--accent2, var(--accent)); text-decoration: underline; text-underline-offset: 2px; }
+
+  .code { margin-top: 20px; background: var(--codebg); color: var(--codefg); font-family: var(--mono); font-size: 12.5px; line-height: 1.7; padding: 14px 16px; border: 1px solid var(--ink); overflow: hidden; }
+  .code .c-com { color: var(--codecom); }
+  .code .c-acc { color: var(--codeacc); }
+  .code .prompt { color: var(--codeacc); }
+
+  .stamps { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .stamp { font-family: "Shippori Mincho"; font-weight: 800; font-size: 15px; letter-spacing: 2px; padding: 6px 10px 5px; border: 2px solid var(--accent); color: var(--accent); position: relative; }
+  .stamp.solid { background: var(--accent); color: #fff; }
+  .stamp.ink { border-color: var(--ink); color: var(--ink); }
+  .stamp.green { border-color: var(--accent2, var(--accent)); color: var(--accent2, var(--accent)); }
+  .stamp small { display:block; font-family: "IBM Plex Mono", monospace; font-weight: 400; font-size: 8.5px; letter-spacing: 1px; margin-top: 2px; opacity: .8; }
+
+  .pal { margin-top: 4px; }
+  .pal h5 { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink2); margin: 18px 0 10px; display:flex; align-items:center; gap:8px; }
+  .pal h5::after { content:""; flex:1; height:1px; background: var(--rule); }
+  .chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .chip { border: 1px solid rgba(0,0,0,.18); }
+  .chip .sw { height: 44px; }
+  .chip .lab { font-family: "IBM Plex Mono", monospace; font-size: 9.5px; line-height: 1.4; padding: 5px 6px; background: #fff; color: #2c281d; }
+  .chip .lab b { display: block; font-size: 10px; color: #000; letter-spacing: .3px; }
+  .chips.dark .lab { background: #211d16; color: #cabfa8; }
+  .chips.dark .lab b { color: #ede2cf; }
+
+  .invert-note { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; color: var(--ink2); margin-top: 10px; }
+
+  .rationale { border-top: 2px solid var(--ink); padding: 20px 28px; background: var(--paper); }
+  .rationale h4 { font-family: "Reggae One", serif; font-size: 14px; letter-spacing: 1px; margin-bottom: 8px; display:flex; align-items:center; gap:10px; }
+  .rationale h4 .k { font-family:"Shippori Mincho"; font-weight:800; color: var(--accent); }
+  .rationale p { font-size: 14.5px; line-height: 1.72; color: #33301f; max-width: 92ch; }
+  .rationale p + p { margin-top: 8px; }
+  .rationale .best { display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:11px; padding:3px 9px; background: var(--ink); color: var(--paper); margin-left: auto; letter-spacing:.5px; }
+
+  /* paper-ground comparison */
+  .paper-cmp .paper-cell { padding: 0; border-right: 1px solid var(--rule); display: flex; flex-direction: column; }
+  .paper-cmp .paper-cell:last-child { border-right: none; }
+  .pg-tag { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .5px; color: var(--ink2); padding: 12px 18px 10px; }
+  .pg-tag b { color: var(--ink); }
+  .pg-demo { background: var(--pg); padding: 20px 20px 22px; margin: 0 14px; border: 1px solid var(--rule); position: relative; flex: 1; }
+  .pg-wm { font-family: "Reggae One", serif; font-size: 26px; letter-spacing: 1px; color: var(--ink); line-height: 1; }
+  .pg-wm span { color: #B93E2A; }
+  .pg-body { font-family: "Shippori Mincho", serif; font-size: 13px; line-height: 1.65; color: #2c281d; margin-top: 12px; max-width: 34ch; }
+  .pg-body code { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; background: rgba(185,62,42,.08); color: #B93E2A; padding: 1px 4px; }
+  .pg-seal { position: absolute; right: 16px; bottom: 14px; font-family: "Shippori Mincho", serif; font-weight: 800; font-size: 26px; color: #B93E2A; border: 2px solid #B93E2A; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
+  .pg-note { font-family: "Shippori Mincho", serif; font-size: 13px; line-height: 1.6; color: var(--ink2); padding: 12px 18px 16px; }
+  .pg-note b { color: #B93E2A; font-weight: 700; }
+
+  .foot { text-align: center; font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--ink2); border-top: 1px solid var(--rule); padding-top: 26px; margin-top: 20px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="doc-head">
+    <div>
+      <div class="title">CYBERKNIGHT</div>
+      <div class="jp">連載中・テーマ提案</div>
+    </div>
+    <div class="meta">
+      <div>DESIGN&nbsp;SYSTEM&nbsp;/&nbsp;<b>THEME EXPLORATION</b></div>
+      <div>font pairing × color — 3 options</div>
+      <div>2026.07 — issue&nbsp;<b>#00</b></div>
+    </div>
+  </div>
+
+  <p class="lede">Three directions where <b>type and color travel as one set</b> — because they have to tell the same story. All start from the same base: <b>cream paper, warm black ink (never #000)</b>, with dark mode as a calculated <b>negative print</b>. The differences are in the <b>texture of the reading type</b> (Mincho serif "printed book" vs Gothic sans "modern blog") and in <b>how each one answers the red-seal vs terminal question</b>.</p>
+
+  <!-- VERDICT -->
+  <div class="verdict">
+    <div class="vh">RED SEAL vs TERMINAL — on a light paper ground <span>quick verdict</span></div>
+    <div class="vb">
+      <div class="vcell">
+        <div class="swatchrow"><div class="sw" style="background:#B93E2A"></div><div class="sw" style="background:#C8432B"></div><div class="sw" style="background:#A8371F"></div></div>
+        <h4>朱 — Vermilion seal ink</h4>
+        <p>On cream, vermilion sits like <b>real stamped ink</b>: warm, weighty, high-contrast, unmistakably print. Bonds naturally with the 易/難 difficulty seals.</p>
+        <span class="tag t-yes">→ PRIMARY ACCENT</span>
+      </div>
+      <div class="vcell">
+        <div class="swatchrow"><div class="sw" style="background:#2C6B4A"></div><div class="sw" style="background:#3A6B4F"></div><div class="sw" style="background:#1f5b3d"></div></div>
+        <h4>墨緑 — Terminal green (deep)</h4>
+        <p>Only holds on paper when <b>dark enough</b>; still reads faintly "digital". Not a brand color, but <b>excellent for code / tags / terminal</b> — a disciplined secondary role.</p>
+        <span class="tag t-mid">→ SECONDARY (code only)</span>
+      </div>
+      <div class="vcell">
+        <div class="swatchrow"><div class="sw" style="background:#37A9C4"></div><div class="sw" style="background:#59c3d6"></div><div class="sw" style="background:#7fd4e0"></div></div>
+        <h4>Cyan — Neon hacker</h4>
+        <p>Goes <b>washed-out</b> on cream, like faded highlighter, and drags in glowing-screen associations → <b>breaks the printed-paper illusion</b>. Cut it.</p>
+        <span class="tag t-no">→ NOT USED</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAPER GROUND — lighter options -->
+  <div class="verdict" style="margin-bottom:60px;">
+    <div class="vh">PAPER GROUND (light mode) — current vs two lighter <span>pick a brightness</span></div>
+    <div class="vb paper-cmp">
+      <div class="paper-cell" style="--pg:#F0E7D4; --pc:#FAF4E6;">
+        <div class="pg-tag">P1 · Current — deep cream <b>#F0E7D4</b></div>
+        <div class="pg-demo">
+          <div class="pg-wm">CYBER<span>KNIGHT</span></div>
+          <p class="pg-body">The endpoint takes a base64 blob and calls <code>unserialize()</code> directly — a familiar gadget chain leads to RCE.</p>
+          <div class="pg-seal">難</div>
+        </div>
+        <div class="pg-note">Warmest, most "aged newsprint". Reads a touch dark on big screens.</div>
+      </div>
+      <div class="paper-cell" style="--pg:#F5EEDF; --pc:#FDF9F0;">
+        <div class="pg-tag">P2 · Soft cream <b>#F5EEDF</b></div>
+        <div class="pg-demo">
+          <div class="pg-wm">CYBER<span>KNIGHT</span></div>
+          <p class="pg-body">The endpoint takes a base64 blob and calls <code>unserialize()</code> directly — a familiar gadget chain leads to RCE.</p>
+          <div class="pg-seal">難</div>
+        </div>
+        <div class="pg-note">Lighter but still clearly paper. Keeps warmth, ink contrast improves. <b>My pick.</b></div>
+      </div>
+      <div class="paper-cell" style="--pg:#FBF6EC; --pc:#FFFEF9;">
+        <div class="pg-tag">P3 · Ivory / near-white <b>#FBF6EC</b></div>
+        <div class="pg-demo">
+          <div class="pg-wm">CYBER<span>KNIGHT</span></div>
+          <p class="pg-body">The endpoint takes a base64 blob and calls <code>unserialize()</code> directly — a familiar gadget chain leads to RCE.</p>
+          <div class="pg-seal">難</div>
+        </div>
+        <div class="pg-note">Brightest, closest to plain white. Crispest reading; slightly less "printed-zine" character.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== OPTION A ===================== -->
+  <section class="opt" style="
+      --accent:#B93E2A; --accent2:#274B6B;
+      --display:'Reggae One',serif; --body:'Shippori Mincho',serif; --mono:'IBM Plex Mono',monospace;
+      --codebg:#1A1710; --codefg:#E7DCC6; --codecom:#7d7458; --codeacc:#E8845E; --display-ls:2px;">
+    <div class="opt-head">
+      <div class="opt-num">A</div>
+      <div class="opt-titles">
+        <div class="kanji">活版</div>
+        <div class="romaji">Kappan · Letterpress</div>
+      </div>
+      <div class="opt-fonts">
+        <div>display&nbsp; <b>Reggae One</b></div>
+        <div>body&nbsp;&nbsp;&nbsp;&nbsp; <b>Shippori Mincho</b></div>
+        <div>mono&nbsp;&nbsp;&nbsp;&nbsp; <b>IBM Plex Mono</b></div>
+        <div>日本語&nbsp;&nbsp; <b>Shippori Mincho</b></div>
+      </div>
+    </div>
+    <div class="opt-body">
+      <div class="col left">
+        <div class="wordmark">CYBER<span class="accent">KNIGHT</span></div>
+        <div class="wm-sub">サイバーナイト部</div>
+        <div class="divider"></div>
+        <div class="chapter">CH.01 · CTF WRITEUP</div>
+        <div class="h1">We caught the flag from a deserialize bug that looked harmless</div>
+        <p class="body-copy">We start by reading the <code>/api/import</code> endpoint closely — it takes a base64 blob and calls <code>unserialize()</code> on it directly. A familiar gadget chain leads to arbitrary file write, and from there to <span class="lnk">RCE</span>. The whole writeup reads like a chapter: a setup, a twist, and the moment the 「難」 seal comes down.</p>
+        <div class="code">
+<span class="c-com"># reproduce — chapter 01</span><br>
+<span class="prompt">$</span> curl -s target/api/import \<br>
+&nbsp;&nbsp;--data-binary @<span class="c-acc">payload.b64</span><br>
+<span class="c-com"># =&gt; uid=0(root) — flag{ink_on_paper}</span>
+        </div>
+        <div class="stamps">
+          <div class="stamp solid">連載<small>SERIAL</small></div>
+          <div class="stamp">番外編<small>GAIDEN</small></div>
+          <div class="stamp ink">調査中<small>WIP</small></div>
+          <div class="stamp">難<small>HARD</small></div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="pal">
+          <h5>Light — printed paper</h5>
+          <div class="chips">
+            <div class="chip"><div class="sw" style="background:#F0E7D4"></div><div class="lab"><b>Paper</b>#F0E7D4</div></div>
+            <div class="chip"><div class="sw" style="background:#FAF4E6"></div><div class="lab"><b>Card</b>#FAF4E6</div></div>
+            <div class="chip"><div class="sw" style="background:#1E1B16"></div><div class="lab"><b>Ink</b>#1E1B16</div></div>
+            <div class="chip"><div class="sw" style="background:#524B3E"></div><div class="lab"><b>Ink-2</b>#524B3E</div></div>
+            <div class="chip"><div class="sw" style="background:#B93E2A"></div><div class="lab"><b>朱 Accent</b>#B93E2A</div></div>
+            <div class="chip"><div class="sw" style="background:#274B6B"></div><div class="lab"><b>藍 Sub</b>#274B6B</div></div>
+          </div>
+          <h5>Dark — negative print</h5>
+          <div class="chips dark">
+            <div class="chip"><div class="sw" style="background:#16130D"></div><div class="lab"><b>BG</b>#16130D</div></div>
+            <div class="chip"><div class="sw" style="background:#201C14"></div><div class="lab"><b>Surface</b>#201C14</div></div>
+            <div class="chip"><div class="sw" style="background:#ECE2CF"></div><div class="lab"><b>Ink</b>#ECE2CF</div></div>
+            <div class="chip"><div class="sw" style="background:#9C927C"></div><div class="lab"><b>Ink-2</b>#9C927C</div></div>
+            <div class="chip"><div class="sw" style="background:#E85E44"></div><div class="lab"><b>朱 Accent</b>#E85E44</div></div>
+            <div class="chip"><div class="sw" style="background:#6E96C4"></div><div class="lab"><b>藍 Sub</b>#6E96C4</div></div>
+          </div>
+          <div class="invert-note">// paper⇄ink swap places; vermilion lifts one step to stay lively on dark</div>
+        </div>
+      </div>
+    </div>
+    <div class="rationale">
+      <h4><span class="k">活版</span> Why A tells the story <span class="best">RECOMMENDED DEFAULT</span></h4>
+      <p>Mincho serif next to a Reggae One masthead feels like <b>a technical book with a manga cover</b>: the long-form reading has an absolute "printed page" quality while the headlines still shout like a Shonen magazine. A single Japanese family (Shippori) covers both body and the 連載 / 番外編 labels → weight and x-height line up, no clash.</p>
+      <p>Vermilion is the brand ink; the 易/難 seals use exactly this color. This is the <b>safest option for readability</b> and the most faithful to "a club drawing its own manga." Trade-off: a serif body reads a touch classical for people used to modern tech blogs.</p>
+    </div>
+  </section>
+
+  <!-- ===================== OPTION B ===================== -->
+  <section class="opt" style="
+      --accent:#C8432B; --accent2:#1E1B16;
+      --display:'Rampart One',serif; --body:'Zen Kaku Gothic New',sans-serif; --mono:'Space Mono',monospace;
+      --codebg:#17140E; --codefg:#E7DCC6; --codecom:#7d7458; --codeacc:#EF9A78; --display-ls:0px;">
+    <div class="opt-head">
+      <div class="opt-num">B</div>
+      <div class="opt-titles">
+        <div class="kanji">劇画</div>
+        <div class="romaji">Gekiga · Bold Blog</div>
+      </div>
+      <div class="opt-fonts">
+        <div>display&nbsp; <b>Rampart One</b></div>
+        <div>body&nbsp;&nbsp;&nbsp;&nbsp; <b>Zen Kaku Gothic New</b></div>
+        <div>mono&nbsp;&nbsp;&nbsp;&nbsp; <b>Space Mono</b></div>
+        <div>日本語&nbsp;&nbsp; <b>Zen Kaku Gothic New</b></div>
+      </div>
+    </div>
+    <div class="opt-body">
+      <div class="col left">
+        <div class="wordmark">CYBERKNIGHT</div>
+        <div class="wm-sub">サイバーナイト部</div>
+        <div class="divider"></div>
+        <div class="chapter">CH.01 · CTF WRITEUP</div>
+        <div class="h1">Caught the flag from a deserialize bug that looked harmless</div>
+        <p class="body-copy">We start by reading the <code>/api/import</code> endpoint closely — it takes a base64 blob and calls <code>unserialize()</code> on it directly. A familiar gadget chain leads to arbitrary file write, and from there to <span class="lnk">RCE</span>. A Gothic sans gives the reading a crisp, web-native feel, while the paper ground keeps it a printed page.</p>
+        <div class="code">
+<span class="c-com"># reproduce — chapter 01</span><br>
+<span class="prompt">$</span> curl -s target/api/import \<br>
+&nbsp;&nbsp;--data-binary @<span class="c-acc">payload.b64</span><br>
+<span class="c-com"># =&gt; uid=0(root) — flag{ink_on_paper}</span>
+        </div>
+        <div class="stamps">
+          <div class="stamp solid">連載<small>SERIAL</small></div>
+          <div class="stamp">番外編<small>GAIDEN</small></div>
+          <div class="stamp ink">調査中<small>WIP</small></div>
+          <div class="stamp">難<small>HARD</small></div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="pal">
+          <h5>Light — printed paper</h5>
+          <div class="chips">
+            <div class="chip"><div class="sw" style="background:#F1E9D7"></div><div class="lab"><b>Paper</b>#F1E9D7</div></div>
+            <div class="chip"><div class="sw" style="background:#FBF5E9"></div><div class="lab"><b>Card</b>#FBF5E9</div></div>
+            <div class="chip"><div class="sw" style="background:#201C15"></div><div class="lab"><b>Ink</b>#201C15</div></div>
+            <div class="chip"><div class="sw" style="background:#585044"></div><div class="lab"><b>Ink-2</b>#585044</div></div>
+            <div class="chip"><div class="sw" style="background:#C8432B"></div><div class="lab"><b>朱 Accent</b>#C8432B</div></div>
+            <div class="chip"><div class="sw" style="background:#2E4A6B"></div><div class="lab"><b>Link 藍</b>#2E4A6B</div></div>
+          </div>
+          <h5>Dark — negative print</h5>
+          <div class="chips dark">
+            <div class="chip"><div class="sw" style="background:#17140E"></div><div class="lab"><b>BG</b>#17140E</div></div>
+            <div class="chip"><div class="sw" style="background:#221E16"></div><div class="lab"><b>Surface</b>#221E16</div></div>
+            <div class="chip"><div class="sw" style="background:#EEE4D1"></div><div class="lab"><b>Ink</b>#EEE4D1</div></div>
+            <div class="chip"><div class="sw" style="background:#A0967F"></div><div class="lab"><b>Ink-2</b>#A0967F</div></div>
+            <div class="chip"><div class="sw" style="background:#F0603F"></div><div class="lab"><b>朱 Accent</b>#F0603F</div></div>
+            <div class="chip"><div class="sw" style="background:#7BA0CC"></div><div class="lab"><b>Link 藍</b>#7BA0CC</div></div>
+          </div>
+          <div class="invert-note">// mono-forward: red used sparingly, most of it is pure black ink</div>
+        </div>
+      </div>
+    </div>
+    <div class="rationale">
+      <h4><span class="k">劇画</span> Why B tells the story</h4>
+      <p>Rampart One is a <b>3D relief manga logo</b> — the punchiest wordmark of the three, ideal for a landing/dashboard that performs loud. The body, Zen Kaku Gothic New, is a clean humanist sans with a tall x-height that <b>reads very easily on screen</b> for a modern tech blog; the same family also covers the Japanese labels.</p>
+      <p>This is the <b>"modern blog on paper"</b> route: personality concentrates in the wordmark and seals, the reading stays neutral. Space Mono adds a bit of charming terminal texture. Trade-off: Rampart is very loud — it needs the right dose, or it starts to look like event graphics.</p>
+    </div>
+  </section>
+
+  <!-- ===================== OPTION C ===================== -->
+  <section class="opt" style="
+      --accent:#B93E2A; --accent2:#2C6B4A;
+      --display:'Reggae One',serif; --body:'Shippori Mincho',serif; --mono:'JetBrains Mono',monospace;
+      --codebg:#0F140F; --codefg:#CFE6D4; --codecom:#5f7a63; --codeacc:#5FD08A; --display-ls:2px;">
+    <div class="opt-head">
+      <div class="opt-num">C</div>
+      <div class="opt-titles">
+        <div class="kanji">電脳</div>
+        <div class="romaji">Dennō · Ink + Terminal</div>
+      </div>
+      <div class="opt-fonts">
+        <div>display&nbsp; <b>Reggae One</b></div>
+        <div>body&nbsp;&nbsp;&nbsp;&nbsp; <b>Shippori Mincho</b></div>
+        <div>mono&nbsp;&nbsp;&nbsp;&nbsp; <b>JetBrains Mono</b></div>
+        <div>日本語&nbsp;&nbsp; <b>Shippori Mincho</b></div>
+      </div>
+    </div>
+    <div class="opt-body">
+      <div class="col left">
+        <div class="wordmark">CYBER<span class="accent">KNIGHT</span></div>
+        <div class="wm-sub">サイバーナイト部</div>
+        <div class="divider"></div>
+        <div class="chapter">CH.01 · CTF WRITEUP</div>
+        <div class="h1">The red seal owns the brand; terminal green only lives inside the code block</div>
+        <p class="body-copy">Same reading texture as A (Mincho serif on paper), but it <b>answers the red-vs-terminal question head-on</b>: vermilion is the brand ink everywhere — <code>headings</code>, difficulty seals, sections. Green <span class="lnk">墨緑</span> is <b>caged</b> inside the terminal block and never leaks into the UI.</p>
+        <div class="code">
+<span class="c-com"># terminal block — the ONLY place green appears</span><br>
+<span class="prompt">nyx@ckn</span>:~$ ./solve.py --flag<br>
+<span class="c-acc">[+]</span> leaking heap … <span class="c-acc">ok</span><br>
+<span class="c-acc">[+]</span> flag{gr33n_stays_in_the_box}
+        </div>
+        <div class="stamps">
+          <div class="stamp solid">連載<small>SERIAL</small></div>
+          <div class="stamp green">調査中<small>WIP</small></div>
+          <div class="stamp ink">番外編<small>GAIDEN</small></div>
+          <div class="stamp">難<small>HARD</small></div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="pal">
+          <h5>Light — printed paper</h5>
+          <div class="chips">
+            <div class="chip"><div class="sw" style="background:#F0E7D4"></div><div class="lab"><b>Paper</b>#F0E7D4</div></div>
+            <div class="chip"><div class="sw" style="background:#FAF4E6"></div><div class="lab"><b>Card</b>#FAF4E6</div></div>
+            <div class="chip"><div class="sw" style="background:#1E1B16"></div><div class="lab"><b>Ink</b>#1E1B16</div></div>
+            <div class="chip"><div class="sw" style="background:#B93E2A"></div><div class="lab"><b>朱 Accent</b>#B93E2A</div></div>
+            <div class="chip"><div class="sw" style="background:#2C6B4A"></div><div class="lab"><b>墨緑 Term</b>#2C6B4A</div></div>
+            <div class="chip"><div class="sw" style="background:#524B3E"></div><div class="lab"><b>Ink-2</b>#524B3E</div></div>
+          </div>
+          <h5>Dark — negative print (true terminal)</h5>
+          <div class="chips dark">
+            <div class="chip"><div class="sw" style="background:#12140F"></div><div class="lab"><b>BG</b>#12140F</div></div>
+            <div class="chip"><div class="sw" style="background:#1B1E16"></div><div class="lab"><b>Surface</b>#1B1E16</div></div>
+            <div class="chip"><div class="sw" style="background:#E9E0CD"></div><div class="lab"><b>Ink</b>#E9E0CD</div></div>
+            <div class="chip"><div class="sw" style="background:#E85E44"></div><div class="lab"><b>朱 Accent</b>#E85E44</div></div>
+            <div class="chip"><div class="sw" style="background:#5FD08A"></div><div class="lab"><b>墨緑 Term</b>#5FD08A</div></div>
+            <div class="chip"><div class="sw" style="background:#948A74"></div><div class="lab"><b>Ink-2</b>#948A74</div></div>
+          </div>
+          <div class="invert-note">// dark mode = a real terminal: phosphor green is let out further here</div>
+        </div>
+      </div>
+    </div>
+    <div class="rationale">
+      <h4><span class="k">電脳</span> Why C tells the story</h4>
+      <p>C is A plus <b>one disciplined color rule</b> that answers the brief directly. Vermilion = brand ink (UI, seals, headings). Terminal green = <b>exists only inside code / terminal blocks</b> — so the "hacker" flavor is present but <b>never slides into neon cyberpunk</b>, because it's framed like printed code on a manga page.</p>
+      <p>It's at its best when dark mode is imagined as "opening a terminal" — that's when the phosphor green is released. Trade-off: the "green stays in the box" rule must be enforced strictly, or the color system dilutes.</p>
+    </div>
+  </section>
+
+  <div class="foot">Pick A / B / C (or mix — e.g. "B but with A's serif body") → I'll build tokens + components + UI kit in the chosen direction. 「決定を待つ」</div>
+
+</div>
+</body>
+</html>

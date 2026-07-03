@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="design_doc_mode" content="canvas">
+<title>Archive — 2 drafts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:var(--font-body)}
+
+  .frame{position:absolute;width:1240px;background:var(--paper);background-image:var(--paper-grain);background-size:4px 4px;color:var(--ink);padding:40px 44px 52px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+  .badge{position:absolute;top:-52px;left:0;display:flex;align-items:baseline;gap:12px;font-family:var(--font-mono)}
+  .badge .id{font-size:22px;font-weight:700;background:var(--accent);color:#fff;padding:4px 12px}
+  .badge .t{font-size:15px;letter-spacing:.5px;color:#f0eadd}
+
+  /* section header */
+  .sec{display:flex;align-items:flex-end;gap:14px;border-bottom:var(--bw-heavy) solid var(--ink);padding-bottom:10px;margin-bottom:22px}
+  .sec .kanji{font-family:var(--font-jp);font-weight:800;font-size:34px;letter-spacing:4px;line-height:1}
+  .sec .romaji{font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:3px;color:var(--accent);text-transform:uppercase;padding-bottom:4px}
+  .sec .desc{margin-left:auto;font-family:var(--font-mono);font-size:12px;color:var(--ink-3);padding-bottom:4px}
+
+  .blockgap{margin-top:44px}
+
+  /* ---- BLOG editorial list (A) ---- */
+  .blog-row{display:grid;grid-template-columns:120px 1fr auto;gap:22px;align-items:baseline;padding:16px 4px;border-bottom:1px solid var(--rule);text-decoration:none;color:var(--ink);transition:background .12s,padding-left .16s}
+  .blog-row:hover{background:var(--accent-soft);padding-left:14px}
+  .blog-row .date{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:.5px}
+  .blog-row .cat{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--accent);text-transform:uppercase;display:block;margin-bottom:4px}
+  .blog-row h3{font-family:var(--font-body);font-weight:700;font-size:20px;margin:0 0 4px;letter-spacing:-.2px}
+  .blog-row .meta{font-family:var(--font-mono);font-size:11px;color:var(--ink-2)}
+  .blog-row .rt{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);white-space:nowrap}
+
+  /* ---- scoreboard table ---- */
+  .board{width:100%;border-collapse:collapse;border:var(--bw-rule) solid var(--ink);background:var(--card)}
+  .board thead th{font-family:var(--font-mono);font-size:10.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-2);text-align:left;padding:10px 14px;background:var(--paper-2);border-bottom:var(--bw-rule) solid var(--ink)}
+  .board tbody td{padding:12px 14px;border-bottom:1px solid var(--rule);font-family:var(--font-body);font-size:15px;vertical-align:middle}
+  .board tbody tr:last-child td{border-bottom:none}
+  .board tbody tr{transition:background .12s;cursor:pointer}
+  .board tbody tr:hover{background:var(--accent-soft)}
+  .board .num{font-family:var(--font-display);font-size:20px;color:var(--accent);width:52px}
+  .board .chal{font-weight:700}
+  .board .src{font-family:var(--font-mono);font-size:12px;color:var(--ink-2)}
+  .catchip{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:1px;padding:3px 7px;border:1px solid var(--accent-line);color:var(--accent);border-radius:2px;text-transform:uppercase}
+  .catchip.ink{border-color:var(--rule);color:var(--ink-2)}
+  .dseal{font-family:var(--font-jp);font-weight:800;font-size:14px;border:2px solid;padding:2px 7px 1px;border-radius:2px;display:inline-block;line-height:1}
+  .dseal.hard{color:var(--seal-hard);border-color:var(--seal-hard)}
+  .dseal.mid{color:var(--seal-mid);border-color:var(--seal-mid)}
+  .dseal.easy{color:var(--seal-easy);border-color:var(--seal-easy)}
+  .flag-ok{font-family:var(--font-mono);font-size:12px;color:var(--ink);font-weight:600}
+  .flag-ok::before{content:"◆ ";color:var(--accent)}
+  .flag-wip{font-family:var(--font-jp);font-size:12px;font-weight:700;color:var(--sub);letter-spacing:2px}
+  .board .go{font-family:var(--font-mono);font-size:16px;color:var(--accent);text-align:right}
+
+  /* seals as hanko */
+  .hanko{font-family:var(--font-jp);font-weight:800;font-size:15px;letter-spacing:2px;padding:6px 10px 5px;border:2px solid var(--accent);color:var(--accent);display:inline-flex;flex-direction:column;align-items:center;box-shadow:var(--shadow-seal)}
+  .hanko.solid{background:var(--accent);color:#fff;box-shadow:none}
+  .hanko small{font-family:var(--font-mono);font-weight:400;font-size:8px;letter-spacing:1px;margin-top:2px;opacity:.8}
+
+  /* featured writeup cards */
+  .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .wcard{position:relative;background:var(--card);border:var(--bw-rule) solid var(--ink);box-shadow:var(--shadow-block);padding:18px 20px;transition:transform .1s,box-shadow .1s}
+  .wcard:hover{transform:translate(-2px,-2px);box-shadow:var(--shadow-block-lg)}
+  .wcard .ch{font-family:var(--font-display);font-size:15px;color:var(--accent);letter-spacing:1px}
+  .wcard h4{font-family:var(--font-body);font-weight:700;font-size:18px;margin:8px 0 6px;line-height:1.25}
+  .wcard .m{font-family:var(--font-mono);font-size:11px;color:var(--ink-3)}
+  .wcard .rd{font-family:var(--font-mono);font-size:11px;color:var(--accent);margin-top:12px;font-weight:600;letter-spacing:1px}
+  .wcard .cs{position:absolute;top:14px;right:14px}
+
+  /* author profile card */
+  .profile{background:var(--card);border:var(--bw-rule) solid var(--ink);box-shadow:var(--shadow-block);padding:22px 24px}
+  .profile .ph{display:flex;align-items:baseline;justify-content:space-between;border-bottom:var(--bw-rule) solid var(--ink);padding-bottom:12px;margin-bottom:14px}
+  .profile .name{font-family:var(--font-display);font-size:26px;letter-spacing:.5px}
+  .profile .role{font-family:var(--font-mono);font-size:12px;color:var(--ink-2)}
+  .bar-row{display:grid;grid-template-columns:44px 1fr 40px;gap:12px;align-items:center;margin-bottom:9px;font-family:var(--font-mono);font-size:11px}
+  .bar-row .lb{font-weight:600;letter-spacing:1px;color:var(--ink-2)}
+  .bar{height:12px;background:var(--paper-2);border:1px solid var(--ink);position:relative}
+  .bar span{position:absolute;left:0;top:0;bottom:0;background:var(--accent)}
+  .bar.b2 span{background:var(--ink)}
+  .bar-row .vl{text-align:right;font-weight:700;color:var(--ink)}
+  .pstats{display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;margin-top:16px;padding-top:14px;border-top:1px dashed var(--rule);font-family:var(--font-mono);font-size:12px}
+  .pstats .row{display:flex;justify-content:space-between}
+  .pstats .k{color:var(--ink-3)}
+  .pstats .v{font-weight:700;color:var(--ink)}
+  .pstats .v.acc{color:var(--accent)}
+
+  /* B: blog card grid */
+  .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .bcard{background:var(--card);border:var(--bw-rule) solid var(--ink);box-shadow:var(--shadow-block);padding:18px 20px;border-top:5px solid var(--accent);text-decoration:none;color:var(--ink);transition:transform .1s,box-shadow .1s}
+  .bcard:hover{transform:translate(-2px,-2px);box-shadow:var(--shadow-block-lg)}
+  .bcard .cat{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--accent);text-transform:uppercase}
+  .bcard h3{font-family:var(--font-body);font-weight:700;font-size:19px;margin:8px 0 8px;line-height:1.28}
+  .bcard p{font-family:var(--font-body);font-size:13.5px;line-height:1.6;color:var(--ink-2);margin:0 0 14px}
+  .bcard .ft{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);display:flex;justify-content:space-between;border-top:1px solid var(--hair);padding-top:10px}
+
+  .twocol{display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:start}
+</style>
+</head>
+<body>
+
+<!-- ============================ DRAFT A — Editorial Index (single column, print-like) ============================ -->
+<section class="frame" id="A" style="left:120px;top:120px;">
+  <div class="badge"><span class="id">A</span><span class="t">Editorial Index — print-like, single column</span></div>
+
+  <!-- BLOG -->
+  <div class="sec"><span class="kanji">論説</span><span class="romaji">Ronsetsu · Blog</span><span class="desc">Bài viết chuyên ngành — thành viên</span></div>
+  <a class="blog-row"><span class="date">2026.06.30</span><span><span class="cat">Research</span><h3>Why we stopped trusting our own deserializers</h3><span class="meta">rei@ckn · #appsec #deserialization</span></span><span class="rt">8 min</span></a>
+  <a class="blog-row"><span class="date">2026.06.22</span><span><span class="cat">Research</span><h3>A field guide to timing side-channels</h3><span class="meta">rei@ckn · #crypto #timing</span></span><span class="rt">12 min</span></a>
+  <a class="blog-row"><span class="date">2026.06.15</span><span><span class="cat">Notes</span><h3>Notes on modern heap grooming</h3><span class="meta">nyx@ckn · #pwn #glibc</span></span><span class="rt">10 min</span></a>
+
+  <!-- CTF WRITEUPS + scoreboard -->
+  <div class="sec blockgap"><span class="kanji">連載</span><span class="romaji">Renzai · CTF Writeups</span><span class="desc">Challenges solved — series chính</span></div>
+  <table class="board">
+    <thead><tr><th>#</th><th>Challenge</th><th>Category</th><th>Diff</th><th>Source</th><th>Flag</th><th></th></tr></thead>
+    <tbody>
+      <tr><td class="num">12</td><td class="chal">Escaping the Jailed Shell</td><td><span class="catchip">MISC</span></td><td><span class="dseal hard">難</span></td><td class="src">HackTheBox</td><td class="flag-ok">captured</td><td class="go">→</td></tr>
+      <tr><td class="num">11</td><td class="chal">Padding Oracle, Slowly</td><td><span class="catchip">CRYPTO</span></td><td><span class="dseal mid">中</span></td><td class="src">picoCTF</td><td class="flag-ok">captured</td><td class="go">→</td></tr>
+      <tr><td class="num">10</td><td class="chal">One Byte to Rule ret2libc</td><td><span class="catchip">PWN</span></td><td><span class="dseal hard">難</span></td><td class="src">pwn.college</td><td class="flag-ok">captured</td><td class="go">→</td></tr>
+      <tr><td class="num">09</td><td class="chal">Corporate VPN pivot</td><td><span class="catchip ink">MISC</span></td><td><span class="dseal hard">難</span></td><td class="src">Pro Lab</td><td><span class="flag-wip">調査中</span></td><td class="go">→</td></tr>
+      <tr><td class="num">08</td><td class="chal">SSTI via welcome mail</td><td><span class="catchip">WEB</span></td><td><span class="dseal easy">易</span></td><td class="src">internal</td><td class="flag-ok">captured</td><td class="go">→</td></tr>
+    </tbody>
+  </table>
+
+  <!-- featured cards -->
+  <div class="cards3" style="margin-top:22px">
+    <div class="wcard"><span class="cs"><span class="hanko">難<small>HARD</small></span></span><div class="ch">CH.12</div><h4>Escaping the Jailed Shell</h4><div class="m">HackTheBox · Web · 12 min</div><div class="rd">READ → p.12</div></div>
+    <div class="wcard"><span class="cs"><span class="hanko" style="border-color:var(--seal-mid);color:var(--seal-mid)">中<small>MED</small></span></span><div class="ch">CH.11</div><h4>Padding Oracle, Slowly</h4><div class="m">picoCTF · Crypto · 9 min</div><div class="rd">READ → p.8</div></div>
+    <div class="wcard"><span class="cs"><span class="hanko">難<small>HARD</small></span></span><div class="ch">CH.10</div><h4>One Byte to Rule ret2libc</h4><div class="m">pwn.college · Pwn · 15 min</div><div class="rd">READ → p.5</div></div>
+  </div>
+</section>
+
+
+<!-- ============================ DRAFT B — Panel grid + sidebar (dashboard-ish, more visual) ============================ -->
+<section class="frame" id="B" style="left:1480px;top:120px;">
+  <div class="badge"><span class="id">B</span><span class="t">Panel grid + profile sidebar — more visual</span></div>
+
+  <!-- BLOG as card grid -->
+  <div class="sec"><span class="kanji">論説</span><span class="romaji">Ronsetsu · Blog</span><span class="desc">Bài viết chuyên ngành — thành viên</span></div>
+  <div class="blog-grid">
+    <a class="bcard"><span class="cat">Research</span><h3>Why we stopped trusting our own deserializers</h3><p>What a year of import bugs taught us about drawing trust boundaries.</p><div class="ft"><span>rei@ckn</span><span>8 min</span></div></a>
+    <a class="bcard"><span class="cat">Research</span><h3>A field guide to timing side-channels</h3><p>Measuring what the handshake never meant to tell you.</p><div class="ft"><span>rei@ckn</span><span>12 min</span></div></a>
+    <a class="bcard"><span class="cat">Notes</span><h3>Notes on modern heap grooming</h3><p>Tcache, feng shui, and the art of a tidy line.</p><div class="ft"><span>nyx@ckn</span><span>10 min</span></div></a>
+  </div>
+
+  <!-- CTF: table left, sidebar right -->
+  <div class="sec blockgap"><span class="kanji">連載</span><span class="romaji">Renzai · CTF Writeups</span><span class="desc">Challenges solved + author</span></div>
+  <div class="twocol">
+    <div>
+      <table class="board">
+        <thead><tr><th>#</th><th>Challenge</th><th>Cat</th><th>Diff</th><th>Flag</th><th></th></tr></thead>
+        <tbody>
+          <tr><td class="num">12</td><td class="chal">Escaping the Jailed Shell</td><td><span class="catchip">MISC</span></td><td><span class="dseal hard">難</span></td><td class="flag-ok">ok</td><td class="go">→</td></tr>
+          <tr><td class="num">11</td><td class="chal">Padding Oracle, Slowly</td><td><span class="catchip">CRY</span></td><td><span class="dseal mid">中</span></td><td class="flag-ok">ok</td><td class="go">→</td></tr>
+          <tr><td class="num">10</td><td class="chal">One Byte to Rule ret2libc</td><td><span class="catchip">PWN</span></td><td><span class="dseal hard">難</span></td><td class="flag-ok">ok</td><td class="go">→</td></tr>
+          <tr><td class="num">09</td><td class="chal">Corporate VPN pivot</td><td><span class="catchip ink">MISC</span></td><td><span class="dseal hard">難</span></td><td><span class="flag-wip">調査中</span></td><td class="go">→</td></tr>
+          <tr><td class="num">08</td><td class="chal">SSTI via welcome mail</td><td><span class="catchip">WEB</span></td><td><span class="dseal easy">易</span></td><td class="flag-ok">ok</td><td class="go">→</td></tr>
+          <tr><td class="num">07</td><td class="chal">Catching root from deserialize</td><td><span class="catchip">WEB</span></td><td><span class="dseal hard">難</span></td><td class="flag-ok">ok</td><td class="go">→</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="profile">
+      <div class="ph"><div><div class="name">H4CK3R-SAN</div></div></div>
+      <div class="role" style="margin-bottom:16px">Web Exploitation · Main</div>
+      <div class="bar-row"><span class="lb">WEB</span><span class="bar"><span style="width:92%"></span></span><span class="vl">92</span></div>
+      <div class="bar-row"><span class="lb">PWN</span><span class="bar b2"><span style="width:64%"></span></span><span class="vl">64</span></div>
+      <div class="bar-row"><span class="lb">CRY</span><span class="bar b2"><span style="width:71%"></span></span><span class="vl">71</span></div>
+      <div class="bar-row"><span class="lb">RE</span><span class="bar b2"><span style="width:48%"></span></span><span class="vl">48</span></div>
+      <div class="pstats">
+        <div class="row"><span class="k">CTFs</span><span class="v">37</span></div>
+        <div class="row"><span class="k">Best</span><span class="v">WEB</span></div>
+        <div class="row"><span class="k">Flags</span><span class="v acc">128</span></div>
+        <div class="row"><span class="k">Rank</span><span class="v acc">S</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

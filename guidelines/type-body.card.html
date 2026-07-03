@@ -1,0 +1,20 @@
+<!-- @dsCard group="Type" viewport="700x230" name="Body — Shippori Mincho" subtitle="Long-form reading + Japanese labels, one family" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  html,body{margin:0}
+  body{background:var(--paper);background-image:var(--paper-grain);background-size:4px 4px;padding:22px;color:var(--ink)}
+  h3{font-family:var(--font-body);font-weight:700;font-size:20px;margin:0 0 6px}
+  p{font-family:var(--font-body);font-weight:400;font-size:15px;line-height:1.72;color:#2c281d;margin:0;max-width:60ch}
+  .jp{font-family:var(--font-jp);font-weight:800;font-size:22px;letter-spacing:4px;margin-top:12px;color:var(--ink-2)}
+  .meta{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:1px;margin-top:10px}
+</style></head>
+<body>
+  <h3>We caught the flag from a deserialize bug that looked harmless</h3>
+  <p>The endpoint takes a base64 blob and calls unserialize() on it directly. A familiar gadget chain leads to arbitrary file write, and from there to remote code execution — the whole writeup reads like a chapter.</p>
+  <div class="jp">連載　番外編　調査中　易　中　難</div>
+  <div class="meta">Shippori Mincho · 400 / 700 / 800 · covers Latin + kana/kanji</div>
+</body></html>

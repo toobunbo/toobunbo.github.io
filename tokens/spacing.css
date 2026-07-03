@@ -1,0 +1,39 @@
+/* CYBERKNIGHT — spacing, radius, borders, shadow
+   Print-shop feel: mostly hard edges, minimal rounding, an offset "block-print"
+   shadow instead of soft blur. */
+
+:root {
+  /* --- spacing (4px base) --- */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  24px;
+  --sp-8:  32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+
+  /* --- radii (paper/print is sharp; radius used sparingly) --- */
+  --r-0:   0px;      /* default: hard corner */
+  --r-1:   2px;      /* inline code, tags */
+  --r-2:   4px;      /* inputs, small controls */
+  --r-pill: 999px;   /* rare — status dots */
+
+  /* --- borders --- */
+  --bw-hair:  1px;
+  --bw-rule:  2px;   /* manga panel weight */
+  --bw-heavy: 3px;   /* masthead underline */
+
+  /* --- block-print shadow: offset solid, no blur --- */
+  --shadow-block:   6px 6px 0 rgba(30, 27, 22, 0.14);
+  --shadow-block-lg:10px 10px 0 rgba(30, 27, 22, 0.16);
+  --shadow-seal:    2px 2px 0 rgba(185, 62, 42, 0.20);
+
+  /* --- layout --- */
+  --measure:      68ch;   /* reading column max width */
+  --container:    1180px;
+  --gutter:       clamp(20px, 4vw, 48px);  /* @kind spacing */
+}

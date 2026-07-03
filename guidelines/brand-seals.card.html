@@ -1,0 +1,26 @@
+<!-- @dsCard group="Brand" viewport="700x150" name="Seals — hanko system" subtitle="Status & difficulty stamps, hand-pressed" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  html,body{margin:0}
+  body{background:var(--paper);background-image:var(--paper-grain);background-size:4px 4px;padding:22px;color:var(--ink);display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .seal{font-family:var(--font-jp);font-weight:800;font-size:16px;letter-spacing:2px;padding:6px 10px 5px;border:2px solid var(--accent);color:var(--accent);display:flex;flex-direction:column;align-items:center;box-shadow:var(--shadow-seal)}
+  .seal.solid{background:var(--accent);color:var(--accent-ink);box-shadow:none}
+  .seal.ink{border-color:var(--ink);color:var(--ink)}
+  .seal.sub{border-color:var(--sub);color:var(--sub)}
+  .seal.easy{border-color:var(--seal-easy);color:var(--seal-easy)}
+  .seal.mid{border-color:var(--seal-mid);color:var(--seal-mid)}
+  .seal small{font-family:var(--font-mono);font-weight:400;font-size:8px;letter-spacing:1px;margin-top:3px;opacity:.8}
+  .r-3{transform:rotate(-3deg)} .r2{transform:rotate(2deg)}
+</style></head>
+<body>
+  <div class="seal solid r-3">連載<small>SERIAL</small></div>
+  <div class="seal ink r2">番外編<small>GAIDEN</small></div>
+  <div class="seal sub r-3">調査中<small>WIP</small></div>
+  <div class="seal easy r2">易<small>EASY</small></div>
+  <div class="seal mid r-3">中<small>MED</small></div>
+  <div class="seal r2">難<small>HARD</small></div>
+</body></html>

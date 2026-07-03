@@ -1,0 +1,28 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Accents — 朱 vermilion · 藍 indigo · 墨緑 green" subtitle="Vermilion is the brand ink; green is caged to code" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  html,body{margin:0}
+  body{background:var(--paper);background-image:var(--paper-grain);background-size:4px 4px;padding:16px;font-family:var(--font-mono);color:var(--ink)}
+  .row{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+  .sw{border:1px solid rgba(0,0,0,.15)}
+  .c{height:64px;position:relative}
+  .c .jp{position:absolute;left:8px;bottom:6px;font-family:"Shippori Mincho",serif;font-weight:800;font-size:20px;color:#FDF9F0}
+  .l{font-size:9.5px;line-height:1.35;padding:5px 6px;background:var(--card)}
+  .l b{display:block;font-size:10px;color:var(--ink)}
+  .l span{color:var(--ink-3)}
+  .note{font-size:9.5px;color:var(--ink-3);margin-top:8px}
+</style></head>
+<body>
+  <div class="row">
+    <div class="sw"><div class="c" style="background:#B93E2A"><span class="jp">朱</span></div><div class="l"><b>Accent 朱</b><span>#B93E2A · brand</span></div></div>
+    <div class="sw"><div class="c" style="background:#A8371F"></div><div class="l"><b>Accent-strong</b><span>#A8371F · hover</span></div></div>
+    <div class="sw"><div class="c" style="background:#274B6B"><span class="jp">藍</span></div><div class="l"><b>Sub 藍</b><span>#274B6B · links</span></div></div>
+    <div class="sw"><div class="c" style="background:#2C6B4A"><span class="jp">緑</span></div><div class="l"><b>Term 墨緑</b><span>#2C6B4A · code</span></div></div>
+    <div class="sw"><div class="c" style="background:#9A7A24"></div><div class="l"><b>Mid 中</b><span>#9A7A24 · seal</span></div></div>
+  </div>
+  <div class="note">// 朱 vermilion = primary everywhere · 藍 indigo = quiet links/info · 墨緑 green = terminal blocks ONLY</div>
+</body></html>
