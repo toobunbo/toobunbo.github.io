@@ -124,14 +124,16 @@ async function build() {
   if (fs.existsSync(indexPath)) {
     let indexHtml = fs.readFileSync(indexPath, 'utf8');
 
+    const hotPost = posts.find(p => p.hot) || posts[0];
+
     // Generate BLOG array
-    const blogPosts = posts.filter(p => p.isBlog);
+    const blogPosts = posts.filter(p => p.isBlog && p !== hotPost);
     const blogArrayStr = blogPosts.map(p => {
       return `{chip:{jp:"論説",en:"BLOG"},chipInk:true,title:"${p.title}",meta:"${p.author} · ${p.date}",excerpt:"${p.description}",catEn:"${p.categoryEn}",catJp:"${p.categoryJp}",foot:"đọc tiếp ", href: "blog/${p.slug}.html", cover:"${p.cover}"}`;
     }).join(',\n');
     
     // Generate WRITEUP array
-    const writeupPosts = posts.filter(p => !p.isBlog);
+    const writeupPosts = posts.filter(p => !p.isBlog && p !== hotPost);
     const writeupArrayStr = writeupPosts.map(p => {
       let d = "中";
       if (p.difficulty === 'hard') d = "難";
@@ -150,7 +152,6 @@ async function build() {
     }
     
     // Generate HERO object
-    const hotPost = posts.find(p => p.hot) || posts[0];
     if (hotPost) {
       let d = "中"; let dc = "mid";
       if (hotPost.difficulty === 'hard') { d = "難"; dc = "hard"; }
