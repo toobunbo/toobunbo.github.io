@@ -153,9 +153,7 @@
         // apply syntax highlighting
         if (window.hljs) {
           proseRef.current.querySelectorAll('pre code').forEach((block) => {
-             if (!block.closest('.ckn-code')) {
-               window.hljs.highlightElement(block);
-             }
+             window.hljs.highlightElement(block);
           });
         }
       },[post.body]);
@@ -185,16 +183,12 @@
         if(Array.isArray(raw)) raw = raw.join("");
         const isDiagram = BOX.test(String(raw));
         
-        if (isDiagram) {
-          return (
-            <div className={"fig diagram-code"} style={{margin:"28px 0"}}>
-              <CodeBlock lang="diagram" lines={toCodeLines(raw, lang)} />
-            </div>
-          );
-        }
-        
         return (
-          <pre style={{background: "#282c34", color: "#abb2bf", border: "1px solid #111"}}><code className={`language-${lang}`}>{raw}</code></pre>
+          <div className={"fig" + (isDiagram ? " diagram-code" : "")} style={{margin:"28px 0"}}>
+            <CodeBlock lang={isDiagram ? "diagram" : lang} lines={isDiagram ? toCodeLines(raw, lang) : undefined}>
+              {isDiagram ? null : <code className={`language-${lang}`}>{raw}</code>}
+            </CodeBlock>
+          </div>
         );
       };
 
