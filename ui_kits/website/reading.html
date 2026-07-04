@@ -9,6 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <link rel="stylesheet" href="../../styles.css">
 <style>
   html,body{margin:0}
@@ -30,8 +32,8 @@
   .prose p{margin:0 0 18px}
   .prose a{color:var(--sub);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
   .prose code{font-family:var(--font-mono);font-size:14px;background:var(--accent-soft);color:var(--accent);padding:1px 5px;border-radius:var(--r-1)}
-  .prose pre{background:#1a1915;color:#e8e4db;padding:18px 24px;border-radius:8px;overflow-x:auto;font-family:var(--font-mono);font-size:14.5px;line-height:1.6;margin:28px 0;border:1px solid rgba(255,255,255,0.05)}
-  html[data-theme="dark"] .prose pre{background:#111;border-color:#222}
+  .prose pre{padding:18px 24px;border-radius:8px;overflow-x:auto;font-family:var(--font-mono);font-size:14.5px;line-height:1.6;margin:28px 0;border:1px solid rgba(255,255,255,0.05)}
+  html[data-theme="dark"] .prose pre{border-color:#222}
   .prose pre code{background:transparent;color:inherit;padding:0;border-radius:0;font-size:inherit}
   .prose h1{font-family:var(--font-display);font-size:32px;line-height:1.2;margin:46px 0 24px;letter-spacing:-0.5px;}
   .prose h3{font-family:var(--font-body);font-weight:700;font-size:19.5px;line-height:1.4;margin:32px 0 12px;color:var(--ink-2)}
@@ -91,6 +93,7 @@
       const [theme,setTheme] = useState("light");
       const [active,setActive] = useState("s-top");
       useEffect(()=>{ document.documentElement.setAttribute("data-theme", theme); },[theme]);
+      useEffect(()=>{ if(window.hljs) window.hljs.highlightAll(); },[]);
       useEffect(()=>{
         const heads = Array.from(document.querySelectorAll("[data-toc]"));
         const io = new IntersectionObserver((entries)=>{
