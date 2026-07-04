@@ -1,0 +1,41 @@
+<!-- @dsCard group="Brand" viewport="700x300" name="Code syntax palette" subtitle="hljs token roles mapped onto --code-* tokens — reuse across every blog post" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  html,body{margin:0}
+  body{background:var(--paper);background-image:var(--paper-grain);background-size:4px 4px;padding:20px;color:var(--ink);font-family:var(--font-mono)}
+  .note{font-size:11px;color:var(--ink-3);letter-spacing:.3px;margin-bottom:14px;line-height:1.6}
+  .note code{background:var(--accent-soft);color:var(--accent);padding:1px 5px;border-radius:4px}
+  .ckn-code{background:var(--code-bg);border:var(--bw-rule) solid var(--ink);border-radius:var(--r-2);overflow:hidden;box-shadow:var(--shadow-block)}
+  .ckn-code .bar{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;border-bottom:1px solid rgba(255,255,255,0.08)}
+  .ckn-code .bar .dots{display:flex;gap:6px}
+  .ckn-code .bar .dots span{width:8px;height:8px;border-radius:50%;background:#5f5747;display:inline-block}
+  .ckn-code .bar .dots span:first-child{background:var(--accent)}
+  .ckn-code .bar .lang{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--code-com)}
+  .ckn-code pre{margin:0;padding:12px 14px;font-size:12.5px;line-height:1.6;color:var(--code-fg);overflow-x:auto}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:10.5px;color:var(--ink-2)}
+  .legend .sw{display:inline-flex;align-items:center;gap:5px}
+  .legend .sw i{width:10px;height:10px;border-radius:2px;display:inline-block}
+</style></head>
+<body>
+  <div class="note">highlight.js token classes map to --code-syn-* (tokens/code-syntax.css). A dedicated palette leaning on conventional JSON/GraphQL editor colors (gold keys, green strings, orange numbers, mauve keywords), warmed to sit on the ink-on-paper brand instead of reusing --code-acc/--code-green.</div>
+  <div class="ckn-code">
+    <div class="bar"><div class="dots"><span></span><span></span><span></span></div><span class="lang">json</span></div>
+    <pre><code class="language-json">{
+  "id": "Watchlist:63ba06b8-a3cf",
+  "title": "My Watchlist",
+  "public": false,
+  "count": 1
+}</code></pre>
+  </div>
+  <div class="legend">
+    <span class="sw"><i style="background:var(--code-syn-key)"></i>key &rarr; --code-syn-key</span>
+    <span class="sw"><i style="background:var(--code-syn-string)"></i>string &rarr; --code-syn-string</span>
+    <span class="sw"><i style="background:var(--code-syn-number)"></i>number/bool &rarr; --code-syn-number</span>
+    <span class="sw"><i style="background:var(--code-syn-keyword)"></i>keyword &rarr; --code-syn-keyword</span>
+    <span class="sw"><i style="background:var(--code-syn-comment)"></i>comment &rarr; --code-syn-comment</span>
+  </div>
+  <script>hljs.highlightAll();</script>
+</body></html>

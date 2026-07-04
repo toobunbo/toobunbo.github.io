@@ -1,0 +1,52 @@
+/* CYBERKNIGHT — code syntax highlighting palette.
+   Deliberately NOT aliased to the brand's --code-acc/--code-green tokens —
+   those stay reserved for the terminal chrome (shell prompts, CodeBlock accents).
+   This is its own small palette that leans on the colors devs already expect
+   from JSON/GraphQL/JS tooling (gold keys, green strings, orange numbers,
+   mauve keywords — the GraphQL pink family, warmed down), just warmed and
+   desaturated a touch to sit quietly on the ink-on-paper brand instead of
+   reading as a stock IDE theme. Every future blog's code blocks share this. */
+
+:root {
+  /* JSON keys, GraphQL field names, object attributes */
+  --code-syn-key:      #D9A857;   /* @kind color */
+  /* string literals */
+  --code-syn-string:   #8FB573;   /* @kind color */
+  /* numbers, booleans, null */
+  --code-syn-number:   #CC8552;   /* @kind color */
+  /* query/mutation, reserved words, types — nods to GraphQL's own pink/magenta, muted */
+  --code-syn-keyword:  #C989AE;   /* @kind color */
+  /* comments */
+  --code-syn-comment:  #8B8272;   /* @kind color */
+  /* punctuation, operators, params */
+  --code-syn-punct:    #ADA28C;   /* @kind color */
+}
+
+/* highlight.js token classes -> semantic roles above.
+   Scoped to .ckn-code so it only applies inside the branded terminal window. */
+.ckn-code .hljs { color: var(--code-fg); background: transparent; }
+.ckn-code .hljs-attr,
+.ckn-code .hljs-property,
+.ckn-code .hljs-name,
+.ckn-code .hljs-selector-attr,
+.ckn-code .hljs-symbol,
+.ckn-code .hljs-attribute { color: var(--code-syn-key); font-weight: 600; }
+
+.ckn-code .hljs-string,
+.ckn-code .hljs-title,
+.ckn-code .hljs-title.class_,
+.ckn-code .hljs-title.function_ { color: var(--code-syn-string); }
+
+.ckn-code .hljs-number,
+.ckn-code .hljs-literal { color: var(--code-syn-number); }
+
+.ckn-code .hljs-keyword,
+.ckn-code .hljs-built_in,
+.ckn-code .hljs-type,
+.ckn-code .hljs-meta { color: var(--code-syn-keyword); font-weight: 600; }
+
+.ckn-code .hljs-comment { color: var(--code-syn-comment); font-style: italic; }
+
+.ckn-code .hljs-punctuation,
+.ckn-code .hljs-operator,
+.ckn-code .hljs-params { color: var(--code-syn-punct); }

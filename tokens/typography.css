@@ -2,8 +2,8 @@
 
 :root {
   /* --- families --- */
-  --font-display: "Reggae One", "Shippori Mincho", serif;  /* @kind font */
-  --font-body:    "Shippori Mincho", serif;                /* @kind font */
+  --font-display: "Reggae One", "Shippori Mincho", "Noto Serif", serif;  /* @kind font */
+  --font-body:    "Shippori Mincho", "Noto Serif", serif;                /* @kind font */
   --font-mono:    "IBM Plex Mono", ui-monospace, monospace;/* @kind font */
   --font-jp:      "Shippori Mincho", serif;                /* @kind font */
 
