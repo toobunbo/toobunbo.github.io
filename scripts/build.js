@@ -90,7 +90,9 @@ async function build() {
       categoryEn: attr.categoryEn || 'WEB',
       categoryJp: attr.categoryJp || 'アクション',
       difficulty: attr.difficulty || 'mid', // easy, mid, hard
-      tags: attr.tags || ['ctf']
+      tags: attr.tags || ['ctf'],
+      hot: attr.hot || false,
+      cover: attr.cover || ''
     });
 
     if (readingTemplate) {
@@ -159,6 +161,35 @@ async function build() {
     if (writeupArrayStr) {
       // Find the ctf-split section and replace the Card there
       indexHtml = indexHtml.replace(/<Card chip=\{\{jp:"連載"[^>]*\/>/s, writeupArrayStr);
+    }
+    
+    // Generate HERO object
+    const hotPost = posts.find(p => p.hot) || posts[0];
+    if (hotPost) {
+      let d = "中"; let dc = "mid";
+      if (hotPost.difficulty === 'hard') { d = "難"; dc = "hard"; }
+      if (hotPost.difficulty === 'easy') { d = "易"; dc = "easy"; }
+      const href = (hotPost.isBlog ? "blog/" : "writeup/") + hotPost.slug + ".html";
+      const kicker = hotPost.isBlog ? "BLOG · RESEARCH" : "CH.X · CTF WRITEUP";
+      const tagJp = hotPost.isBlog ? "論説" : "連載";
+      const tagEn = hotPost.isBlog ? "BLOG" : "SERIAL";
+      
+      const heroStr = `const HERO = {
+      tagJp: "${tagJp}",
+      tagEn: "${tagEn}",
+      kicker: "${kicker}",
+      titleHtml: "${hotPost.title}",
+      desc: "${hotPost.description.replace(/"/g, '\\"')}",
+      tags: ${JSON.stringify(hotPost.tags)},
+      href: "${href}",
+      meta: "${hotPost.author} · ${hotPost.date}",
+      vol: "VOL.01",
+      sealJp: "${d}",
+      sealEn: "${hotPost.difficulty.toUpperCase()}",
+      sealTone: "${dc}",
+      cover: "${hotPost.cover}"
+    };`;
+      indexHtml = indexHtml.replace(/const HERO = \{.*?\};/s, heroStr);
     }
 
     // 3. Update Checklist

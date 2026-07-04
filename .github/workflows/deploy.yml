@@ -35,6 +35,9 @@ jobs:
           # Copy everything from ui_kits/website to the root public folder
           cp -r ui_kits/website/* public/
           
+          # Copy Resource assets if they exist
+          if [ -d "Resource/assets" ]; then cp -r Resource/assets public/; fi
+          
           # Fix relative paths in HTML files (../../ to ./)
           find public -maxdepth 1 -name "*.html" -exec sed -i 's/\.\.\/\.\.\///g' {} +
           

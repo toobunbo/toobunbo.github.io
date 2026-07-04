@@ -143,30 +143,47 @@
       );
     }
 
+    const HERO = {
+      tagJp: "連載",
+      tagEn: "SERIAL",
+      kicker: "CH.07 · CTF WRITEUP",
+      titleHtml: "CATCHING ROOT<br/>FROM A HARMLESS<br/><span style={{color:\"var(--accent)\"}}>DESERIALIZE</span>",
+      desc: "A base64 blob hits unserialize() on an import endpoint. One gadget chain later we have arbitrary file write — and the 「難」 seal comes down.",
+      tags: ["pwn", "deserialization", "php", "rce"],
+      href: "reading.html",
+      meta: "nyx@ckn · 2026.06.28 · 14 min",
+      vol: "VOL.07",
+      sealJp: "難",
+      sealEn: "HARD",
+      sealTone: "hard",
+      cover: ""
+    };
+
     /* ---- CoverHero ---- */
     function CoverHero(){
       return (
         <section style={{maxWidth:"var(--container)",margin:"0 auto",padding:"var(--sp-12) var(--gutter) var(--sp-10)",display:"grid",gridTemplateColumns:"1.5fr 1fr",gap:"var(--sp-10)",alignItems:"center"}}>
           <div>
             <div style={{display:"flex",alignItems:"center",gap:"12px",marginBottom:"18px"}}>
-              <Seal jp="連載" en="SERIAL" variant="solid" />
-              <span style={{fontFamily:"var(--font-mono)",fontSize:"12px",letterSpacing:"2px",color:"var(--ink-3)",textTransform:"uppercase"}}>CH.07 · CTF WRITEUP</span>
+              <Seal jp={HERO.tagJp} en={HERO.tagEn} variant="solid" />
+              <span style={{fontFamily:"var(--font-mono)",fontSize:"12px",letterSpacing:"2px",color:"var(--ink-3)",textTransform:"uppercase"}}>{HERO.kicker}</span>
             </div>
-            <h1 style={{fontFamily:"var(--font-display)",fontSize:"var(--fs-display)",lineHeight:1.02,letterSpacing:"1px",margin:"0 0 18px"}}>CATCHING ROOT<br/>FROM A HARMLESS<br/><span style={{color:"var(--accent)"}}>DESERIALIZE</span></h1>
-            <p style={{fontFamily:"var(--font-body)",fontSize:"17px",lineHeight:1.7,color:"var(--ink-2)",maxWidth:"48ch",margin:"0 0 22px"}}>A base64 blob hits unserialize() on an import endpoint. One gadget chain later we have arbitrary file write — and the 「難」 seal comes down.</p>
+            <h1 style={{fontFamily:"var(--font-display)",fontSize:"var(--fs-display)",lineHeight:1.02,letterSpacing:"1px",margin:"0 0 18px"}} dangerouslySetInnerHTML={{__html: HERO.titleHtml}}></h1>
+            <p style={{fontFamily:"var(--font-body)",fontSize:"17px",lineHeight:1.7,color:"var(--ink-2)",maxWidth:"48ch",margin:"0 0 22px"}}>{HERO.desc}</p>
             <div style={{display:"flex",gap:"6px",flexWrap:"wrap",marginBottom:"24px"}}>
-              <Tag>pwn</Tag><Tag>deserialization</Tag><Tag>php</Tag><Tag>rce</Tag>
+              {HERO.tags.map(t => <Tag key={t}>{t}</Tag>)}
             </div>
             <div style={{display:"flex",gap:"12px",alignItems:"center"}}>
-              <Button variant="primary" size="lg" as="a" href="reading.html">Read chapter</Button>
-              <span style={{fontFamily:"var(--font-mono)",fontSize:"12px",color:"var(--ink-3)"}}>nyx@ckn · 2026.06.28 · 14 min</span>
+              <Button variant="primary" size="lg" as="a" href={HERO.href}>Read chapter</Button>
+              <span style={{fontFamily:"var(--font-mono)",fontSize:"12px",color:"var(--ink-3)"}}>{HERO.meta}</span>
             </div>
           </div>
           <div style={{position:"relative",border:"var(--bw-rule) solid var(--ink)",background:"var(--card)",boxShadow:"var(--shadow-block-lg)",aspectRatio:"3/4",overflow:"hidden"}}>
             <div style={{position:"absolute",inset:0,backgroundImage:"repeating-linear-gradient(-45deg, transparent 0 11px, rgba(30,27,22,0.05) 11px 12px)"}} />
-            <div style={{position:"absolute",top:"14px",left:"14px",fontFamily:"var(--font-mono)",fontSize:"11px",letterSpacing:"2px",color:"var(--ink-3)"}}>VOL.07</div>
-            <div style={{position:"absolute",top:"12px",right:"12px"}}><Seal jp="難" en="HARD" tone="hard" size="lg" /></div>
-            <div style={{position:"absolute",left:0,right:0,bottom:0,top:"20%",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"var(--font-jp)",fontWeight:800,fontSize:"clamp(70px,11vw,120px)",color:"var(--ink)",lineHeight:.9,letterSpacing:"6px",writingMode:"vertical-rl"}}>電脳騎士</div>
+            {HERO.cover && <img src={HERO.cover} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover"}} alt="Cover" />}
+            <div style={{position:"absolute",top:"14px",left:"14px",fontFamily:"var(--font-mono)",fontSize:"11px",letterSpacing:"2px",color:"var(--ink-3)"}}>{HERO.vol}</div>
+            <div style={{position:"absolute",top:"12px",right:"12px"}}><Seal jp={HERO.sealJp} en={HERO.sealEn} tone={HERO.sealTone} size="lg" /></div>
+            {!HERO.cover && <div style={{position:"absolute",left:0,right:0,bottom:0,top:"20%",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"var(--font-jp)",fontWeight:800,fontSize:"clamp(70px,11vw,120px)",color:"var(--ink)",lineHeight:.9,letterSpacing:"6px",writingMode:"vertical-rl"}}>電脳騎士</div>}
             <div style={{position:"absolute",left:"14px",bottom:"14px",fontFamily:"var(--font-display)",fontSize:"20px",color:"var(--accent)",letterSpacing:"1px"}}>CYBERKNIGHT</div>
           </div>
         </section>
