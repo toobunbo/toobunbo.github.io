@@ -48,12 +48,26 @@
   --seal-mid:     #9A7A24;   /* 中 */
   --seal-hard:    #B93E2A;   /* 難 */
 
-  /* --- code surface (a dark terminal window, even in light mode) --- */
-  --code-bg:      #1A1710;
-  --code-fg:      #E7DCC6;
-  --code-com:     #7D7458;   /* comments */
-  --code-acc:     #E8845E;   /* highlighted tokens (warm) */
-  --code-green:   #5FD08A;   /* terminal green — lives here only */
+  /* --- code surface — TRUE TERMINAL palette --- */
+  --code-bg:      #12140F;   /* BG */
+  --code-surface: #1B1E16;   /* Surface — title bar */
+  --code-fg:      #E9E0CD;   /* Ink */
+  --code-com:     #948A74;   /* Ink-2 — comments */
+  --code-acc:     #E85E44;   /* 朱 Accent */
+  --code-green:   #5FD08A;   /* 墨緑 Term — phosphor green */
+
+  /* --- READING CONTENT palette — independent from landing/cover.
+     The cover performs loud; the reading sheet is quieter, warmer, tuned for
+     long-form legibility. Reading pages point at these instead of the base tokens. */
+  --read-sheet:   #F8F2E4;   /* the printed page — warm ivory, low glare */
+  --read-ink:     #221E16;   /* headings, panel border */
+  --read-ink-2:   #4A4436;   /* subheads, byline name */
+  --read-ink-3:   #857B64;   /* meta, kickers, captions */
+  --read-body:    #332E22;   /* long-form prose */
+  --read-rule:    #DBCBAA;   /* hairlines, table borders, section dividers */
+  --read-accent:  #B23A26;   /* section markers, emphasis (restrained vermilion) */
+  --read-link:    #2B5675;   /* links — indigo, promoted for reading */
+  --read-mark:    rgba(178,58,38,0.10);  /* inline-code + blockquote tint */
 
   /* --- focus ring --- */
   --focus:        rgba(185, 62, 42, 0.45);
@@ -100,11 +114,23 @@
   --cat-osint:     #E85E44;
   --cat-rev:       #6E6552;
 
-  --code-bg:      #0F0D08;
-  --code-fg:      #E7DCC6;
-  --code-com:     #6E6552;
-  --code-acc:     #EF9A78;
+  --code-bg:      #12140F;
+  --code-surface: #1B1E16;
+  --code-fg:      #E9E0CD;
+  --code-com:     #948A74;
+  --code-acc:     #E85E44;
   --code-green:   #5FD08A;
+
+  /* --- READING CONTENT palette — dark (negative print, still long-form legible) --- */
+  --read-sheet:   #1E1A12;
+  --read-ink:     #ECE2CF;
+  --read-ink-2:   #B8AE96;
+  --read-ink-3:   #857B64;
+  --read-body:    #D8CDB6;
+  --read-rule:    #37311F;
+  --read-accent:  #E85E44;
+  --read-link:    #7FA6CE;
+  --read-mark:    rgba(232,94,68,0.14);
 
   --focus:        rgba(232, 94, 68, 0.5);
 

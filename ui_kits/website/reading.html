@@ -1,5 +1,3 @@
-<!-- @dsCard group="Website" viewport="1180x900" name="Reading — CTF writeup" subtitle="Readability-first long-form article page" -->
-<!-- @startingPoint section="Website" subtitle="CYBERKNIGHT writeup reading page" viewport="1180x1000" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,40 +17,47 @@
   /* readability-first: the manga personality stays quiet here */
   .article{max-width:var(--measure);margin:0 auto;padding:var(--sp-10) var(--gutter) var(--sp-20)}
   .kicker{display:flex;align-items:center;gap:12px;margin-bottom:16px}
-  .kicker .k{font-family:var(--font-mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-3)}
-  h1.title{font-family:var(--font-display);font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:.5px;margin:0 0 18px}
-  .byline{display:flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:12px;color:var(--ink-3);padding-bottom:20px;margin-bottom:8px;border-bottom:var(--bw-rule) solid var(--ink)}
-  .byline b{color:var(--ink-2);font-weight:500}
+  .kicker .k{font-family:var(--font-mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--read-ink-3)}
+  h1.title{font-family:var(--font-display);font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:.5px;margin:0 0 18px;color:var(--read-ink)}
+  .byline{display:flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:12px;color:var(--read-ink-3);padding-bottom:20px;margin-bottom:8px;border-bottom:var(--bw-rule) solid var(--read-ink)}
+  .byline b{color:var(--read-ink-2);font-weight:500}
   .tags{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 0}
 
-  .prose{font-family:var(--font-body);font-size:18px;line-height:1.8;color:#2c281d}
-  html[data-theme="dark"] .prose{color:#d8cdb6}
-  .prose h2{font-family:var(--font-body);font-weight:700;font-size:23px;line-height:1.3;margin:38px 0 12px;letter-spacing:-.2px;display:flex;align-items:baseline;gap:10px}
-  .prose h2 .no{font-family:var(--font-display);font-size:16px;color:var(--accent)}
+  .prose{font-family:var(--font-body);font-size:18px;line-height:1.8;color:var(--read-body)}
+  .prose h2{font-family:var(--font-body);font-weight:700;font-size:21px;line-height:1.3;margin:40px 0 12px;letter-spacing:-.2px;padding-top:26px;border-top:1px solid var(--read-rule);color:var(--read-ink);display:flex;align-items:baseline;gap:10px}
+  .prose h1 + h2, .prose .chapter-lead + h2{border-top:none;padding-top:0;margin-top:22px}
+  .prose h2 .no{font-family:var(--font-display);font-size:16px;color:var(--read-accent)}
   .prose p{margin:0 0 18px}
-  .prose a{color:var(--sub);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
-  .prose code{font-family:var(--font-mono);font-size:14px;background:var(--accent-soft);color:var(--accent);padding:1px 5px;border-radius:var(--r-1)}
+  .prose a{color:var(--read-link);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+  .prose code{font-family:var(--font-mono);font-size:14px;background:var(--read-mark);color:var(--read-accent);padding:1px 5px;border-radius:var(--r-1)}
   .prose pre{padding:18px 24px;border-radius:8px;overflow-x:auto;font-family:var(--font-mono);font-size:14.5px;line-height:1.6;margin:28px 0;border:1px solid rgba(255,255,255,0.05)}
   html[data-theme="dark"] .prose pre{border-color:#222}
   .prose pre code{background:transparent;color:inherit;padding:0;border-radius:0;font-size:inherit}
-  .prose h1{font-family:var(--font-display);font-size:32px;line-height:1.2;margin:46px 0 24px;letter-spacing:-0.5px;}
-  .prose h3{font-family:var(--font-body);font-weight:700;font-size:19.5px;line-height:1.4;margin:32px 0 12px;color:var(--ink-2)}
+  .prose h1{font-family:var(--font-display);font-size:30px;line-height:1.2;margin:54px 0 22px;letter-spacing:-0.5px;padding-bottom:14px;border-bottom:var(--bw-heavy) solid var(--read-ink);color:var(--read-ink)}
+  .prose > h1:first-child{margin-top:8px}
+  .prose h1 + .chapter-lead{margin:-14px 0 26px;font-family:var(--font-mono);font-size:13px;line-height:1.65;color:var(--read-ink-3);padding:12px 16px;border-left:var(--bw-heavy) solid var(--read-accent);background:var(--read-mark)}
+  .prose .chapter-lead code{background:transparent;color:var(--read-accent);padding:0}
+  .prose .chapter-lead b, .prose .chapter-lead strong{color:var(--read-accent)}
+  /* ASCII diagrams: force a single uniform monospace so box-drawing + arrows
+     don't fall back to a narrower-width glyph and drift out of column. */
+  .diagram-code .ckn-code pre{font-family:ui-monospace,"DejaVu Sans Mono","Liberation Mono","Cascadia Mono",Menlo,Consolas,monospace !important;font-variant-ligatures:none;letter-spacing:0}
+  .prose h3{font-family:var(--font-body);font-weight:700;font-size:19.5px;line-height:1.4;margin:32px 0 12px;color:var(--read-ink-2)}
   .prose h4{font-family:var(--font-body);font-weight:600;font-size:17.5px;margin:26px 0 10px;}
   .prose ul, .prose ol{margin:0 0 22px;padding-left:26px}
   .prose li{margin-bottom:10px}
   .prose li > p{margin-bottom:10px}
-  .prose img{max-width:100%;height:auto;border-radius:8px;margin:28px 0;display:block;border:1px solid var(--rule)}
-  .prose hr{border:none;border-top:1px dashed var(--rule);margin:46px 0}
+  .prose img{max-width:100%;height:auto;border-radius:8px;margin:28px 0;display:block;border:1px solid var(--read-rule)}
+  .prose hr{border:none;border-top:1px dashed var(--read-rule);margin:46px 0}
   .prose table{width:100%;border-collapse:collapse;margin:28px 0;font-size:16px}
-  .prose th, .prose td{padding:12px 16px;border:1px solid var(--rule);text-align:left}
-  .prose th{background:rgba(0,0,0,0.03);font-weight:600}
+  .prose th, .prose td{padding:12px 16px;border:1px solid var(--read-rule);text-align:left}
+  .prose th{background:rgba(0,0,0,0.03);font-weight:600;color:var(--read-ink)}
   html[data-theme="dark"] .prose th{background:rgba(255,255,255,0.03)}
-  .prose strong{font-weight:700;color:var(--ink)}
-  .prose blockquote{margin:26px 0;padding:6px 0 6px 24px;border-left:var(--bw-heavy) solid var(--accent);font-style:italic;color:var(--ink-2);background:var(--accent-soft);border-radius:0 8px 8px 0;padding-right:24px}
+  .prose strong{font-weight:700;color:var(--read-ink)}
+  .prose blockquote{margin:26px 0;padding:6px 0 6px 24px;border-left:var(--bw-heavy) solid var(--read-accent);font-style:italic;color:var(--read-ink-2);background:var(--read-mark);border-radius:0 8px 8px 0;padding-right:24px}
   .fig{margin:24px 0}
-  .fig .cap{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);margin-top:8px;letter-spacing:.3px}
-  .divider{display:flex;align-items:center;justify-content:center;gap:14px;margin:34px 0;color:var(--ink-3)}
-  .divider::before,.divider::after{content:"";height:1px;width:60px;background:var(--rule)}
+  .fig .cap{font-family:var(--font-mono);font-size:11px;color:var(--read-ink-3);margin-top:8px;letter-spacing:.3px}
+  .divider{display:flex;align-items:center;justify-content:center;gap:14px;margin:34px 0;color:var(--read-ink-3)}
+  .divider::before,.divider::after{content:"";height:1px;width:60px;background:var(--read-rule)}
   .divider .jp{font-family:var(--font-jp);font-weight:800;font-size:15px;letter-spacing:4px}
 
   .topbar{border-bottom:var(--bw-heavy) solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:20}
@@ -63,17 +68,20 @@
   .progress{height:3px;background:var(--accent);width:38%}
 
   /* two-column reading layout: article + sticky TOC */
-  .read-grid{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:56px;padding:var(--sp-10) var(--gutter) var(--sp-20);align-items:start}
-  .read-grid .article{max-width:none;margin:0;padding:0}
-  .toc{position:sticky;top:78px;font-family:var(--font-mono)}
-  .toc .hd{font-size:11px;letter-spacing:2px;color:var(--ink-3);text-transform:uppercase;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--rule)}
+  .read-grid{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:minmax(0,720px) 220px;justify-content:center;gap:60px;padding:var(--sp-10) var(--gutter) var(--sp-20);align-items:start}
+  /* the reading article is a printed page: card sheet on the textured desk */
+  .read-grid .article{max-width:none;margin:0;padding:48px 56px;background:var(--read-sheet);border:var(--bw-rule) solid var(--read-ink);box-shadow:var(--shadow-block-lg)}
+  .toc{position:sticky;top:78px;font-family:var(--font-mono);border:1px solid var(--hair);border-radius:var(--r-1);padding:14px 16px}
+  .toc .hd{font-size:11px;letter-spacing:2px;color:var(--ink-3);text-transform:uppercase;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--hair)}
   .toc ul{list-style:none;margin:0;padding:0}
   .toc li{margin:0 0 11px}
+  .toc li:last-child{margin-bottom:0}
   .toc a{display:block;font-size:12.5px;line-height:1.45;color:var(--ink-3);text-decoration:none;padding-left:13px;border-left:2px solid transparent;transition:color .12s,border-color .12s}
+  .toc a:not(.sub){color:var(--ink-2);font-weight:600;letter-spacing:.3px}
   .toc a:hover{color:var(--ink-2)}
   .toc a.sub{padding-left:27px;font-size:12px}
   .toc a.active{color:var(--accent);border-left-color:var(--accent);font-weight:600}
-  @media(max-width:900px){.read-grid{grid-template-columns:1fr}.toc{display:none}}
+  @media(max-width:900px){.read-grid{grid-template-columns:1fr}.toc{display:none}.read-grid .article{padding:28px 22px}}
 </style>
 </head>
 <body>
@@ -86,33 +94,98 @@
   <script type="text/babel">
     const { Seal, Tag, CodeBlock, Callout, Button } = window.CYBERKNIGHTDesignSystem_302981;
     const Markdown = window.MarkdownToJSX;
-    const POST_CONTENT = "";
-    const { useState, useEffect } = React;
+    const POST_URL = "../../Resource/Research/case-study_idor-graphql-sorare.md";
+    const { useState, useEffect, useRef } = React;
+
+    // strip YAML frontmatter, return {meta, body}
+    function parseFrontmatter(raw){
+      const m = raw.match(/^---\n([\s\S]*?)\n---\n?/);
+      if(!m) return { meta:{}, body:raw };
+      const meta = {};
+      m[1].split("\n").forEach(line=>{
+        const kv = line.match(/^(\w+):\s*(.*)$/);
+        if(!kv) return;
+        let v = kv[2].trim();
+        if(v.startsWith("[")){ try{ v = JSON.parse(v.replace(/'/g,'"')); }catch(e){} }
+        else v = v.replace(/^["']|["']$/g,"");
+        meta[kv[1]] = v;
+      });
+      return { meta, body: raw.slice(m[0].length) };
+    }
+
+    const jpDifficulty = { easy:{jp:"易",en:"EASY",tone:"easy"}, medium:{jp:"中",en:"MED",tone:"mid"}, hard:{jp:"難",en:"HARD",tone:"hard"} };
+
+    // Turn a fenced code block's raw text into CodeBlock `lines` with brand token kinds.
+    function toCodeLines(raw, lang){
+      const text = String(raw == null ? "" : raw).replace(/\n$/, "");
+      return text.split("\n").map(line => {
+        const t = line.trimStart();
+        if(/^\$\s/.test(t))               return { prompt: "$", text: t.slice(2), kind: "green" };
+        if(/^(#|\/\/|--)/.test(t))        return { text: line, kind: "com" };
+        if(/^>\s?/.test(t) && lang!=="graphql") return { text: line, kind: "com" };
+        if(/^\[[+\-!*]\]/.test(t))        return { text: line, kind: "acc" };
+        return { text: line, kind: "" };
+      });
+    }
 
     function Reading(){
       const [theme,setTheme] = useState("light");
-      const [active,setActive] = useState("s-top");
+      const [active,setActive] = useState("");
+      const [post,setPost] = useState({ meta:null, body:"" });
+      const [toc,setToc] = useState([]);
+      const proseRef = useRef(null);
+
       useEffect(()=>{ document.documentElement.setAttribute("data-theme", theme); },[theme]);
-      useEffect(()=>{ if(window.hljs) window.hljs.highlightAll(); },[]);
+
+      // load the writeup
       useEffect(()=>{
-        const heads = Array.from(document.querySelectorAll("[data-toc]"));
+        fetch(POST_URL).then(r=>r.text()).then(raw=>{
+          setPost(parseFrontmatter(raw));
+        }).catch(e=>console.error("post load failed", e));
+      },[]);
+
+      // after render: build TOC from headings (code is rendered by CodeBlock)
+      useEffect(()=>{
+        if(!post.body) return;
+        const heads = Array.from(proseRef.current.querySelectorAll("h1[id], h2[id]"));
+        setToc(heads.map(h=>({ id:h.id, label:h.textContent, sub:h.tagName==="H2" })));
+      },[post.body]);
+
+      // scroll-spy
+      useEffect(()=>{
+        if(!toc.length) return;
+        const els = toc.map(t=>document.getElementById(t.id)).filter(Boolean);
         const io = new IntersectionObserver((entries)=>{
           entries.forEach(e=>{ if(e.isIntersecting) setActive(e.target.id); });
-        }, {rootMargin:"-72px 0px -70% 0px", threshold:0});
-        heads.forEach(h=>io.observe(h));
+        }, {rootMargin:"-80px 0px -70% 0px", threshold:0});
+        els.forEach(h=>io.observe(h));
         return ()=>io.disconnect();
-      },[]);
-      const TOC = [
-        {id:"s-top", label:"Catching root from a deserialize"},
-        {id:"s-01", label:"01 · Reading the endpoint"},
-        {id:"s-02", label:"02 · Building the gadget chain"},
-        {id:"s-03", label:"03 · From write to root"},
-      ];
-      
-      const H1 = ({children, id, ...props}) => <h1 id={id} data-toc="true" {...props}>{children}</h1>;
-      const H2 = ({children, id, ...props}) => <h2 id={id} data-toc="true" {...props}>{children}</h2>;
-      const H3 = ({children, id, ...props}) => <h3 id={id} data-toc="true" {...props}>{children}</h3>;
-      
+      },[toc]);
+
+      const H1 = ({children, id, ...props}) => <h1 id={id} {...props}>{children}</h1>;
+      const H2 = ({children, id, ...props}) => <h2 id={id} {...props}>{children}</h2>;
+      const H3 = ({children, id, ...props}) => <h3 id={id} {...props}>{children}</h3>;
+
+      // fenced code -> branded terminal window
+      const BOX = /[│┌┐└┘├┤┬┴┼─╭╮╯╰┃━┏┓┗┛▲▼◄►◀▶→←↑↓⟶]/;
+      const CodePre = ({children}) => {
+        const codeEl = React.Children.toArray(children)[0];
+        const cls = (codeEl && codeEl.props && codeEl.props.className) || "";
+        const lang = (cls.match(/lang(?:uage)?-([\w-]+)/) || [])[1] || "text";
+        let raw = (codeEl && codeEl.props) ? codeEl.props.children : children;
+        if(Array.isArray(raw)) raw = raw.join("");
+        const isDiagram = BOX.test(String(raw));
+        return (
+          <div className={"fig" + (isDiagram ? " diagram-code" : "")} style={{margin:"28px 0"}}>
+            <CodeBlock lang={isDiagram ? "diagram" : lang} lines={toCodeLines(raw, lang)} />
+          </div>
+        );
+      };
+
+      const meta = post.meta;
+      const diff = meta && jpDifficulty[meta.difficulty] || jpDifficulty.hard;
+      const tags = (meta && Array.isArray(meta.tags)) ? meta.tags : [];
+
       return (
         <div>
           <div className="topbar">
@@ -120,7 +193,7 @@
               <a className="back" href="index.html">← ARCHIVE</a>
               <div className="wm">CYBER<span>KNIGHT</span></div>
               <div style={{marginLeft:"auto",display:"flex",alignItems:"center",gap:"12px"}}>
-                <span style={{fontFamily:"var(--font-mono)",fontSize:"11px",color:"var(--ink-3)"}}>CH.07</span>
+                <span style={{fontFamily:"var(--font-mono)",fontSize:"11px",color:"var(--ink-3)"}}>{meta ? (meta.categoryEn||"RESEARCH") : ""}</span>
                 <button onClick={()=>setTheme(t=>t==="light"?"dark":"light")} style={{fontFamily:"var(--font-mono)",fontSize:"11px",padding:"6px 11px",cursor:"pointer",border:"2px solid var(--ink)",borderRadius:"4px",background:"transparent",color:"var(--ink)"}}>
                   {theme==="dark"?"反転 ON":"反転 OFF"}
                 </button>
@@ -132,25 +205,24 @@
           <div className="read-grid">
           <article className="article">
             <div className="kicker">
-              <Seal jp="連載" en="SERIAL" variant="solid" rotate={-3} />
-              <span className="k">CH.07 · CTF WRITEUP</span>
-              <span style={{marginLeft:"auto"}}><Seal jp="難" en="HARD" tone="hard" /></span>
+              <Seal jp={meta ? (meta.categoryJp||"研究") : "研究"} en={meta ? (meta.categoryEn||"RESEARCH") : "RESEARCH"} variant="solid" rotate={-3} />
+              <span className="k">{meta ? (meta.categoryEn||"RESEARCH") : ""}</span>
+              <span style={{marginLeft:"auto"}}><Seal jp={diff.jp} en={diff.en} tone={diff.tone} /></span>
             </div>
-            <h1 className="title" id="s-top" data-toc>Catching root from a harmless-looking deserialize</h1>
+            <h1 className="title" id="s-top">{meta ? meta.title : "Đang tải…"}</h1>
             <div className="byline">
-              <b>nyx@ckn</b><span style={{opacity:.5}}>·</span><span>2026.06.28</span>
-              <span style={{opacity:.5}}>·</span><span>14 min read</span>
+              <b>{meta ? meta.author : ""}</b><span style={{opacity:.5}}>·</span><span>{meta ? meta.date : ""}</span>
             </div>
             <div className="tags">
-              <Tag>pwn</Tag><Tag>web</Tag><Tag>deserialization</Tag><Tag>php</Tag><Tag>rce</Tag>
+              {tags.map(t=><Tag key={t}>{t}</Tag>)}
             </div>
 
-            <div className="prose" style={{marginTop:"26px"}}>
-              <Markdown options={{ 
-                overrides: { Callout, CodeBlock, Seal, Tag, Button, h1: H1, h2: H2, h3: H3 },
+            <div className="prose" ref={proseRef} style={{marginTop:"26px"}}>
+              <Markdown options={{
+                overrides: { Callout, CodeBlock, Seal, Tag, Button, h1: H1, h2: H2, h3: H3, pre: CodePre },
                 slugify: str => 's-' + encodeURIComponent(str.replace(/\s+/g, '-').toLowerCase())
               }}>
-                {POST_CONTENT}
+                {post.body}
               </Markdown>
               <div className="divider"><span className="jp">完</span></div>
               <div style={{display:"flex",gap:"12px",alignItems:"center"}}>
@@ -163,7 +235,7 @@
           <aside className="toc">
             <div className="hd">Contents · 目次</div>
             <ul>
-              {TOC.map(t=>(
+              {toc.map(t=>(
                 <li key={t.id}><a href={"#"+t.id} className={(t.sub?"sub ":"")+(active===t.id?"active":"")} onClick={()=>setActive(t.id)}>{t.label}</a></li>
               ))}
             </ul>

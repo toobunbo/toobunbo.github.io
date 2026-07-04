@@ -199,7 +199,9 @@ Với nền tảng lý thuyết trên, chúng ta sẽ đi vào phân tích cụ 
 
 ---
 
-# Chương 2 — Case Study: Private Watchlist accessible to unauthenticated users via node(id:) interface - Reward 250 usd - Low security impact
+# Chương 2 — Case Study: IDOR trên Sorare Watchlist
+
+<p class="chapter-lead">Private Watchlist bị truy cập bởi người dùng chưa xác thực qua interface <code>node(id:)</code> — Reward <b>$250</b> · Low security impact</p>
 
 ## 2.1 Mục tiêu — Sorare (HackerOne)
 
