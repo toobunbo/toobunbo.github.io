@@ -8,7 +8,7 @@ categoryJp: "ウェブ"
 difficulty: "easy"
 tags: ["Web", "HTTP"]
 hot: false
-cover: ""
+cover: "../uploads/toobunbo_Thumbwu.png"
 ---
 
 # CheatCodeHTB
