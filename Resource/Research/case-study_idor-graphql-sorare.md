@@ -1,7 +1,7 @@
 ---
 title: "Phân tích lỗ hổng IDOR thực tế — Case Study: Sorare GraphQL"
 description: "Phân tích chi tiết lỗ hổng IDOR trên Sorare qua GraphQL, tìm hiểu cơ sở lý thuyết và case study thực tế."
-author: "admin@ckn"
+author: "toobunbo"
 date: "2026-07-04"
 categoryEn: "RESEARCH"
 categoryJp: "研究"
