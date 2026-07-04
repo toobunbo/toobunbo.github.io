@@ -23,7 +23,7 @@
   .byline b{color:var(--ink-2);font-weight:500}
   .tags{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 0}
 
-  .prose{font-family:var(--font-body);font-size:17px;line-height:1.78;color:#2c281d}
+  .prose{font-family:var(--font-body);font-size:18px;line-height:1.8;color:#2c281d}
   html[data-theme="dark"] .prose{color:#d8cdb6}
   .prose h2{font-family:var(--font-body);font-weight:700;font-size:23px;line-height:1.3;margin:38px 0 12px;letter-spacing:-.2px;display:flex;align-items:baseline;gap:10px}
   .prose h2 .no{font-family:var(--font-display);font-size:16px;color:var(--accent)}
@@ -44,6 +44,19 @@
   .topbar .wm span{color:var(--accent)}
   .topbar .back{font-family:var(--font-mono);font-size:11px;color:var(--ink-2);text-decoration:none;letter-spacing:1px}
   .progress{height:3px;background:var(--accent);width:38%}
+
+  /* two-column reading layout: article + sticky TOC */
+  .read-grid{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:56px;padding:var(--sp-10) var(--gutter) var(--sp-20);align-items:start}
+  .read-grid .article{max-width:none;margin:0;padding:0}
+  .toc{position:sticky;top:78px;font-family:var(--font-mono)}
+  .toc .hd{font-size:11px;letter-spacing:2px;color:var(--ink-3);text-transform:uppercase;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--rule)}
+  .toc ul{list-style:none;margin:0;padding:0}
+  .toc li{margin:0 0 11px}
+  .toc a{display:block;font-size:12.5px;line-height:1.45;color:var(--ink-3);text-decoration:none;padding-left:13px;border-left:2px solid transparent;transition:color .12s,border-color .12s}
+  .toc a:hover{color:var(--ink-2)}
+  .toc a.sub{padding-left:27px;font-size:12px}
+  .toc a.active{color:var(--accent);border-left-color:var(--accent);font-weight:600}
+  @media(max-width:900px){.read-grid{grid-template-columns:1fr}.toc{display:none}}
 </style>
 </head>
 <body>
@@ -58,12 +71,27 @@
 
     function Reading(){
       const [theme,setTheme] = useState("light");
+      const [active,setActive] = useState("s-top");
       useEffect(()=>{ document.documentElement.setAttribute("data-theme", theme); },[theme]);
+      useEffect(()=>{
+        const heads = Array.from(document.querySelectorAll("[data-toc]"));
+        const io = new IntersectionObserver((entries)=>{
+          entries.forEach(e=>{ if(e.isIntersecting) setActive(e.target.id); });
+        }, {rootMargin:"-72px 0px -70% 0px", threshold:0});
+        heads.forEach(h=>io.observe(h));
+        return ()=>io.disconnect();
+      },[]);
+      const TOC = [
+        {id:"s-top", label:"Catching root from a deserialize"},
+        {id:"s-01", label:"01 · Reading the endpoint"},
+        {id:"s-02", label:"02 · Building the gadget chain"},
+        {id:"s-03", label:"03 · From write to root"},
+      ];
       return (
         <div>
           <div className="topbar">
             <div className="inner">
-              <a className="back" href="archive.html">← ARCHIVE</a>
+              <a className="back" href="index.html">← ARCHIVE</a>
               <div className="wm">CYBER<span>KNIGHT</span></div>
               <div style={{marginLeft:"auto",display:"flex",alignItems:"center",gap:"12px"}}>
                 <span style={{fontFamily:"var(--font-mono)",fontSize:"11px",color:"var(--ink-3)"}}>CH.07</span>
@@ -75,13 +103,14 @@
             <div className="progress"></div>
           </div>
 
+          <div className="read-grid">
           <article className="article">
             <div className="kicker">
               <Seal jp="連載" en="SERIAL" variant="solid" rotate={-3} />
               <span className="k">CH.07 · CTF WRITEUP</span>
               <span style={{marginLeft:"auto"}}><Seal jp="難" en="HARD" tone="hard" /></span>
             </div>
-            <h1 className="title">Catching root from a harmless-looking deserialize</h1>
+            <h1 className="title" id="s-top" data-toc>Catching root from a harmless-looking deserialize</h1>
             <div className="byline">
               <b>nyx@ckn</b><span style={{opacity:.5}}>·</span><span>2026.06.28</span>
               <span style={{opacity:.5}}>·</span><span>14 min read</span>
@@ -93,14 +122,14 @@
             <div className="prose" style={{marginTop:"26px"}}>
               <p>Every good writeup starts with a boring endpoint. This one is <code>POST /api/import</code> — it accepts a base64 blob, decodes it, and hands the bytes straight to <code>unserialize()</code>. No allowlist, no signature check. The kind of thing you skim past until you notice what class definitions are on the autoload path.</p>
 
-              <h2><span className="no">01</span>Reading the endpoint</h2>
+              <h2 id="s-01" data-toc><span className="no">01</span>Reading the endpoint</h2>
               <p>The importer is meant to restore a user's saved workspace. In practice it rebuilds arbitrary PHP objects from attacker-controlled input, and several of the app's classes have interesting <code>__destruct</code> and <code>__wakeup</code> methods. That's a POP-chain waiting to happen.</p>
 
               <Callout label="DISCLOSURE" tone="accent" title="Reported &amp; patched">
                 This bug was disclosed privately to the vendor and fixed in v2.4.1 before this writeup was published. Payloads below are trimmed to be non-reproducible against live systems.
               </Callout>
 
-              <h2><span className="no">02</span>Building the gadget chain</h2>
+              <h2 id="s-02" data-toc><span className="no">02</span>Building the gadget chain</h2>
               <p>We chain a cache-writer's <code>__destruct</code> into a template loader's path handling. The writer flushes its buffer to a filename it believes is safe; the loader later <strong>includes</strong> that same path. Point both at one location and object destruction becomes file write becomes code execution.</p>
 
               <div className="fig">
@@ -117,16 +146,26 @@
 
               <blockquote>The whole trick is that the app trusts a filename it computed from data it never should have deserialized.</blockquote>
 
-              <h2><span className="no">03</span>From write to root</h2>
+              <h2 id="s-03" data-toc><span className="no">03</span>From write to root</h2>
               <p>The web user couldn't touch the flag, but the deploy cron ran our dropped file as root a minute later. Patience beats privilege escalation. When the 「難」 seal came down, it was earned.</p>
 
               <div className="divider"><span className="jp">完</span></div>
               <div style={{display:"flex",gap:"12px",alignItems:"center"}}>
-                <Button variant="secondary" as="a" href="archive.html">← Back to archive</Button>
+                <Button variant="secondary" as="a" href="index.html">← Back to archive</Button>
                 <Button variant="primary">Next chapter →</Button>
               </div>
             </div>
           </article>
+
+          <aside className="toc">
+            <div className="hd">Contents · 目次</div>
+            <ul>
+              {TOC.map(t=>(
+                <li key={t.id}><a href={"#"+t.id} className={(t.sub?"sub ":"")+(active===t.id?"active":"")} onClick={()=>setActive(t.id)}>{t.label}</a></li>
+              ))}
+            </ul>
+          </aside>
+          </div>
         </div>
       );
     }

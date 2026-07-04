@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="design_doc_mode" content="canvas">
+<title>CYBERKNIGHT — Scorebar color study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:var(--font-body)}
+  .frame{position:absolute;width:560px;background:var(--paper);background-image:var(--paper-grain);background-size:4px 4px;color:var(--ink);padding:34px 36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+  .badge{position:absolute;top:-52px;left:0;font-family:var(--font-mono)}
+  .badge .id{font-size:20px;font-weight:700;background:var(--accent);color:#fff;padding:3px 11px}
+  .badge .t{font-size:13px;letter-spacing:.3px;color:#3a3628;margin-left:10px}
+
+  .score{background:var(--card);border:var(--bw-heavy) solid var(--ink);box-shadow:var(--shadow-block-lg);padding:24px 26px}
+  .score .hd{display:flex;align-items:baseline;justify-content:space-between;border-bottom:var(--bw-rule) solid var(--ink);padding-bottom:14px;margin-bottom:20px}
+  .score .hd .ttl{font-family:var(--font-display);font-size:26px;letter-spacing:.5px;line-height:1}
+  .score .hd .sub{font-family:var(--font-jp);font-weight:700;font-size:13px;letter-spacing:3px;color:var(--ink-3)}
+  .score .ft{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;margin-top:20px;padding-top:16px;border-top:1px dashed var(--rule);font-family:var(--font-mono);font-size:12.5px}
+  .score .ft .row{display:flex;justify-content:space-between}
+  .score .ft .k{color:var(--ink-3)}
+  .score .ft .v{font-weight:700;color:var(--ink)}
+  .score .ft .v.acc{color:var(--accent)}
+
+  /* halftone bar — color driven by --c per row */
+  .bar{display:grid;grid-template-columns:96px 1fr 44px;gap:14px;align-items:center;margin-bottom:13px;font-family:var(--font-mono)}
+  .bar .lb{font-size:12px;font-weight:600;letter-spacing:1.5px;color:var(--ink-2);display:flex;align-items:center;gap:7px}
+  .bar .lb .dot{width:9px;height:9px;border:1px solid var(--ink);background:var(--c)}
+  .bar .track{height:16px;background:var(--paper-2);border:1.5px solid var(--ink);position:relative;overflow:hidden}
+  .bar .track span{position:absolute;left:0;top:0;bottom:0;background:var(--c);background-image:radial-gradient(rgba(255,255,255,.32) 1px, transparent 1.5px);background-size:6px 6px}
+  .bar .vl{font-family:var(--font-display);font-size:17px;color:var(--ink);text-align:right}
+
+  .note{position:absolute;bottom:-40px;left:0;font-family:var(--font-mono);font-size:12px;color:#4a4636;letter-spacing:.2px;max-width:560px;line-height:1.5}
+</style>
+</head>
+<body>
+
+<!-- REFERENCE: mono vermilion -->
+<section class="frame" id="mono" style="left:120px;top:120px;">
+  <div class="badge"><span class="id">0</span><span class="t">Gốc — một màu chu sa (để đối chiếu)</span></div>
+  <div class="score">
+    <div class="hd"><span class="ttl">攻略記録</span><span class="sub">CAPTURE LOG</span></div>
+    <div class="bar" style="--c:var(--accent)"><span class="lb">WEB</span><span class="track"><span style="width:92%"></span></span><span class="vl">37</span></div>
+    <div class="bar" style="--c:var(--accent)"><span class="lb">PWN</span><span class="track"><span style="width:60%"></span></span><span class="vl">24</span></div>
+    <div class="bar" style="--c:var(--accent)"><span class="lb">CRYPTO</span><span class="track"><span style="width:68%"></span></span><span class="vl">27</span></div>
+    <div class="bar" style="--c:var(--accent)"><span class="lb">FORENSICS</span><span class="track"><span style="width:45%"></span></span><span class="vl">18</span></div>
+    <div class="bar" style="--c:var(--accent)"><span class="lb">OSINT</span><span class="track"><span style="width:33%"></span></span><span class="vl">13</span></div>
+    <div class="bar" style="--c:var(--accent)"><span class="lb">REV</span><span class="track"><span style="width:40%"></span></span><span class="vl">16</span></div>
+    <div class="ft"><div class="row"><span class="k">Writeups</span><span class="v">135</span></div><div class="row"><span class="k">Best</span><span class="v">WEB</span></div><div class="row"><span class="k">Flags</span><span class="v acc">128</span></div><div class="row"><span class="k">CTFs</span><span class="v">37</span></div></div>
+  </div>
+</section>
+
+<!-- OPTION A: washi spot inks (muted traditional) -->
+<section class="frame" id="washi" style="left:760px;top:120px;">
+  <div class="badge"><span class="id">A</span><span class="t">和色 — mực in truyền thống, trầm ấm</span></div>
+  <div class="score">
+    <div class="hd"><span class="ttl">攻略記録</span><span class="sub">CAPTURE LOG</span></div>
+    <div class="bar" style="--c:#B93E2A"><span class="lb"><span class="dot"></span>WEB</span><span class="track"><span style="width:92%"></span></span><span class="vl">37</span></div>
+    <div class="bar" style="--c:#2E5A7A"><span class="lb"><span class="dot"></span>PWN</span><span class="track"><span style="width:60%"></span></span><span class="vl">24</span></div>
+    <div class="bar" style="--c:#5A4A78"><span class="lb"><span class="dot"></span>CRYPTO</span><span class="track"><span style="width:68%"></span></span><span class="vl">27</span></div>
+    <div class="bar" style="--c:#2C6B4A"><span class="lb"><span class="dot"></span>FORENSICS</span><span class="track"><span style="width:45%"></span></span><span class="vl">18</span></div>
+    <div class="bar" style="--c:#B8862F"><span class="lb"><span class="dot"></span>OSINT</span><span class="track"><span style="width:33%"></span></span><span class="vl">13</span></div>
+    <div class="bar" style="--c:#8A5A3C"><span class="lb"><span class="dot"></span>REV</span><span class="track"><span style="width:40%"></span></span><span class="vl">16</span></div>
+    <div class="ft"><div class="row"><span class="k">Writeups</span><span class="v">135</span></div><div class="row"><span class="k">Best</span><span class="v">WEB</span></div><div class="row"><span class="k">Flags</span><span class="v acc">128</span></div><div class="row"><span class="k">CTFs</span><span class="v">37</span></div></div>
+  </div>
+  <div class="note">朱 vermilion · 藍 indigo · 藤 wisteria · 墨緑 pine · 山吹 ochre · 錆 rust — tất cả là "và sắc" (màu nhuộm cổ), desaturated, ngồi trên giấy như in nhiều bản khắc. Không neon, không lạc tông.</div>
+</section>
+
+<!-- OPTION B: two-ink (chu sa + indigo only, tints for rest) -->
+<section class="frame" id="two" style="left:1400px;top:120px;">
+  <div class="badge"><span class="id">B</span><span class="t">2 mực — chu sa + chàm, còn lại là sắc độ mực</span></div>
+  <div class="score">
+    <div class="hd"><span class="ttl">攻略記録</span><span class="sub">CAPTURE LOG</span></div>
+    <div class="bar" style="--c:#B93E2A"><span class="lb"><span class="dot"></span>WEB</span><span class="track"><span style="width:92%"></span></span><span class="vl">37</span></div>
+    <div class="bar" style="--c:#3A3428"><span class="lb"><span class="dot"></span>PWN</span><span class="track"><span style="width:60%"></span></span><span class="vl">24</span></div>
+    <div class="bar" style="--c:#2E5A7A"><span class="lb"><span class="dot"></span>CRYPTO</span><span class="track"><span style="width:68%"></span></span><span class="vl">27</span></div>
+    <div class="bar" style="--c:#6E6350"><span class="lb"><span class="dot"></span>FORENSICS</span><span class="track"><span style="width:45%"></span></span><span class="vl">18</span></div>
+    <div class="bar" style="--c:#B93E2A"><span class="lb"><span class="dot"></span>OSINT</span><span class="track"><span style="width:33%"></span></span><span class="vl">13</span></div>
+    <div class="bar" style="--c:#9C927C"><span class="lb"><span class="dot"></span>REV</span><span class="track"><span style="width:40%"></span></span><span class="vl">16</span></div>
+    <div class="ft"><div class="row"><span class="k">Writeups</span><span class="v">135</span></div><div class="row"><span class="k">Best</span><span class="v">WEB</span></div><div class="row"><span class="k">Flags</span><span class="v acc">128</span></div><div class="row"><span class="k">CTFs</span><span class="v">37</span></div></div>
+  </div>
+  <div class="note">Kỷ luật nhất: chỉ chu sa + chàm là "mực màu", các category khác dùng sắc độ mực đen (đậm→nhạt). Giữ gần như tuyệt đối chất "một trang in 2 màu".</div>
+</section>
+
+</body>
+</html>

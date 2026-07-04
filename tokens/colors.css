@@ -35,6 +35,14 @@
   /* --- 墨緑 sumi-green: CAGED to terminal/code accents only --- */
   --term:         #2C6B4A;
 
+  /* --- category inks (two-ink scheme B: chu sa + indigo, rest are ink tints) --- */
+  --cat-web:       #B93E2A;   /* 朱 chu sa */
+  --cat-pwn:       #3A3428;   /* sumi — dark ink */
+  --cat-crypto:    #2E5A7A;   /* 藍 indigo */
+  --cat-forensics: #6E6350;   /* ink, mid */
+  --cat-osint:     #B93E2A;   /* 朱 chu sa */
+  --cat-rev:       #9C927C;   /* ink, light */
+
   /* --- semantic difficulty seals --- */
   --seal-easy:    #2C6B4A;   /* 易 */
   --seal-mid:     #9A7A24;   /* 中 */

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="design_doc_mode" content="canvas">
+<title>CYBERKNIGHT — Category scorebar options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:var(--font-body)}
+  .frame{position:absolute;width:560px;background:var(--paper);background-image:var(--paper-grain);background-size:4px 4px;color:var(--ink);padding:34px 36px 40px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+  .badge{position:absolute;top:-52px;left:0;font-family:var(--font-mono)}
+  .badge .id{font-size:20px;font-weight:700;background:var(--accent);color:#fff;padding:3px 11px}
+  .badge .t{font-size:13px;letter-spacing:.3px;color:#3a3628;margin-left:10px}
+
+  /* ===== shared card shell (matches the mockup: heavy border + hard shadow) ===== */
+  .score{background:var(--card);border:var(--bw-heavy) solid var(--ink);box-shadow:var(--shadow-block-lg);padding:24px 26px}
+  .score .hd{display:flex;align-items:baseline;justify-content:space-between;border-bottom:var(--bw-rule) solid var(--ink);padding-bottom:14px;margin-bottom:20px}
+  .score .hd .ttl{font-family:var(--font-display);font-size:26px;letter-spacing:.5px;line-height:1}
+  .score .hd .sub{font-family:var(--font-jp);font-weight:700;font-size:13px;letter-spacing:3px;color:var(--ink-3)}
+  .score .ft{display:grid;grid-template-columns:1fr 1fr;gap:6px 24px;margin-top:20px;padding-top:16px;border-top:1px dashed var(--rule);font-family:var(--font-mono);font-size:12.5px}
+  .score .ft .row{display:flex;justify-content:space-between}
+  .score .ft .k{color:var(--ink-3)}
+  .score .ft .v{font-weight:700;color:var(--ink)}
+  .score .ft .v.acc{color:var(--accent)}
+
+  /* ===== OPTION 1 — halftone vermilion bars ===== */
+  .bar1{display:grid;grid-template-columns:88px 1fr 44px;gap:14px;align-items:center;margin-bottom:13px;font-family:var(--font-mono)}
+  .bar1 .lb{font-size:12px;font-weight:600;letter-spacing:1.5px;color:var(--ink-2)}
+  .bar1 .track{height:16px;background:var(--paper-2);border:1.5px solid var(--ink);position:relative;overflow:hidden}
+  .bar1 .track span{position:absolute;left:0;top:0;bottom:0;background:var(--accent);background-image:radial-gradient(rgba(255,255,255,.34) 1px, transparent 1.5px);background-size:6px 6px}
+  .bar1 .vl{font-family:var(--font-display);font-size:17px;color:var(--ink);text-align:right}
+
+  /* ===== OPTION 2 — editorial ink bars, thin, vermilion number ===== */
+  .bar2{display:grid;grid-template-columns:96px 1fr 52px;gap:14px;align-items:center;margin-bottom:15px;font-family:var(--font-mono)}
+  .bar2 .lb{font-size:12px;font-weight:600;letter-spacing:1.5px;color:var(--ink)}
+  .bar2 .lb small{display:block;font-family:var(--font-jp);font-weight:700;font-size:10px;color:var(--ink-3);letter-spacing:1px;margin-top:1px}
+  .bar2 .track{height:9px;background:var(--paper-2);border:1px solid var(--ink);position:relative}
+  .bar2 .track span{position:absolute;left:0;top:-1px;bottom:-1px;background:var(--ink)}
+  .bar2 .track span::after{content:"";position:absolute;right:-1px;top:-3px;bottom:-3px;width:3px;background:var(--accent)}
+  .bar2 .vl{font-family:var(--font-display);font-size:18px;color:var(--accent);text-align:right}
+
+  /* ===== OPTION 3 — tally squares (正-mark ledger) ===== */
+  .bar3{display:grid;grid-template-columns:96px 1fr 40px;gap:14px;align-items:center;margin-bottom:13px;font-family:var(--font-mono)}
+  .bar3 .lb{font-size:12px;font-weight:600;letter-spacing:1.5px;color:var(--ink-2)}
+  .bar3 .cells{display:flex;gap:3px;flex-wrap:wrap}
+  .bar3 .cell{width:12px;height:12px;border:1px solid var(--ink);background:var(--paper-2)}
+  .bar3 .cell.on{background:var(--accent)}
+  .bar3 .vl{font-family:var(--font-display);font-size:17px;color:var(--ink);text-align:right}
+</style>
+</head>
+<body>
+
+<!-- OPTION 1 -->
+<section class="frame" id="opt1" style="left:120px;top:120px;">
+  <div class="badge"><span class="id">1</span><span class="t">Halftone bars — chu sa + chấm bán sắc (sát mẫu nhất)</span></div>
+  <div class="score">
+    <div class="hd"><span class="ttl">攻略記録</span><span class="sub">CAPTURE LOG</span></div>
+    <div class="bar1"><span class="lb">WEB</span><span class="track"><span style="width:92%"></span></span><span class="vl">37</span></div>
+    <div class="bar1"><span class="lb">PWN</span><span class="track"><span style="width:60%"></span></span><span class="vl">24</span></div>
+    <div class="bar1"><span class="lb">CRYPTO</span><span class="track"><span style="width:68%"></span></span><span class="vl">27</span></div>
+    <div class="bar1"><span class="lb">FORENSICS</span><span class="track"><span style="width:45%"></span></span><span class="vl">18</span></div>
+    <div class="bar1"><span class="lb">OSINT</span><span class="track"><span style="width:33%"></span></span><span class="vl">13</span></div>
+    <div class="bar1"><span class="lb">REV</span><span class="track"><span style="width:40%"></span></span><span class="vl">16</span></div>
+    <div class="ft">
+      <div class="row"><span class="k">Writeups</span><span class="v">135</span></div>
+      <div class="row"><span class="k">Best</span><span class="v">WEB</span></div>
+      <div class="row"><span class="k">Flags</span><span class="v acc">128</span></div>
+      <div class="row"><span class="k">CTFs</span><span class="v">37</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- OPTION 2 -->
+<section class="frame" id="opt2" style="left:760px;top:120px;">
+  <div class="badge"><span class="id">2</span><span class="t">Editorial — thanh mực mảnh, số chu sa (chất "sổ in")</span></div>
+  <div class="score">
+    <div class="hd"><span class="ttl">攻略記録</span><span class="sub">CAPTURE LOG</span></div>
+    <div class="bar2"><span class="lb">WEB<small>アクション</small></span><span class="track"><span style="width:92%"></span></span><span class="vl">37</span></div>
+    <div class="bar2"><span class="lb">PWN<small>バトル</small></span><span class="track"><span style="width:60%"></span></span><span class="vl">24</span></div>
+    <div class="bar2"><span class="lb">CRYPTO<small>ミステリー</small></span><span class="track"><span style="width:68%"></span></span><span class="vl">27</span></div>
+    <div class="bar2"><span class="lb">FORENSICS<small>解析</small></span><span class="track"><span style="width:45%"></span></span><span class="vl">18</span></div>
+    <div class="bar2"><span class="lb">OSINT<small>調査</small></span><span class="track"><span style="width:33%"></span></span><span class="vl">13</span></div>
+    <div class="bar2"><span class="lb">REV<small>解読</small></span><span class="track"><span style="width:40%"></span></span><span class="vl">16</span></div>
+    <div class="ft">
+      <div class="row"><span class="k">Writeups</span><span class="v">135</span></div>
+      <div class="row"><span class="k">Best</span><span class="v">WEB</span></div>
+      <div class="row"><span class="k">Flags</span><span class="v acc">128</span></div>
+      <div class="row"><span class="k">CTFs</span><span class="v">37</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- OPTION 3 -->
+<section class="frame" id="opt3" style="left:1400px;top:120px;">
+  <div class="badge"><span class="id">3</span><span class="t">Tally squares — mỗi ô = 1 bài (sổ đếm 正), rất manga</span></div>
+  <div class="score">
+    <div class="hd"><span class="ttl">攻略記録</span><span class="sub">CAPTURE LOG</span></div>
+    <div class="bar3"><span class="lb">WEB</span><span class="cells" data-n="18" data-on="15"></span><span class="vl">37</span></div>
+    <div class="bar3"><span class="lb">PWN</span><span class="cells" data-n="18" data-on="10"></span><span class="vl">24</span></div>
+    <div class="bar3"><span class="lb">CRYPTO</span><span class="cells" data-n="18" data-on="12"></span><span class="vl">27</span></div>
+    <div class="bar3"><span class="lb">FORENSICS</span><span class="cells" data-n="18" data-on="8"></span><span class="vl">18</span></div>
+    <div class="bar3"><span class="lb">OSINT</span><span class="cells" data-n="18" data-on="6"></span><span class="vl">13</span></div>
+    <div class="bar3"><span class="lb">REV</span><span class="cells" data-n="18" data-on="7"></span><span class="vl">16</span></div>
+    <div class="ft">
+      <div class="row"><span class="k">Writeups</span><span class="v">135</span></div>
+      <div class="row"><span class="k">Best</span><span class="v">WEB</span></div>
+      <div class="row"><span class="k">Flags</span><span class="v acc">128</span></div>
+      <div class="row"><span class="k">CTFs</span><span class="v">37</span></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.bar3 .cells').forEach(c=>{
+    const n=+c.dataset.n, on=+c.dataset.on;
+    for(let i=0;i<n;i++){const d=document.createElement('span');d.className='cell'+(i<on?' on':'');c.appendChild(d);}
+  });
+</script>
+</body>
+</html>
