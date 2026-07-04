@@ -114,7 +114,7 @@ async function build() {
 
       // Replace Prose Body
       pageHtml = pageHtml.replace(/<div className="prose"[^>]*>.*?<\/article>/s, 
-        `<div className="prose" style={{marginTop:"26px"}}>${htmlContent}</div></article>`
+        `<div className="prose" style={{marginTop:"26px"}} dangerouslySetInnerHTML={{__html: ${JSON.stringify(htmlContent)}}}></div></article>`
       );
 
       // Replace TOC
@@ -126,6 +126,8 @@ async function build() {
       
       // Fix relative paths for the nested page
       pageHtml = pageHtml.replace(/href="index\.html"/g, 'href="../index.html"');
+      pageHtml = pageHtml.replace(/href="\.\.\/\.\.\/styles\.css"/g, 'href="../styles.css"');
+      pageHtml = pageHtml.replace(/src="\.\.\/\.\.\/_ds_bundle\.js"/g, 'src="../_ds_bundle.js"');
       pageHtml = pageHtml.replace(/href="styles\.css"/g, 'href="../styles.css"');
       pageHtml = pageHtml.replace(/src="_ds_bundle\.js"/g, 'src="../_ds_bundle.js"');
 

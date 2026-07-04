@@ -1,0 +1,352 @@
+<!-- @dsCard group="Website" viewport="1180x760" name="Landing — manga cover" subtitle="Masthead + issue cover hero + archive grid" -->
+<!-- @startingPoint section="Website" subtitle="CYBERKNIGHT landing / issue cover" viewport="1180x900" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBERKNIGHT — Landing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  html,body{margin:0}
+  body{background:var(--paper);background-image:var(--paper-grain);background-size:4px 4px;color:var(--ink);min-height:100vh}
+  a{color:inherit}
+  .foot{border-top:var(--bw-rule) solid var(--ink);margin-top:40px}
+  .foot .inner{max-width:var(--container);margin:0 auto;padding:22px var(--gutter);display:flex;align-items:center;gap:16px;font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:.5px}
+
+  /* ---- archive sections ---- */
+  .arc{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+  .arc-sec{display:flex;align-items:flex-end;gap:14px;border-bottom:var(--bw-heavy) solid var(--ink);padding-bottom:10px;margin-bottom:26px}
+  .arc-sec .kanji{font-family:var(--font-jp);font-weight:800;font-size:34px;letter-spacing:4px;line-height:1}
+  .arc-sec .romaji{font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:3px;color:var(--accent);text-transform:uppercase;padding-bottom:4px}
+  .arc-sec .desc{margin-left:auto;font-family:var(--font-mono);font-size:12px;color:var(--ink-3);padding-bottom:4px}
+  .arc-block2{margin-top:56px}
+
+  .ac-card{position:relative;background:var(--card);border:var(--bw-rule) solid var(--ink);box-shadow:var(--shadow-block);padding:13px;padding-left:16px;transition:transform .1s ease,box-shadow .1s ease;text-decoration:none;color:var(--ink);display:block}
+  .ac-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent)}
+  .ac-card:hover{transform:translate(-3px,-3px);box-shadow:var(--shadow-block-lg)}
+  .ac-card:active{transform:translate(1px,1px);box-shadow:var(--shadow-seal)}
+  .ac-thumb{position:relative;height:172px;border:var(--bw-rule) solid var(--ink);overflow:hidden;background:#221E17;background-image:linear-gradient(to bottom, rgba(20,17,12,0) 55%, var(--card) 100%),radial-gradient(rgba(245,238,223,.28) 1.1px, transparent 1.5px);background-size:auto,7px 7px}
+  .ac-chip{position:absolute;top:11px;left:11px;font-family:var(--font-jp);font-weight:800;font-size:13px;letter-spacing:2px;background:var(--accent);color:#fff;padding:5px 9px 4px;display:inline-flex;align-items:center;gap:6px;box-shadow:var(--shadow-seal)}
+  .ac-chip small{font-family:var(--font-mono);font-weight:600;font-size:9.5px;letter-spacing:1px}
+  .ac-chip.ink{background:var(--ink)}
+  .ac-kmark{position:absolute;right:12px;top:10px;font-family:var(--font-jp);font-weight:800;font-size:50px;color:rgba(245,238,223,.10);writing-mode:vertical-rl;letter-spacing:4px;line-height:1}
+  .ac-hanko{position:absolute;right:11px;bottom:12px;font-family:var(--font-jp);font-weight:800;font-size:14px;letter-spacing:2px;padding:5px 8px 4px;border:2px solid var(--seal-hard);color:var(--seal-hard);background:var(--card);display:inline-flex;flex-direction:column;align-items:center;line-height:1}
+  .ac-hanko small{font-family:var(--font-mono);font-weight:400;font-size:7px;letter-spacing:1px;margin-top:2px;opacity:.8}
+  .ac-hanko.mid{border-color:var(--seal-mid);color:var(--seal-mid)}
+  .ac-hanko.easy{border-color:var(--seal-easy);color:var(--seal-easy)}
+  .ac-body{padding:15px 5px 5px}
+  .ac-body h3{font-family:var(--font-body);font-weight:700;font-size:20px;margin:0 0 6px;letter-spacing:-.2px;line-height:1.22}
+  .ac-meta{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-3);margin-bottom:13px}
+  .ac-cat{display:flex;align-items:center;gap:8px;margin-bottom:15px}
+  .ac-cat .bar{width:4px;height:14px;background:var(--accent)}
+  .ac-cat .en{font-family:var(--font-mono);font-size:11.5px;font-weight:600;letter-spacing:2px;color:var(--ink)}
+  .ac-cat .jp{font-family:var(--font-jp);font-weight:700;font-size:11.5px;color:var(--ink-3);letter-spacing:2px}
+  .ac-foot{font-family:var(--font-mono);font-size:11.5px;font-weight:600;letter-spacing:1px;color:var(--accent);display:flex;align-items:center;gap:8px}
+  .ac-foot .arw{transition:transform .16s ease}
+  .ac-card:hover .ac-foot .arw{transform:translateX(4px)}
+  .arc-grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  /* blog: one per row, centered banner card (image on top) */
+  .arc-stack{display:flex;flex-direction:column;gap:26px}
+  .arc-stack .ac-thumb{height:200px}
+  .arc-stack .ac-body{padding:16px 8px 4px}
+  .arc-stack .ac-body h3{font-size:23px;margin-bottom:7px}
+  .ac-excerpt{font-family:var(--font-body);font-size:14.5px;line-height:1.55;color:var(--ink-2);margin:0 0 14px;max-width:70ch}
+  .ctf-split{display:grid;grid-template-columns:11fr 9fr;gap:28px;align-items:start}
+  .ctf-split>*{min-width:0}
+  /* scorebar (category capture log, two-ink) */
+  .score{background:var(--card);border:var(--bw-heavy) solid var(--ink);box-shadow:var(--shadow-block-lg);padding:16px 18px}
+  .score .shd{display:flex;align-items:baseline;justify-content:space-between;border-bottom:var(--bw-rule) solid var(--ink);padding-bottom:9px;margin-bottom:13px}
+  .score .shd .ttl{font-family:var(--font-jp);font-weight:800;font-size:18px;letter-spacing:2px;line-height:1}
+  .score .shd .sub{font-family:var(--font-mono);font-size:9px;letter-spacing:2px;color:var(--ink-3)}
+  .sbar{display:grid;grid-template-columns:74px 1fr 26px;gap:9px;align-items:center;margin-bottom:8px;font-family:var(--font-mono)}
+  .sbar .lb{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:600;letter-spacing:1px;color:var(--ink-2)}
+  .sbar .lb .dot{width:8px;height:8px;border:1px solid var(--ink);background:var(--c);flex:none}
+  .sbar .track{height:11px;background:var(--paper-2);border:1px solid var(--ink);position:relative;overflow:hidden}
+  .sbar .track span{position:absolute;left:0;top:0;bottom:0;background:var(--c);background-image:radial-gradient(rgba(255,255,255,.30) 1px, transparent 1.5px);background-size:5px 5px}
+  .sbar .vl{font-family:var(--font-display);font-size:14px;color:var(--ink);text-align:right}
+  .score .sft{display:flex;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px dashed var(--rule);font-family:var(--font-mono);font-size:11px}
+  .score .sft .k{color:var(--ink-3)}
+  .score .sft .v{font-weight:700;color:var(--ink)}
+  .score .sft .v.acc{color:var(--accent)}
+
+  /* ===== landing cover (first viewport, scrolls into archive) ===== */
+  .cover{position:relative;height:100vh;min-height:600px;overflow:hidden;background:var(--paper);background-image:var(--paper-grain);background-size:4px 4px}
+  .cov-storyboard{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .cov-sb-mark{position:absolute;font-family:var(--font-jp);font-weight:800;color:var(--ink);opacity:.04;writing-mode:vertical-rl;letter-spacing:8px;line-height:1}
+  .cov-sb-panel{position:absolute;border:1px solid var(--ink);opacity:.05;background:repeating-linear-gradient(-45deg,transparent 0 13px,var(--ink) 13px 13.6px)}
+  .cov-mascot{position:absolute;right:-16px;bottom:0;height:100%;z-index:1;mix-blend-mode:multiply;pointer-events:none;filter:drop-shadow(8px 8px 0 rgba(30,27,22,.08))}
+  html[data-theme="dark"] .cov-mascot{mix-blend-mode:screen;filter:drop-shadow(8px 8px 0 rgba(0,0,0,.3))}
+  .cov-shell{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;padding:26px var(--gutter)}
+  .cov-nav{display:flex;align-items:center;gap:22px}
+  .cov-nav .corner{font-family:var(--font-mono);font-size:11px;letter-spacing:2px;color:var(--ink-3);text-transform:uppercase}
+  .cov-nav .links{margin-left:auto;display:flex;gap:22px}
+  .cov-nav a{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:1.5px;color:var(--ink-2);text-decoration:none;position:relative;padding-bottom:3px;cursor:pointer;transition:color .12s ease}
+  .cov-nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--accent);transition:right .16s ease}
+  .cov-nav a:hover{color:var(--ink)}
+  .cov-nav a:hover::after{right:0}
+  .cov-hero{flex:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(28px,5vh,46px);max-width:640px}
+  .cov-kanji-sub{font-family:var(--font-jp);font-weight:700;font-size:14px;letter-spacing:12px;color:var(--ink-3);margin-bottom:8px;padding-left:10px}
+  .cov-wordmark{font-family:var(--font-display);font-size:clamp(56px,9vw,104px);line-height:.88;letter-spacing:2px}
+  .cov-wordmark .k{color:var(--accent)}
+  .cov-index{max-width:430px}
+  .cov-index-head{display:flex;align-items:center;gap:10px;border-bottom:var(--bw-heavy) solid var(--ink);padding-bottom:8px;margin-bottom:2px}
+  .cov-index-head .en{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:3px;color:var(--ink-2)}
+  .cov-index-head .jp{font-family:var(--font-jp);font-weight:700;font-size:12px;letter-spacing:4px;color:var(--ink-3)}
+  .cov-index-head .n{margin-left:auto;font-family:var(--font-mono);font-size:11px;color:var(--ink-3)}
+  .cov-entry{display:flex;align-items:center;gap:18px;padding:15px 6px 15px 4px;border-bottom:var(--bw-rule) solid var(--ink);text-decoration:none;color:var(--ink);cursor:pointer;transition:padding-left .16s ease,background .12s ease}
+  .cov-entry:hover{padding-left:16px;background:var(--accent-soft)}
+  .cov-entry .no{font-family:var(--font-display);font-size:25px;color:var(--accent);line-height:1;letter-spacing:1px;flex:none;width:64px}
+  .cov-entry .no small{font-family:var(--font-jp);font-weight:700;font-size:12px;color:var(--ink-3);display:block;letter-spacing:2px;margin-top:3px}
+  .cov-entry h3{font-family:var(--font-body);font-weight:700;font-size:22px;margin:0;letter-spacing:-.2px}
+  .cov-entry .jp{font-family:var(--font-jp);font-weight:700;font-size:12px;letter-spacing:4px;color:var(--ink-3);margin-top:3px}
+  .cov-entry .arw{margin-left:auto;font-family:var(--font-mono);font-size:20px;color:var(--accent);transition:transform .16s ease}
+  .cov-entry:hover .arw{transform:translateX(6px)}
+  .cov-scroll{position:absolute;left:50%;bottom:20px;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:none;cursor:pointer;font-family:var(--font-mono);font-size:11px;letter-spacing:2px;color:var(--ink-3)}
+  .cov-scroll .ar{font-size:16px;animation:covbob 1.6s ease-in-out infinite}
+  @keyframes covbob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+  .cov-footjp{position:absolute;left:var(--gutter);bottom:22px;z-index:3;font-family:var(--font-mono);font-size:11px;letter-spacing:1px;color:var(--ink-3)}
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+  <script src="../../_ds_bundle.js"></script>
+  <script type="text/babel">
+    const { Seal, Tag, Button } = window.CYBERKNIGHTDesignSystem_302981;
+    const { useState, useEffect } = React;
+
+    /* ---- Masthead ---- */
+    function Masthead({ theme, onToggleTheme }){
+      const nav = ["ARCHIVE","CTF","BUG BOUNTY","RESEARCH","ABOUT"];
+      return (
+        <header style={{borderBottom:"var(--bw-heavy) solid var(--ink)",background:"var(--paper)",position:"sticky",top:0,zIndex:20}}>
+          <div style={{maxWidth:"var(--container)",margin:"0 auto",padding:"12px var(--gutter)",display:"flex",alignItems:"center",gap:"20px"}}>
+            <div style={{display:"flex",alignItems:"baseline",gap:"10px",cursor:"pointer"}} onClick={()=>window.scrollTo({top:0,behavior:"smooth"})}>
+              <span style={{fontFamily:"var(--font-display)",fontSize:"26px",letterSpacing:"1px",lineHeight:1}}>CYBER<span style={{color:"var(--accent)"}}>KNIGHT</span></span>
+              <span style={{fontFamily:"var(--font-jp)",fontWeight:700,fontSize:"12px",letterSpacing:"3px",color:"var(--ink-3)"}}>部</span>
+            </div>
+            <nav style={{display:"flex",gap:"18px",marginLeft:"8px"}}>
+              {nav.map(n=>(<a key={n} href="#" style={{fontFamily:"var(--font-mono)",fontSize:"11.5px",fontWeight:500,letterSpacing:"1px",color:"var(--ink-2)",textDecoration:"none"}}>{n}</a>))}
+            </nav>
+            <div style={{marginLeft:"auto",display:"flex",alignItems:"center",gap:"12px"}}>
+              <span style={{fontFamily:"var(--font-mono)",fontSize:"11px",color:"var(--ink-3)"}}>ISSUE&nbsp;#42</span>
+              <button onClick={onToggleTheme} style={{fontFamily:"var(--font-mono)",fontSize:"11px",letterSpacing:".5px",padding:"6px 11px",cursor:"pointer",border:"var(--bw-rule) solid var(--ink)",borderRadius:"var(--r-2)",background:"transparent",color:"var(--ink)"}}>{theme==="dark"?"反転 ON":"反転 OFF"}</button>
+            </div>
+          </div>
+        </header>
+      );
+    }
+
+    const HERO = {
+      tagJp: "論説",
+      tagEn: "BLOG",
+      kicker: "BLOG · RESEARCH",
+      titleHtml: "Phân tích lỗ hổng IDOR thực tế — Case Study: Sorare GraphQL",
+      desc: "Phân tích chi tiết lỗ hổng IDOR trên Sorare qua GraphQL, tìm hiểu cơ sở lý thuyết và case study thực tế.",
+      tags: ["bug bounty","idor","graphql"],
+      href: "blog/case-study_idor-graphql-sorare.html",
+      meta: "admin@ckn · 2026-07-04",
+      vol: "VOL.01",
+      sealJp: "難",
+      sealEn: "HARD",
+      sealTone: "hard",
+      cover: "assets/blogVip.jpg"
+    };
+
+    /* ---- CoverHero ---- */
+    function CoverHero(){
+      return (
+        <section style={{maxWidth:"var(--container)",margin:"0 auto",padding:"var(--sp-12) var(--gutter) var(--sp-10)",display:"grid",gridTemplateColumns:"1.5fr 1fr",gap:"var(--sp-10)",alignItems:"center"}}>
+          <div>
+            <div style={{display:"flex",alignItems:"center",gap:"12px",marginBottom:"18px"}}>
+              <Seal jp={HERO.tagJp} en={HERO.tagEn} variant="solid" />
+              <span style={{fontFamily:"var(--font-mono)",fontSize:"12px",letterSpacing:"2px",color:"var(--ink-3)",textTransform:"uppercase"}}>{HERO.kicker}</span>
+            </div>
+            <h1 style={{fontFamily:"var(--font-display)",fontSize:"var(--fs-display)",lineHeight:1.02,letterSpacing:"1px",margin:"0 0 18px"}} dangerouslySetInnerHTML={{__html: HERO.titleHtml}}></h1>
+            <p style={{fontFamily:"var(--font-body)",fontSize:"17px",lineHeight:1.7,color:"var(--ink-2)",maxWidth:"48ch",margin:"0 0 22px"}}>{HERO.desc}</p>
+            <div style={{display:"flex",gap:"6px",flexWrap:"wrap",marginBottom:"24px"}}>
+              {HERO.tags.map(t => <Tag key={t}>{t}</Tag>)}
+            </div>
+            <div style={{display:"flex",gap:"12px",alignItems:"center"}}>
+              <Button variant="primary" size="lg" as="a" href={HERO.href}>Read chapter</Button>
+              <span style={{fontFamily:"var(--font-mono)",fontSize:"12px",color:"var(--ink-3)"}}>{HERO.meta}</span>
+            </div>
+          </div>
+          <div style={{position:"relative",border:"var(--bw-rule) solid var(--ink)",background:"var(--card)",boxShadow:"var(--shadow-block-lg)",aspectRatio:"3/4",overflow:"hidden"}}>
+            <div style={{position:"absolute",inset:0,backgroundImage:"repeating-linear-gradient(-45deg, transparent 0 11px, rgba(30,27,22,0.05) 11px 12px)"}} />
+            {HERO.cover && <img src={HERO.cover} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover"}} alt="Cover" />}
+            <div style={{position:"absolute",top:"14px",left:"14px",fontFamily:"var(--font-mono)",fontSize:"11px",letterSpacing:"2px",color:"var(--ink-3)"}}>{HERO.vol}</div>
+            <div style={{position:"absolute",top:"12px",right:"12px"}}><Seal jp={HERO.sealJp} en={HERO.sealEn} tone={HERO.sealTone} size="lg" /></div>
+            {!HERO.cover && <div style={{position:"absolute",left:0,right:0,bottom:0,top:"20%",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"var(--font-jp)",fontWeight:800,fontSize:"clamp(70px,11vw,120px)",color:"var(--ink)",lineHeight:.9,letterSpacing:"6px",writingMode:"vertical-rl"}}>電脳騎士</div>}
+            <div style={{position:"absolute",left:"14px",bottom:"14px",fontFamily:"var(--font-display)",fontSize:"20px",color:"var(--accent)",letterSpacing:"1px"}}>CYBERKNIGHT</div>
+          </div>
+        </section>
+      );
+    }
+
+    /* ---- shared card frame ---- */
+    function Card({chip, chipInk, kmark, hanko, title, meta, catEn, catJp, foot, excerpt, href}){
+      return (
+        <a className="ac-card" href={href}>
+          <div className="ac-thumb">
+            <span className={"ac-chip"+(chipInk?" ink":"")}>{chip.jp}<small>{chip.en}</small></span>
+            <span className="ac-kmark">{kmark}</span>
+            {hanko && <span className={"ac-hanko "+(hanko.tone||"")}>{hanko.jp}<small>{hanko.en}</small></span>}
+          </div>
+          <div className="ac-body">
+            <h3>{title}</h3>
+            <div className="ac-meta">{meta}</div>
+            {excerpt && <p className="ac-excerpt">{excerpt}</p>}
+            <div className="ac-cat"><span className="bar"></span><span className="en">{catEn}</span><span className="jp">{catJp}</span></div>
+            <div className="ac-foot">{foot}<span className="arw">→</span></div>
+          </div>
+        </a>
+      );
+    }
+
+    const BLOG = [
+{chip:{jp:"論説",en:"BLOG"},chipInk:true,title:"Phân tích lỗ hổng IDOR thực tế — Case Study: Sorare GraphQL",meta:"admin@ckn · 2026-07-04",excerpt:"Phân tích chi tiết lỗ hổng IDOR trên Sorare qua GraphQL, tìm hiểu cơ sở lý thuyết và case study thực tế.",catEn:"RESEARCH",catJp:"研究",foot:"đọc tiếp ", href: "blog/case-study_idor-graphql-sorare.html"}
+];
+    const BOARD = [
+      {n:"12",chal:"Escaping the Jailed Shell",cat:"WEB",d:"難",dc:"hard"},
+      {n:"11",chal:"Padding Oracle, Slowly",cat:"CRYPTO",d:"中",dc:"mid"},
+      {n:"10",chal:"One Byte to Rule ret2libc",cat:"PWN",d:"難",dc:"hard"},
+      {n:"09",chal:"Carving the Corrupted PCAP",cat:"FORENSICS",d:"中",dc:"mid"},
+      {n:"08",chal:"Ghost in the Metadata",cat:"OSINT",d:"易",dc:"easy"},
+      {n:"07",chal:"SSTI via welcome mail",cat:"WEB",d:"易",dc:"easy"},
+      {n:"06",chal:"Blind SQLi speedrun",cat:"WEB",d:"中",dc:"mid"},
+    ];
+    const CATS = [
+  {
+    "lb": "WEB",
+    "v": 37,
+    "pct": 92,
+    "c": "var(--cat-web)"
+  },
+  {
+    "lb": "PWN",
+    "v": 24,
+    "pct": 60,
+    "c": "var(--cat-pwn)"
+  },
+  {
+    "lb": "CRYPTO",
+    "v": 27,
+    "pct": 68,
+    "c": "var(--cat-crypto)"
+  },
+  {
+    "lb": "FORENSICS",
+    "v": 18,
+    "pct": 45,
+    "c": "var(--cat-forensics)"
+  },
+  {
+    "lb": "OSINT",
+    "v": 13,
+    "pct": 33,
+    "c": "var(--cat-osint)"
+  },
+  {
+    "lb": "REV",
+    "v": 16,
+    "pct": 40,
+    "c": "var(--cat-rev)"
+  }
+];
+    function ArchiveGrid(){
+      return (
+        <section className="arc" style={{paddingBottom:"var(--sp-16)"}}>
+          <div className="arc-sec"><span className="kanji">論説</span><span className="romaji">Ronsetsu · Blog</span><span className="desc">Bài viết chuyên ngành — thành viên</span></div>
+          <div className="arc-stack">{BLOG.map((b,i)=><Card key={i} {...b} />)}</div>
+
+          <div className="arc-sec arc-block2"><span className="kanji">連載</span><span className="romaji">Renzai · CTF Writeups</span><span className="desc">Featured + bảng check challenges</span></div>
+          <div className="ctf-split">
+            <Card chip={{jp:"連載",en:"CH.X"}} hanko={{jp:"難",en:"HARD",tone:"hard"}} title="Test Writeup" meta="bot@ckn · PWN" catEn="PWN" catJp="攻性" foot="READ " href="writeup/test.html" />
+            <div className="score">
+              <div className="shd"><span className="ttl">攻略記録</span><span className="sub">CAPTURE LOG</span></div>
+              {CATS.map(c=>(
+                <div className="sbar" key={c.lb} style={{"--c":c.c}}>
+                  <span className="lb"><span className="dot"></span>{c.lb}</span>
+                  <span className="track"><span style={{width:c.pct+"%"}}></span></span>
+                  <span className="vl">{c.v}</span>
+                </div>
+              ))}
+              <div className="sft">
+                <span className="k">攻略 <span className="v acc">128</span> flags</span>
+                <span className="k">最強 <span className="v">WEB</span></span>
+                <span className="k">評価 <span className="v acc">S</span></span>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function LandingCover({onToggleTheme, theme}){
+      const toArchive = ()=>{ const el=document.getElementById("archive"); if(el) window.scrollTo({top:el.offsetTop, behavior:"smooth"}); };
+      return (
+        <section className="cover">
+          <div className="cov-storyboard">
+            <div className="cov-sb-panel" style={{top:"9%",left:"3%",width:"180px",height:"135px",transform:"rotate(-2deg)"}}></div>
+            <div className="cov-sb-panel" style={{bottom:"9%",left:"6%",width:"150px",height:"120px",transform:"rotate(1.5deg)"}}></div>
+            <div className="cov-sb-mark" style={{top:"12%",left:"34%",fontSize:"88px"}}>攻性思考</div>
+            <div className="cov-sb-mark" style={{bottom:"8%",left:"8%",fontSize:"88px"}}>騎士道</div>
+          </div>
+          <img className="cov-mascot" src="../../assets/knight-mascot.png" alt="CYBERKNIGHT mascot" />
+          <div className="cov-shell">
+            <div className="cov-nav">
+              <span className="corner">規律の中の自由</span>
+              <span className="links">
+                <a onClick={toArchive}>ARCHIVE</a>
+                <a href="#">RESEARCH</a>
+              </span>
+            </div>
+            <div className="cov-hero">
+              <div>
+                <div className="cov-kanji-sub">サイバーナイト</div>
+                <div className="cov-wordmark">CYBER<br/><span className="k">KNIGHT</span></div>
+              </div>
+              <div className="cov-index">
+                <div className="cov-index-head"><span className="en">INDEX</span><span className="jp">目次</span><span className="n">02</span></div>
+                <a className="cov-entry" href="#"><span className="no">01<small>序章</small></span><div><h3>About</h3><div className="jp">部について</div></div><span className="arw">→</span></a>
+                <a className="cov-entry" href="#"><span className="no">02<small>部員</small></span><div><h3>Team Member</h3><div className="jp">部員紹介</div></div><span className="arw">→</span></a>
+              </div>
+            </div>
+          </div>
+          <span className="cov-footjp">連載中 · ink on paper</span>
+          <button className="cov-scroll" onClick={toArchive}>連載を読む<span className="ar">↓</span></button>
+        </section>
+      );
+    }
+
+    function App(){
+      const [theme,setTheme] = useState("light");
+      useEffect(()=>{ document.documentElement.setAttribute("data-theme", theme); },[theme]);
+      const toggle = ()=>setTheme(t=>t==="light"?"dark":"light");
+      return (
+        <div>
+          <LandingCover theme={theme} onToggleTheme={toggle} />
+          <div id="archive">
+            <Masthead theme={theme} onToggleTheme={toggle} />
+            <CoverHero />
+            <ArchiveGrid />
+            <footer className="foot"><div className="inner">
+              <span style={{fontFamily:"var(--font-display)",fontSize:"16px"}}>CYBER<span style={{color:"var(--accent)"}}>KNIGHT</span></span>
+              <span>連載中 · a club drawing its own manga</span>
+              <span style={{marginLeft:"auto"}}>© 2026 · ink on paper</span>
+            </div></footer>
+          </div>
+        </div>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+  </script>
+</body>
+</html>

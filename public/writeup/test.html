@@ -1,0 +1,134 @@
+<!-- @dsCard group="Website" viewport="1180x900" name="Reading — CTF writeup" subtitle="Readability-first long-form article page" -->
+<!-- @startingPoint section="Website" subtitle="CYBERKNIGHT writeup reading page" viewport="1180x1000" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBERKNIGHT — Writeup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=Shippori+Mincho:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<style>
+  html,body{margin:0}
+  body{background:var(--paper);background-image:var(--paper-grain);background-size:4px 4px;color:var(--ink)}
+
+  /* readability-first: the manga personality stays quiet here */
+  .article{max-width:var(--measure);margin:0 auto;padding:var(--sp-10) var(--gutter) var(--sp-20)}
+  .kicker{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .kicker .k{font-family:var(--font-mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-3)}
+  h1.title{font-family:var(--font-display);font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:.5px;margin:0 0 18px}
+  .byline{display:flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:12px;color:var(--ink-3);padding-bottom:20px;margin-bottom:8px;border-bottom:var(--bw-rule) solid var(--ink)}
+  .byline b{color:var(--ink-2);font-weight:500}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 0}
+
+  .prose{font-family:var(--font-body);font-size:18px;line-height:1.8;color:#2c281d}
+  html[data-theme="dark"] .prose{color:#d8cdb6}
+  .prose h2{font-family:var(--font-body);font-weight:700;font-size:23px;line-height:1.3;margin:38px 0 12px;letter-spacing:-.2px;display:flex;align-items:baseline;gap:10px}
+  .prose h2 .no{font-family:var(--font-display);font-size:16px;color:var(--accent)}
+  .prose p{margin:0 0 18px}
+  .prose a{color:var(--sub);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+  .prose code{font-family:var(--font-mono);font-size:14px;background:var(--accent-soft);color:var(--accent);padding:1px 5px;border-radius:var(--r-1)}
+  .prose strong{font-weight:700;color:var(--ink)}
+  .prose blockquote{margin:22px 0;padding:4px 0 4px 20px;border-left:var(--bw-heavy) solid var(--accent);font-style:italic;color:var(--ink-2)}
+  .fig{margin:24px 0}
+  .fig .cap{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);margin-top:8px;letter-spacing:.3px}
+  .divider{display:flex;align-items:center;justify-content:center;gap:14px;margin:34px 0;color:var(--ink-3)}
+  .divider::before,.divider::after{content:"";height:1px;width:60px;background:var(--rule)}
+  .divider .jp{font-family:var(--font-jp);font-weight:800;font-size:15px;letter-spacing:4px}
+
+  .topbar{border-bottom:var(--bw-heavy) solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:20}
+  .topbar .inner{max-width:var(--container);margin:0 auto;padding:12px var(--gutter);display:flex;align-items:center;gap:16px}
+  .topbar .wm{font-family:var(--font-display);font-size:22px;letter-spacing:1px}
+  .topbar .wm span{color:var(--accent)}
+  .topbar .back{font-family:var(--font-mono);font-size:11px;color:var(--ink-2);text-decoration:none;letter-spacing:1px}
+  .progress{height:3px;background:var(--accent);width:38%}
+
+  /* two-column reading layout: article + sticky TOC */
+  .read-grid{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:56px;padding:var(--sp-10) var(--gutter) var(--sp-20);align-items:start}
+  .read-grid .article{max-width:none;margin:0;padding:0}
+  .toc{position:sticky;top:78px;font-family:var(--font-mono)}
+  .toc .hd{font-size:11px;letter-spacing:2px;color:var(--ink-3);text-transform:uppercase;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--rule)}
+  .toc ul{list-style:none;margin:0;padding:0}
+  .toc li{margin:0 0 11px}
+  .toc a{display:block;font-size:12.5px;line-height:1.45;color:var(--ink-3);text-decoration:none;padding-left:13px;border-left:2px solid transparent;transition:color .12s,border-color .12s}
+  .toc a:hover{color:var(--ink-2)}
+  .toc a.sub{padding-left:27px;font-size:12px}
+  .toc a.active{color:var(--accent);border-left-color:var(--accent);font-weight:600}
+  @media(max-width:900px){.read-grid{grid-template-columns:1fr}.toc{display:none}}
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+  <script src="../_ds_bundle.js"></script>
+  <script type="text/babel">
+    const { Seal, Tag, CodeBlock, Callout, Button } = window.CYBERKNIGHTDesignSystem_302981;
+    const { useState, useEffect } = React;
+
+    function Reading(){
+      const [theme,setTheme] = useState("light");
+      const [active,setActive] = useState("s-top");
+      useEffect(()=>{ document.documentElement.setAttribute("data-theme", theme); },[theme]);
+      useEffect(()=>{
+        const heads = Array.from(document.querySelectorAll("[data-toc]"));
+        const io = new IntersectionObserver((entries)=>{
+          entries.forEach(e=>{ if(e.isIntersecting) setActive(e.target.id); });
+        }, {rootMargin:"-72px 0px -70% 0px", threshold:0});
+        heads.forEach(h=>io.observe(h));
+        return ()=>io.disconnect();
+      },[]);
+      const TOC = [
+{id:"s-top", label:"Test Writeup"},
+{id:"s-32", label:"Welcome to the test", sub:false}
+];
+      return (
+        <div>
+          <div className="topbar">
+            <div className="inner">
+              <a className="back" href="../index.html">← ARCHIVE</a>
+              <div className="wm">CYBER<span>KNIGHT</span></div>
+              <div style={{marginLeft:"auto",display:"flex",alignItems:"center",gap:"12px"}}>
+                <span style={{fontFamily:"var(--font-mono)",fontSize:"11px",color:"var(--ink-3)"}}>CH.07</span>
+                <button onClick={()=>setTheme(t=>t==="light"?"dark":"light")} style={{fontFamily:"var(--font-mono)",fontSize:"11px",padding:"6px 11px",cursor:"pointer",border:"2px solid var(--ink)",borderRadius:"4px",background:"transparent",color:"var(--ink)"}}>
+                  {theme==="dark"?"反転 ON":"反転 OFF"}
+                </button>
+              </div>
+            </div>
+            <div className="progress"></div>
+          </div>
+
+          <div className="read-grid">
+          <article className="article">
+            <div className="kicker">
+              <Seal jp="連載" en="SERIAL" variant="solid" rotate={-3} />
+              <span className="k">CH.07 · CTF WRITEUP</span>
+              <span style={{marginLeft:"auto"}}><Seal jp="難" en="HARD" tone="hard" /></span>
+            </div>
+            <h1 className="title" id="s-top" data-toc>Test Writeup</h1>
+            <div className="byline">
+          <b>bot@ckn</b><span style={{opacity:.5}}>·</span><span>2026-07-04</span>
+        </div>
+            <div className="tags"><Tag>pwn</Tag><Tag>test</Tag></div>
+
+            <div className="prose" style={{marginTop:"26px"}} dangerouslySetInnerHTML={{__html: "<h2 id=\"s-32\" data-toc>Welcome to the test</h2>\n<p>This is a <strong>markdown</strong> test.</p>\n<pre><code class=\"language-python\">print(&quot;Hello World&quot;)\n</code></pre>\n"}}></div></article>
+
+          <aside className="toc">
+            <div className="hd">Contents · 目次</div>
+            <ul>
+              {TOC.map(t=>(
+                <li key={t.id}><a href={"#"+t.id} className={(t.sub?"sub ":"")+(active===t.id?"active":"")} onClick={()=>setActive(t.id)}>{t.label}</a></li>
+              ))}
+            </ul>
+          </aside>
+          </div>
+        </div>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById("root")).render(<Reading/>);
+  </script>
+</body>
+</html>
