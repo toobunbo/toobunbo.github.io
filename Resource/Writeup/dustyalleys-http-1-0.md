@@ -15,9 +15,8 @@ cover: "../uploads/toobunbo_Thumbwu.png"
 ## Dusty Alleys - HTTP 1.0 so stupid
 ### Solution
 
-- Server config /alley và /think `listen 80 default_server;
-        server_name alley.$SECRET_ALLEY;` nhưng chỉ có ` server_name guardian.$SECRET_ALLEY;` cho `/guardian`
-=> Ta cần `$SECRET_ALLAY` để truy cập endpoint /guardian ~~nơi chứa SSRF~~
+- Server config `/alley` và `/think` có `listen 80 default_server; server_name alley.$SECRET_ALLEY;` nhưng chỉ có `server_name guardian.$SECRET_ALLEY;` cho `/guardian`
+=> Ta cần `$SECRET_ALLAY` để truy cập endpoint `/guardian` ~~nơi chứa SSRF~~
 ```config
 server {
         listen 80 default_server;
@@ -65,12 +64,12 @@ router.get("/think", async (req, res) => {
   return res.json(req.headers);
 });
 
-\\Exam response
+// Exam response
 {
    "host":"94.237.48.147",
    "x-real-ip":"10.30.18.144",
    "x-forwarded-for":"10.30.18.144",
-   "x-forwarded-for:"http",
+   "x-forwarded-proto":"http",
    "connection":"close",
    "accept-language":"en-US,en;q=0.9",
    "upgrade-insecure-requests":"1",
@@ -80,8 +79,8 @@ router.get("/think", async (req, res) => {
    "if-none-match":"W/\"1ff-LedyLfO3NsGXjDLDeEoUwvsCLx8\""
 }
 ```
-- Ta có thể thấy `"x-real-ip", "x-forwarded-for" và "x-forwarded-for" không hề có trong request mà ta gửi. Có thể suy ra được các header này được Proxy thêm vào trong quá trình gửi request
--  Vậy `proxy_set_header Host $host` thì sao, ta có sẵn Host trong header nên /think trả về "host":"94.237.48.147". Vậy nếu ta không truyền "Host", hoặc Host rỗng thì sao? ~~thì Bad Reuqest :)))~~
+- Ta có thể thấy `"x-real-ip"`, `"x-forwarded-for"` và `"x-forwarded-proto"` không hề có trong request mà ta gửi. Có thể suy ra được các header này được Proxy thêm vào trong quá trình gửi request.
+- Vậy `proxy_set_header Host $host` thì sao, ta có sẵn Host trong header nên `/think` trả về `"host":"94.237.48.147"`. Vậy nếu ta không truyền `Host`, hoặc `Host` rỗng thì sao? ~~thì Bad Request :)))~~
 
 ```
 curl -H "Host:" http://94.237.48.147:49291/think
