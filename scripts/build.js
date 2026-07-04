@@ -96,9 +96,9 @@ async function build() {
       const tagsHtml = (attr.tags || ['ctf']).map(t => `<Tag>${t}</Tag>`).join('');
       pageHtml = pageHtml.replace(/<div className="tags">.*?<\/div>/s, `<div className="tags">${tagsHtml}</div>`);
 
-      // Inject Markdown into RAW_POST
-      pageHtml = pageHtml.replace(/const RAW_POST = "";/s, 
-        `const RAW_POST = ${JSON.stringify(content)};`
+      // Inject Markdown into post-md script tag
+      pageHtml = pageHtml.replace(/<script type="text\/plain" id="post-md">.*?<\/script>/s, 
+        `<script type="text/plain" id="post-md">\n${content.replace(/\\/g, '\\\\').replace(/\$/g, '$$$$')}\n</script>`
       );
 
       // Replace TOC
