@@ -1,0 +1,15 @@
+{
+  "cats": [
+    { "lb": "WEB", "v": 37, "pct": 92, "c": "var(--cat-web)" },
+    { "lb": "PWN", "v": 24, "pct": 60, "c": "var(--cat-pwn)" },
+    { "lb": "CRYPTO", "v": 27, "pct": 68, "c": "var(--cat-crypto)" },
+    { "lb": "FORENSICS", "v": 18, "pct": 45, "c": "var(--cat-forensics)" },
+    { "lb": "OSINT", "v": 13, "pct": 33, "c": "var(--cat-osint)" },
+    { "lb": "REV", "v": 16, "pct": 40, "c": "var(--cat-rev)" }
+  ],
+  "stats": {
+    "flags": 128,
+    "best": "WEB",
+    "rank": "S"
+  }
+}

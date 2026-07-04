@@ -1,0 +1,16 @@
+{
+  "name": "webcb9v2",
+  "version": "1.0.0",
+  "description": "> 電脳騎士部 — a Cybersecurity club that publishes its CTF writeups, bug-bounty reports, and security research as a **hand-drawn manga it draws itself**. This design system dresses a real technical blog as a printed manga volume.",
+  "main": "_ds_bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "front-matter": "^4.0.2",
+    "marked": "^18.0.5"
+  }
+}

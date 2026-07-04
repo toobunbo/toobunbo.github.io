@@ -1,0 +1,187 @@
+const fs = require('fs');
+const path = require('path');
+const fm = require('front-matter');
+const { marked } = require('marked');
+
+// Configure marked
+marked.setOptions({
+  gfm: true,
+  breaks: true
+});
+
+function walkDir(dir) {
+  let results = [];
+  const list = fs.readdirSync(dir);
+  list.forEach(file => {
+    const filePath = path.join(dir, file);
+    const stat = fs.statSync(filePath);
+    if (stat && stat.isDirectory()) {
+      results = results.concat(walkDir(filePath));
+    } else {
+      if (filePath.endsWith('.md')) results.push(filePath);
+    }
+  });
+  return results;
+}
+
+function extractHeadings(html) {
+  const headings = [];
+  const regex = /<h([1-6])[^>]*id="([^"]+)"[^>]*>(.*?)<\/h\1>/gi;
+  let match;
+  while ((match = regex.exec(html)) !== null) {
+    headings.push({
+      level: parseInt(match[1]),
+      id: match[2],
+      text: match[3].replace(/<[^>]+>/g, '') // strip inner html
+    });
+  }
+  return headings;
+}
+
+async function build() {
+  const publicDir = path.join(__dirname, '../public');
+  if (!fs.existsSync(publicDir)) {
+    console.error("public directory not found. Make sure deploy.yml copies files first.");
+    process.exit(1);
+  }
+
+  // 1. Parse Markdown files
+  const resourceDir = path.join(__dirname, '../Resource');
+  const mdFiles = fs.existsSync(resourceDir) ? walkDir(resourceDir) : [];
+  
+  const posts = [];
+  
+  // Prepare marked to add IDs to headings automatically
+  const renderer = new marked.Renderer();
+  let headingCount = 0;
+  renderer.heading = function({text, depth}) {
+    headingCount++;
+    const id = `s-${headingCount}`;
+    // Add data-toc attribute and id for the reading.html observer
+    return `<h${depth} id="${id}" data-toc>${text}</h${depth}>\n`;
+  };
+  marked.use({ renderer });
+
+  const readingTemplatePath = path.join(publicDir, 'reading.html');
+  let readingTemplate = fs.existsSync(readingTemplatePath) ? fs.readFileSync(readingTemplatePath, 'utf8') : '';
+
+  for (const file of mdFiles) {
+    const content = fs.readFileSync(file, 'utf8');
+    const parsed = fm(content);
+    const htmlContent = marked.parse(parsed.body);
+    const headings = extractHeadings(htmlContent);
+    
+    // Create TOC array for React
+    const tocArray = headings.map(h => {
+      return `{id:"${h.id}", label:"${h.text}", sub:${h.level > 2}}`;
+    }).join(',');
+
+    const attr = parsed.attributes;
+    const isBlog = file.includes('Research');
+    const slug = path.basename(file, '.md');
+    
+    posts.push({
+      slug,
+      isBlog,
+      title: attr.title || 'Untitled',
+      description: attr.description || '',
+      date: attr.date || '2026.01.01',
+      author: attr.author || 'admin@ckn',
+      categoryEn: attr.categoryEn || 'WEB',
+      categoryJp: attr.categoryJp || 'アクション',
+      difficulty: attr.difficulty || 'mid', // easy, mid, hard
+      tags: attr.tags || ['ctf']
+    });
+
+    if (readingTemplate) {
+      let pageHtml = readingTemplate;
+      
+      // Replace Title
+      pageHtml = pageHtml.replace(/<h1 className="title"[^>]*>.*?<\/h1>/s, `<h1 className="title" id="s-top" data-toc>${attr.title || 'Untitled'}</h1>`);
+      
+      // Replace Byline
+      pageHtml = pageHtml.replace(/<div className="byline">.*?<\/div>/s, 
+        `<div className="byline">
+          <b>${attr.author || 'admin@ckn'}</b><span style={{opacity:.5}}>·</span><span>${attr.date || '2026.01.01'}</span>
+        </div>`
+      );
+
+      // Replace Tags
+      const tagsHtml = (attr.tags || ['ctf']).map(t => `<Tag>${t}</Tag>`).join('');
+      pageHtml = pageHtml.replace(/<div className="tags">.*?<\/div>/s, `<div className="tags">${tagsHtml}</div>`);
+
+      // Replace Prose Body
+      pageHtml = pageHtml.replace(/<div className="prose"[^>]*>.*?<\/article>/s, 
+        `<div className="prose" style={{marginTop:"26px"}}>${htmlContent}</div></article>`
+      );
+
+      // Replace TOC
+      pageHtml = pageHtml.replace(/const TOC = \[.*?\];/s, `const TOC = [\n{id:"s-top", label:"${attr.title || 'Untitled'}"},\n${tocArray}\n];`);
+
+      // Create directories if needed
+      const outDir = path.join(publicDir, isBlog ? 'blog' : 'writeup');
+      if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
+      
+      // Fix relative paths for the nested page
+      pageHtml = pageHtml.replace(/href="index\.html"/g, 'href="../index.html"');
+      pageHtml = pageHtml.replace(/href="styles\.css"/g, 'href="../styles.css"');
+      pageHtml = pageHtml.replace(/src="_ds_bundle\.js"/g, 'src="../_ds_bundle.js"');
+
+      fs.writeFileSync(path.join(outDir, `${slug}.html`), pageHtml);
+    }
+  }
+
+  // 2. Update index.html
+  const indexPath = path.join(publicDir, 'index.html');
+  if (fs.existsSync(indexPath)) {
+    let indexHtml = fs.readFileSync(indexPath, 'utf8');
+
+    // Generate BLOG array
+    const blogPosts = posts.filter(p => p.isBlog);
+    const blogArrayStr = blogPosts.map(p => {
+      return `{chip:{jp:"論説",en:"BLOG"},chipInk:true,title:"${p.title}",meta:"${p.author} · ${p.date}",excerpt:"${p.description}",catEn:"${p.categoryEn}",catJp:"${p.categoryJp}",foot:"đọc tiếp ", href: "blog/${p.slug}.html"}`;
+    }).join(',\n');
+    
+    // Generate WRITEUP array
+    const writeupPosts = posts.filter(p => !p.isBlog);
+    const writeupArrayStr = writeupPosts.map(p => {
+      let d = "中";
+      if (p.difficulty === 'hard') d = "難";
+      if (p.difficulty === 'easy') d = "易";
+      
+      return `<Card chip={{jp:"連載",en:"CH.X"}} hanko={{jp:"${d}",en:"${p.difficulty.toUpperCase()}",tone:"${p.difficulty}"}} title="${p.title}" meta="${p.author} · ${p.categoryEn}" catEn="${p.categoryEn}" catJp="${p.categoryJp}" foot="READ " href="writeup/${p.slug}.html" />`;
+    }).join('\n');
+
+    if (blogArrayStr) {
+      indexHtml = indexHtml.replace(/const BLOG = \[.*?\];/s, `const BLOG = [\n${blogArrayStr}\n];`);
+    }
+
+    if (writeupArrayStr) {
+      // Find the ctf-split section and replace the Card there
+      indexHtml = indexHtml.replace(/<Card chip=\{\{jp:"連載"[^>]*\/>/s, writeupArrayStr);
+    }
+
+    // 3. Update Checklist
+    const checklistPath = path.join(__dirname, '../Resource/checklist.json');
+    if (fs.existsSync(checklistPath)) {
+      const cl = JSON.parse(fs.readFileSync(checklistPath, 'utf8'));
+      const catsArray = JSON.stringify(cl.cats, null, 2);
+      indexHtml = indexHtml.replace(/const CATS = \[.*?\];/s, `const CATS = ${catsArray};`);
+      
+      // Update stats
+      indexHtml = indexHtml.replace(/<span className="v acc">\d+<\/span> flags/g, `<span className="v acc">${cl.stats.flags}</span> flags`);
+      indexHtml = indexHtml.replace(/最強 <span className="v">.*?<\/span>/g, `最強 <span className="v">${cl.stats.best}</span>`);
+      indexHtml = indexHtml.replace(/評価 <span className="v acc">.*?<\/span>/g, `評価 <span className="v acc">${cl.stats.rank}</span>`);
+    }
+    
+    // IMPORTANT: Make the Card component accept href
+    indexHtml = indexHtml.replace(/function Card\(\{([^}]+)\}\)\{/s, `function Card({$1, href}){`);
+    indexHtml = indexHtml.replace(/<a className="ac-card">/s, `<a className="ac-card" href={href}>`);
+
+    fs.writeFileSync(indexPath, indexHtml);
+  }
+  
+  console.log("Build script completed successfully!");
+}
+
+build().catch(console.error);
