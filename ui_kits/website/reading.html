@@ -94,7 +94,7 @@
   <script type="text/babel">
     const { Seal, Tag, CodeBlock, Callout, Button } = window.CYBERKNIGHTDesignSystem_302981;
     const Markdown = window.MarkdownToJSX;
-    const POST_URL = "../../Resource/Research/case-study_idor-graphql-sorare.md";
+    const RAW_POST = "";
     const { useState, useEffect, useRef } = React;
 
     // strip YAML frontmatter, return {meta, body}
@@ -139,9 +139,9 @@
 
       // load the writeup
       useEffect(()=>{
-        fetch(POST_URL).then(r=>r.text()).then(raw=>{
-          setPost(parseFrontmatter(raw));
-        }).catch(e=>console.error("post load failed", e));
+        if (RAW_POST) {
+          setPost(parseFrontmatter(RAW_POST));
+        }
       },[]);
 
       // after render: build TOC from headings (code is rendered by CodeBlock)
@@ -149,6 +149,15 @@
         if(!post.body) return;
         const heads = Array.from(proseRef.current.querySelectorAll("h1[id], h2[id]"));
         setToc(heads.map(h=>({ id:h.id, label:h.textContent, sub:h.tagName==="H2" })));
+
+        // apply syntax highlighting
+        if (window.hljs) {
+          proseRef.current.querySelectorAll('pre code').forEach((block) => {
+             if (!block.closest('.ckn-code')) {
+               window.hljs.highlightElement(block);
+             }
+          });
+        }
       },[post.body]);
 
       // scroll-spy
@@ -175,10 +184,17 @@
         let raw = (codeEl && codeEl.props) ? codeEl.props.children : children;
         if(Array.isArray(raw)) raw = raw.join("");
         const isDiagram = BOX.test(String(raw));
+        
+        if (isDiagram) {
+          return (
+            <div className={"fig diagram-code"} style={{margin:"28px 0"}}>
+              <CodeBlock lang="diagram" lines={toCodeLines(raw, lang)} />
+            </div>
+          );
+        }
+        
         return (
-          <div className={"fig" + (isDiagram ? " diagram-code" : "")} style={{margin:"28px 0"}}>
-            <CodeBlock lang={isDiagram ? "diagram" : lang} lines={toCodeLines(raw, lang)} />
-          </div>
+          <pre><code className={`language-${lang}`}>{raw}</code></pre>
         );
       };
 
