@@ -93,6 +93,13 @@
   --seal-mid:     #D8B24E;
   --seal-hard:    #E85E44;
 
+  --cat-web:       #E85E44;
+  --cat-pwn:       #ECE2CF;
+  --cat-crypto:    #6E96C4;
+  --cat-forensics: #9C927C;
+  --cat-osint:     #E85E44;
+  --cat-rev:       #6E6552;
+
   --code-bg:      #0F0D08;
   --code-fg:      #E7DCC6;
   --code-com:     #6E6552;
