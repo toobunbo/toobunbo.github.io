@@ -150,13 +150,6 @@ async function build() {
       const firstWriteup = makeWriteupCard(writeupPosts[0]);
       // Find the ctf-split section and replace the Card there
       indexHtml = indexHtml.replace(/<Card chip=\{\{jp:"連載"[^>]*\/>/s, firstWriteup);
-
-      // If there are more writeups, we inject them below ctf-split
-      if (writeupPosts.length > 1) {
-        const restWriteups = writeupPosts.slice(1).map(makeWriteupCard).join('\n');
-        const restWriteupsHtml = `\n<div className="arc-stack" style={{marginTop: "var(--sp-12)"}}>\n${restWriteups}\n</div>`;
-        indexHtml = indexHtml.replace(/(<div className="ctf-split">.*?<\/div>\s*<\/div>)/s, `$1${restWriteupsHtml}`);
-      }
     }
     
     // Generate HERO object
