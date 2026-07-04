@@ -191,10 +191,6 @@ async function build() {
       indexHtml = indexHtml.replace(/評価 <span className="v acc">.*?<\/span>/g, `評価 <span className="v acc">${cl.stats.rank}</span>`);
     }
     
-    // IMPORTANT: Make the Card component accept href
-    indexHtml = indexHtml.replace(/function Card\(\{([^}]+)\}\)\{/s, `function Card({$1, href}){`);
-    indexHtml = indexHtml.replace(/<a className="ac-card">/s, `<a className="ac-card" href={href}>`);
-
     fs.writeFileSync(indexPath, indexHtml);
   }
   

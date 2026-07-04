@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.29.7",
+    "@babel/preset-react": "^7.29.7",
     "front-matter": "^4.0.2",
     "markdown-to-jsx": "^9.8.2"
   }
