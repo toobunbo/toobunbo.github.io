@@ -19,7 +19,7 @@ function walkDir(dir) {
 
 function extractHeadings(markdown) {
   const headings = [];
-  const regex = /^(#{1,6})\s+(.+)$/gm;
+  const regex = /^(#{1,2})\s+(.+)$/gm;
   let match;
   while ((match = regex.exec(markdown)) !== null) {
     const text = match[2].trim();
