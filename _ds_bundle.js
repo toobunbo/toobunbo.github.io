@@ -1,8 +1,8 @@
-/* @ds-bundle: {"format":4,"namespace":"CYBERKNIGHTDesignSystem_302981","components":[{"name":"Button","sourcePath":"components/core/Button.jsx"},{"name":"Callout","sourcePath":"components/core/Callout.jsx"},{"name":"ChapterCard","sourcePath":"components/core/ChapterCard.jsx"},{"name":"CodeBlock","sourcePath":"components/core/CodeBlock.jsx"},{"name":"Seal","sourcePath":"components/core/Seal.jsx"},{"name":"Tag","sourcePath":"components/core/Tag.jsx"}],"sourceHashes":{"components/core/Button.jsx":"4ef73b9d23aa","components/core/Callout.jsx":"d96d2e2abab0","components/core/ChapterCard.jsx":"44495a51df5a","components/core/CodeBlock.jsx":"67a44de340d8","components/core/Seal.jsx":"35905875ec47","components/core/Tag.jsx":"a4d84637a962"},"inlinedExternals":[],"unexposedExports":[]} */
+/* @ds-bundle: {"format":4,"namespace":"CyberKnightDesignSystem_d28fd5","components":[{"name":"Button","sourcePath":"components/core/Button.jsx"},{"name":"Callout","sourcePath":"components/core/Callout.jsx"},{"name":"ChapterCard","sourcePath":"components/core/ChapterCard.jsx"},{"name":"CodeBlock","sourcePath":"components/core/CodeBlock.jsx"},{"name":"Seal","sourcePath":"components/core/Seal.jsx"},{"name":"Tag","sourcePath":"components/core/Tag.jsx"}],"sourceHashes":{"components/core/Button.jsx":"4ef73b9d23aa","components/core/Callout.jsx":"d96d2e2abab0","components/core/ChapterCard.jsx":"44495a51df5a","components/core/CodeBlock.jsx":"67a44de340d8","components/core/Seal.jsx":"35905875ec47","components/core/Tag.jsx":"a4d84637a962"},"inlinedExternals":[],"unexposedExports":[]} */
 
 (() => {
 
-const __ds_ns = (window.CYBERKNIGHTDesignSystem_302981 = window.CYBERKNIGHTDesignSystem_302981 || {});
+const __ds_ns = (window.CyberKnightDesignSystem_d28fd5 = window.CyberKnightDesignSystem_d28fd5 || {});
 
 const __ds_scope = {};
 
