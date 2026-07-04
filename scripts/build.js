@@ -127,7 +127,7 @@ async function build() {
     // Generate BLOG array
     const blogPosts = posts.filter(p => p.isBlog);
     const blogArrayStr = blogPosts.map(p => {
-      return `{chip:{jp:"論説",en:"BLOG"},chipInk:true,title:"${p.title}",meta:"${p.author} · ${p.date}",excerpt:"${p.description}",catEn:"${p.categoryEn}",catJp:"${p.categoryJp}",foot:"đọc tiếp ", href: "blog/${p.slug}.html"}`;
+      return `{chip:{jp:"論説",en:"BLOG"},chipInk:true,title:"${p.title}",meta:"${p.author} · ${p.date}",excerpt:"${p.description}",catEn:"${p.categoryEn}",catJp:"${p.categoryJp}",foot:"đọc tiếp ", href: "blog/${p.slug}.html", cover:"${p.cover}"}`;
     }).join(',\n');
     
     // Generate WRITEUP array

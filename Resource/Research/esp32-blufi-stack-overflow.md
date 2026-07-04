@@ -8,7 +8,7 @@ categoryJp: "研究"
 difficulty: "hard"
 tags: ["IoT", "ESP32", "Buffer Overflow"]
 hot: false
-cover: ""
+cover: "../uploads/Poeency_Thumnail.jpg"
 ---
 
 # Phân Tích Lỗ Hổng Tràn Bộ Đệm (Buffer Overflow) Trên Giao Thức ESP32 BluFi
