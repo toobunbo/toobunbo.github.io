@@ -134,21 +134,29 @@ async function build() {
     
     // Generate WRITEUP array
     const writeupPosts = posts.filter(p => !p.isBlog && p !== hotPost);
-    const writeupArrayStr = writeupPosts.map(p => {
+    
+    function makeWriteupCard(p) {
       let d = "中";
       if (p.difficulty === 'hard') d = "難";
       if (p.difficulty === 'easy') d = "易";
-      
-      return `<Card chip={{jp:"連載",en:"CH.X"}} hanko={{jp:"${d}",en:"${p.difficulty.toUpperCase()}",tone:"${p.difficulty}"}} title="${p.title}" author="${p.author}" meta="@${p.author} · ${p.categoryEn}" catEn="${p.categoryEn}" catJp="${p.categoryJp}" foot="READ " href="writeup/${p.slug}.html" />`;
-    }).join('\n');
+      return `<Card chip={{jp:"連載",en:"CH.X"}} hanko={{jp:"${d}",en:"${p.difficulty.toUpperCase()}",tone:"${p.difficulty}"}} title="${p.title}" author="${p.author}" meta="@${p.author} · ${p.categoryEn}" catEn="${p.categoryEn}" catJp="${p.categoryJp}" foot="READ " href="writeup/${p.slug}.html" cover="${p.cover}" />`;
+    }
 
     if (blogArrayStr) {
       indexHtml = indexHtml.replace(/const BLOG = \[.*?\];/s, `const BLOG = [\n${blogArrayStr}\n];`);
     }
 
-    if (writeupArrayStr) {
+    if (writeupPosts.length > 0) {
+      const firstWriteup = makeWriteupCard(writeupPosts[0]);
       // Find the ctf-split section and replace the Card there
-      indexHtml = indexHtml.replace(/<Card chip=\{\{jp:"連載"[^>]*\/>/s, writeupArrayStr);
+      indexHtml = indexHtml.replace(/<Card chip=\{\{jp:"連載"[^>]*\/>/s, firstWriteup);
+
+      // If there are more writeups, we inject them below ctf-split
+      if (writeupPosts.length > 1) {
+        const restWriteups = writeupPosts.slice(1).map(makeWriteupCard).join('\n');
+        const restWriteupsHtml = `\n<div className="arc-stack" style={{marginTop: "var(--sp-12)"}}>\n${restWriteups}\n</div>`;
+        indexHtml = indexHtml.replace(/(<div className="ctf-split">.*?<\/div>\s*<\/div>)/s, `$1${restWriteupsHtml}`);
+      }
     }
     
     // Generate HERO object
