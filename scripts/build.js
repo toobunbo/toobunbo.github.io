@@ -1,13 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const fm = require('front-matter');
-const { marked } = require('marked');
-
-// Configure marked
-marked.setOptions({
-  gfm: true,
-  breaks: true
-});
 
 function walkDir(dir) {
   let results = [];
@@ -24,15 +17,18 @@ function walkDir(dir) {
   return results;
 }
 
-function extractHeadings(html) {
+function extractHeadings(markdown) {
   const headings = [];
-  const regex = /<h([1-6])[^>]*id="([^"]+)"[^>]*>(.*?)<\/h\1>/gi;
+  const regex = /^(#{1,6})\s+(.+)$/gm;
   let match;
-  while ((match = regex.exec(html)) !== null) {
+  while ((match = regex.exec(markdown)) !== null) {
+    const text = match[2].trim();
+    // Replicate our custom slugify in reading.html
+    const id = 's-' + encodeURIComponent(text.replace(/\s+/g, '-').toLowerCase());
     headings.push({
-      level: parseInt(match[1]),
-      id: match[2],
-      text: match[3].replace(/<[^>]+>/g, '') // strip inner html
+      level: match[1].length,
+      id: id,
+      text: text
     });
   }
   return headings;
@@ -50,17 +46,6 @@ async function build() {
   const mdFiles = fs.existsSync(resourceDir) ? walkDir(resourceDir) : [];
   
   const posts = [];
-  
-  // Prepare marked to add IDs to headings automatically
-  const renderer = new marked.Renderer();
-  let headingCount = 0;
-  renderer.heading = function({text, depth}) {
-    headingCount++;
-    const id = `s-${headingCount}`;
-    // Add data-toc attribute and id for the reading.html observer
-    return `<h${depth} id="${id}" data-toc>${text}</h${depth}>\n`;
-  };
-  marked.use({ renderer });
 
   const readingTemplatePath = path.join(publicDir, 'reading.html');
   let readingTemplate = fs.existsSync(readingTemplatePath) ? fs.readFileSync(readingTemplatePath, 'utf8') : '';
@@ -68,8 +53,7 @@ async function build() {
   for (const file of mdFiles) {
     const content = fs.readFileSync(file, 'utf8');
     const parsed = fm(content);
-    const htmlContent = marked.parse(parsed.body);
-    const headings = extractHeadings(htmlContent);
+    const headings = extractHeadings(parsed.body);
     
     // Create TOC array for React
     const tocArray = headings.map(h => {
@@ -112,9 +96,9 @@ async function build() {
       const tagsHtml = (attr.tags || ['ctf']).map(t => `<Tag>${t}</Tag>`).join('');
       pageHtml = pageHtml.replace(/<div className="tags">.*?<\/div>/s, `<div className="tags">${tagsHtml}</div>`);
 
-      // Replace Prose Body
-      pageHtml = pageHtml.replace(/<div className="prose"[^>]*>.*?<\/article>/s, 
-        `<div className="prose" style={{marginTop:"26px"}} dangerouslySetInnerHTML={{__html: ${JSON.stringify(htmlContent)}}}></div></article>`
+      // Inject Markdown into POST_CONTENT
+      pageHtml = pageHtml.replace(/const POST_CONTENT = "";/s, 
+        `const POST_CONTENT = ${JSON.stringify(parsed.body)};`
       );
 
       // Replace TOC

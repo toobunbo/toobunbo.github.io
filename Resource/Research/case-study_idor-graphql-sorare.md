@@ -296,9 +296,9 @@ Dưới đây là chuỗi tấn công hoàn chỉnh từ đầu đến cuối:
 └─────────────────────────────────────────────────────────────┘
 ```
 
-> **Điểm mấu chốt:** UUID được thu thập ở bước [2] — khi watchlist còn public. Sau khi victim đổi sang private, UUID đó vẫn còn hiệu lực với `node(id:)`. Victim không có cách nào biết UUID đã bị lưu lại.
-
----
+<Callout label="LƯU Ý" tone="accent" title="Điểm mấu chốt">
+**Điểm mấu chốt:** UUID được thu thập ở bước [2] — khi watchlist còn public. Sau khi victim đổi sang private, UUID đó vẫn còn hiệu lực với `node(id:)`. Victim không có cách nào biết UUID đã bị lưu lại.
+</Callout>
 
 ## 2.4 Steps to Reproduce
 

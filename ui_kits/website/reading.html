@@ -65,8 +65,11 @@
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
   <script src="../../_ds_bundle.js"></script>
+  <script src="https://unpkg.com/markdown-to-jsx@7.5.0/dist/index.umd.js"></script>
   <script type="text/babel">
     const { Seal, Tag, CodeBlock, Callout, Button } = window.CYBERKNIGHTDesignSystem_302981;
+    const Markdown = window.MarkdownToJSX;
+    const POST_CONTENT = "";
     const { useState, useEffect } = React;
 
     function Reading(){
@@ -87,6 +90,11 @@
         {id:"s-02", label:"02 · Building the gadget chain"},
         {id:"s-03", label:"03 · From write to root"},
       ];
+      
+      const H1 = ({children, id, ...props}) => <h1 id={id} data-toc="true" {...props}>{children}</h1>;
+      const H2 = ({children, id, ...props}) => <h2 id={id} data-toc="true" {...props}>{children}</h2>;
+      const H3 = ({children, id, ...props}) => <h3 id={id} data-toc="true" {...props}>{children}</h3>;
+      
       return (
         <div>
           <div className="topbar">
@@ -120,35 +128,12 @@
             </div>
 
             <div className="prose" style={{marginTop:"26px"}}>
-              <p>Every good writeup starts with a boring endpoint. This one is <code>POST /api/import</code> — it accepts a base64 blob, decodes it, and hands the bytes straight to <code>unserialize()</code>. No allowlist, no signature check. The kind of thing you skim past until you notice what class definitions are on the autoload path.</p>
-
-              <h2 id="s-01" data-toc><span className="no">01</span>Reading the endpoint</h2>
-              <p>The importer is meant to restore a user's saved workspace. In practice it rebuilds arbitrary PHP objects from attacker-controlled input, and several of the app's classes have interesting <code>__destruct</code> and <code>__wakeup</code> methods. That's a POP-chain waiting to happen.</p>
-
-              <Callout label="DISCLOSURE" tone="accent" title="Reported &amp; patched">
-                This bug was disclosed privately to the vendor and fixed in v2.4.1 before this writeup was published. Payloads below are trimmed to be non-reproducible against live systems.
-              </Callout>
-
-              <h2 id="s-02" data-toc><span className="no">02</span>Building the gadget chain</h2>
-              <p>We chain a cache-writer's <code>__destruct</code> into a template loader's path handling. The writer flushes its buffer to a filename it believes is safe; the loader later <strong>includes</strong> that same path. Point both at one location and object destruction becomes file write becomes code execution.</p>
-
-              <div className="fig">
-                <CodeBlock title="reproduce.sh" lines={[
-                  {text:"# chapter 07 — trimmed repro", kind:"com"},
-                  {text:"curl -s $T/api/import --data-binary @payload.b64", prompt:"$"},
-                  {text:"# gadget: CacheWriter::__destruct -> TemplateLoader::load", kind:"com"},
-                  {text:"[+] wrote /var/www/app/cache/x.php", kind:"acc"},
-                  {text:"[+] uid=0(root) gid=0(root)", kind:"green"},
-                  {text:"[+] flag{ink_on_paper}", kind:"green"},
-                ]} />
-                <div className="cap">Fig 1 — object destruction → file write → include → RCE.</div>
-              </div>
-
-              <blockquote>The whole trick is that the app trusts a filename it computed from data it never should have deserialized.</blockquote>
-
-              <h2 id="s-03" data-toc><span className="no">03</span>From write to root</h2>
-              <p>The web user couldn't touch the flag, but the deploy cron ran our dropped file as root a minute later. Patience beats privilege escalation. When the 「難」 seal came down, it was earned.</p>
-
+              <Markdown options={{ 
+                overrides: { Callout, CodeBlock, Seal, Tag, Button, h1: H1, h2: H2, h3: H3 },
+                slugify: str => 's-' + encodeURIComponent(str.replace(/\s+/g, '-').toLowerCase())
+              }}>
+                {POST_CONTENT}
+              </Markdown>
               <div className="divider"><span className="jp">完</span></div>
               <div style={{display:"flex",gap:"12px",alignItems:"center"}}>
                 <Button variant="secondary" as="a" href="index.html">← Back to archive</Button>

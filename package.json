@@ -11,6 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "front-matter": "^4.0.2",
-    "marked": "^18.0.5"
+    "markdown-to-jsx": "^9.8.2"
   }
 }
