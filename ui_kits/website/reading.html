@@ -21,8 +21,12 @@
      precomposed Vietnamese tone marks (e.g. "ế") that causes detached-diacritic
      rendering instead of a clean fallback, so article titles skip it entirely. */
   h1.title{font-family:"Shippori Mincho","Noto Serif",serif;font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:.5px;margin:0 0 18px;color:var(--read-ink)}
-  .byline{display:flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:12px;color:var(--read-ink-3);padding-bottom:20px;margin-bottom:8px;border-bottom:var(--bw-rule) solid var(--read-ink)}
-  .byline b{color:var(--read-ink-2);font-weight:500}
+  /* author: labelled + weighted so it reads clearly, no avatar */
+  .byline{display:flex;align-items:center;gap:12px;padding-bottom:20px;margin-bottom:8px;border-bottom:var(--bw-rule) solid var(--read-ink)}
+  .byline .who{display:flex;align-items:baseline;gap:9px;min-width:0}
+  .byline .who .lbl{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent)}
+  .byline .who .name{font-family:var(--font-body);font-weight:700;font-size:17px;color:var(--read-ink);line-height:1.15;letter-spacing:.2px}
+  .byline .pub{font-family:var(--font-mono);font-size:11.5px;color:var(--read-ink-3);margin-left:auto}
   .tags{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 0}
 
   .prose{font-family:var(--font-body);font-weight:500;font-size:18px;line-height:1.8;color:var(--read-body)}
@@ -752,7 +756,11 @@ Một bug có thể real và được vá nhưng vẫn được đánh giá th�
             </div>
             <h1 className="title" id="s-top">{meta ? meta.title : "Đang tải…"}</h1>
             <div className="byline">
-              <b>{meta ? meta.author : ""}</b><span style={{opacity:.5}}>·</span><span>{meta ? meta.date : ""}</span>
+              <span className="who">
+                <span className="lbl">Author</span>
+                <span className="name">{meta ? meta.author : ""}</span>
+              </span>
+              <span className="pub">{meta ? meta.date : ""}</span>
             </div>
             <div className="tags">
               {tags.map(t=><Tag key={t}>{t}</Tag>)}

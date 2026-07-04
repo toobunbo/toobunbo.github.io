@@ -129,7 +129,7 @@ async function build() {
     // Generate BLOG array
     const blogPosts = posts.filter(p => p.isBlog && p !== hotPost);
     const blogArrayStr = blogPosts.map(p => {
-      return `{chip:{jp:"論説",en:"BLOG"},chipInk:true,title:"${p.title}",meta:"${p.author} · ${p.date}",excerpt:"${p.description}",catEn:"${p.categoryEn}",catJp:"${p.categoryJp}",foot:"đọc tiếp ", href: "blog/${p.slug}.html", cover:"${p.cover}"}`;
+      return `{chip:{jp:"論説",en:"BLOG"},chipInk:true,title:"${p.title}",author:"${p.author}",meta:"@${p.author} · ${p.date}",excerpt:"${p.description}",catEn:"${p.categoryEn}",catJp:"${p.categoryJp}",foot:"đọc tiếp ", href: "blog/${p.slug}.html", cover:"${p.cover}"}`;
     }).join(',\n');
     
     // Generate WRITEUP array
@@ -139,7 +139,7 @@ async function build() {
       if (p.difficulty === 'hard') d = "難";
       if (p.difficulty === 'easy') d = "易";
       
-      return `<Card chip={{jp:"連載",en:"CH.X"}} hanko={{jp:"${d}",en:"${p.difficulty.toUpperCase()}",tone:"${p.difficulty}"}} title="${p.title}" meta="${p.author} · ${p.categoryEn}" catEn="${p.categoryEn}" catJp="${p.categoryJp}" foot="READ " href="writeup/${p.slug}.html" />`;
+      return `<Card chip={{jp:"連載",en:"CH.X"}} hanko={{jp:"${d}",en:"${p.difficulty.toUpperCase()}",tone:"${p.difficulty}"}} title="${p.title}" author="${p.author}" meta="@${p.author} · ${p.categoryEn}" catEn="${p.categoryEn}" catJp="${p.categoryJp}" foot="READ " href="writeup/${p.slug}.html" />`;
     }).join('\n');
 
     if (blogArrayStr) {

@@ -40,6 +40,9 @@
   .ac-hanko.easy{border-color:var(--seal-easy);color:var(--seal-easy)}
   .ac-body{padding:15px 5px 5px}
   .ac-body h3{font-family:var(--font-body);font-weight:700;font-size:20px;margin:0 0 6px;letter-spacing:-.2px;line-height:1.22}
+  .ac-author{display:flex;align-items:baseline;gap:8px;margin:0 0 8px}
+  .ac-author .k{font-family:var(--font-mono);font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent)}
+  .ac-author .n{font-family:var(--font-body);font-weight:700;font-size:14px;color:var(--ink);letter-spacing:.2px}
   .ac-meta{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-3);margin-bottom:13px}
   .ac-cat{display:flex;align-items:center;gap:8px;margin-bottom:15px}
   .ac-cat .bar{width:4px;height:14px;background:var(--accent)}
@@ -132,7 +135,7 @@
     }
 
     /* ---- shared card frame ---- */
-    function Card({chip, chipInk, kmark, hanko, title, meta, catEn, catJp, foot, href, cover}){
+    function Card({chip, chipInk, kmark, hanko, title, author, meta, catEn, catJp, foot, href, cover}){
       return (
         <a className="ac-card" href={href}>
           <div className="ac-thumb">
@@ -143,6 +146,7 @@
           </div>
           <div className="ac-body">
             <h3>{title}</h3>
+            {author && <div className="ac-author"><span className="k">Author</span><span className="n">{author}</span></div>}
             <div className="ac-meta">{meta}</div>
             <div className="ac-cat"><span className="bar"></span><span className="en">{catEn}</span><span className="jp">{catJp}</span></div>
             <div className="ac-foot">{foot}<span className="arw">→</span></div>
@@ -152,8 +156,8 @@
     }
 
     const BLOG = [
-      {chip:{jp:"論説",en:"BLOG"},chipInk:true,kmark:"論説",title:"Why we stopped trusting our own deserializers",meta:"rei@ckn · 2026.06.30 · 8 min",catEn:"RESEARCH",catJp:"研究",foot:"đọc tiếp "},
-      {chip:{jp:"論説",en:"BLOG"},chipInk:true,kmark:"解析",title:"A field guide to timing side-channels",meta:"rei@ckn · 2026.06.22 · 12 min",catEn:"RESEARCH",catJp:"研究",foot:"đọc tiếp "},
+      {chip:{jp:"論説",en:"BLOG"},chipInk:true,kmark:"論説",title:"Why we stopped trusting our own deserializers",author:"rei",meta:"@rei · 2026.06.30 · 8 min",catEn:"RESEARCH",catJp:"研究",foot:"đọc tiếp "},
+      {chip:{jp:"論説",en:"BLOG"},chipInk:true,kmark:"解析",title:"A field guide to timing side-channels",author:"rei",meta:"@rei · 2026.06.22 · 12 min",catEn:"RESEARCH",catJp:"研究",foot:"đọc tiếp "},
     ];
     const BOARD = [
       {n:"12",chal:"Escaping the Jailed Shell",cat:"WEB",d:"難",dc:"hard"},
@@ -172,7 +176,7 @@
 
           <div className="arc-sec arc-block2"><span className="kanji">連載</span><span className="romaji">Renzai · CTF Writeups</span><span className="desc">Featured + bảng check challenges</span></div>
           <div className="ctf-split">
-            <Card chip={{jp:"連載",en:"CH.12"}} kmark="攻性" hanko={{jp:"難",en:"HARD",tone:"hard"}} title="Escaping the Jailed Shell" meta="HackTheBox · Web · 12 min" catEn="WEB" catJp="アクション" foot="READ " />
+            <Card chip={{jp:"連載",en:"CH.12"}} kmark="攻性" hanko={{jp:"難",en:"HARD",tone:"hard"}} title="Escaping the Jailed Shell" author="nyx" meta="@nyx · HackTheBox · 12 min" catEn="WEB" catJp="アクション" foot="READ " />
             <div>
               <table className="board">
                 <thead><tr><th>#</th><th>Challenge</th><th>Category</th><th>Diff</th><th>Flag</th><th></th></tr></thead>
