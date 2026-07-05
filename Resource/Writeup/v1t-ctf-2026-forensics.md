@@ -8,7 +8,7 @@ categoryJp: "フォレンジック"
 difficulty: "medium"
 tags: ["Forensics", "Wireshark", "Network"]
 hot: false
-cover: ""
+cover: "../uploads/toobunbo_Thumbwu.png"
 ---
 
 # Forensics Basic CTF - Writeup
