@@ -1,15 +1,15 @@
 {
   "cats": [
-    { "lb": "WEB", "v": 1, "pct": 2, "c": "var(--cat-web)" },
+    { "lb": "WEB", "v": 0, "pct": 0, "c": "var(--cat-web)" },
     { "lb": "PWN", "v": 0, "pct": 0, "c": "var(--cat-pwn)" },
     { "lb": "CRYPTO", "v": 0, "pct": 0, "c": "var(--cat-crypto)" },
-    { "lb": "FORENSICS", "v": 0, "pct": 0, "c": "var(--cat-forensics)" },
+    { "lb": "FORENSICS", "v": 1, "pct": 2, "c": "var(--cat-forensics)" },
     { "lb": "OSINT", "v": 0, "pct": 0, "c": "var(--cat-osint)" },
     { "lb": "REV", "v": 0, "pct": 0, "c": "var(--cat-rev)" }
   ],
   "stats": {
     "flags": 1,
-    "best": "WEB",
+    "best": "FORENSICS",
     "rank": "Beginner"
   }
 }
