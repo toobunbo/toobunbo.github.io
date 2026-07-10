@@ -1,0 +1,227 @@
+<!-- @dsCard group="Website" viewport="1180x900" name="About Us — 部について" subtitle="Club intro: mission, journey timeline, activities" -->
+<!-- @startingPoint section="Website" subtitle="About Us page — mission + timeline + activities" viewport="1180x900" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBERKNIGHT — 部について / About</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=Shippori+Mincho:wght@400;500;600;700;800&family=Noto+Serif:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+<script src="./image-slot.js"></script>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper);background-image:var(--paper-grain);background-size:4px 4px;color:var(--ink);font-family:var(--font-body)}
+  a{color:inherit}
+
+  /* ---------- topbar (shared vocab) ---------- */
+  .topbar{border-bottom:var(--bw-heavy) solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:20}
+  .topbar .inner{max-width:var(--container);margin:0 auto;padding:12px var(--gutter);display:flex;align-items:center;gap:20px}
+  .topbar .wm{font-family:var(--font-display);font-size:22px;letter-spacing:1px}
+  .topbar .wm .k{color:var(--accent)}
+  .topbar .nav{margin-left:auto;display:flex;gap:22px}
+  .topbar .nav a{font-family:var(--font-mono);font-size:12px;font-weight:500;letter-spacing:1.5px;color:var(--ink-2);text-decoration:none;position:relative;padding-bottom:3px}
+  .topbar .nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--accent);transition:right .16s}
+  .topbar .nav a:hover{color:var(--ink)}
+  .topbar .nav a:hover::after{right:0}
+  .topbar .nav a.on{color:var(--ink)}
+  .topbar .nav a.on::after{right:0}
+
+  .wrap{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+
+  /* ---------- who we are ---------- */
+  .whoweare .who-body{max-width:72ch}
+  .whoweare .who-tag{font-family:var(--font-body);font-weight:600;font-size:clamp(16px,1.7vw,18px);line-height:1.65;color:var(--ink);margin:0 0 20px;text-wrap:pretty}
+  .whoweare .who-tag b{color:var(--accent);font-weight:700}
+  .whoweare .who-body p{font-family:var(--font-body);font-weight:500;font-size:16px;line-height:1.75;color:var(--ink-2);margin:0 0 16px;text-wrap:pretty}
+  .whoweare .who-body p:last-child{margin-bottom:0}
+  .whoweare .who-body strong{color:var(--ink);font-weight:700}
+
+  /* ---------- section shell ---------- */
+  .sec{padding:64px 0;border-bottom:var(--bw-rule) solid var(--ink)}
+  .sec-lbl{display:flex;align-items:center;gap:14px;margin-bottom:34px}
+  .sec-lbl .k{font-family:var(--font-display);font-size:30px;color:var(--accent);letter-spacing:3px;line-height:1}
+  .sec-lbl .en{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink-2)}
+  .sec-lbl .line{flex:1;height:2px;background:var(--rule)}
+  .sec-lbl .no{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:1px}
+
+  /* mission */
+
+  /* journey timeline */
+  .timeline{position:relative;padding-left:34px}
+  .timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--ink)}
+  .tl-item{position:relative;padding-bottom:38px}
+  .tl-item:last-child{padding-bottom:0}
+  .tl-item::before{content:"";position:absolute;left:-34px;top:4px;width:16px;height:16px;border-radius:50%;background:var(--paper);border:3px solid var(--accent)}
+  .tl-item.big::before{background:var(--accent)}
+  .tl-date{font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:7px}
+  .tl-item h3{font-family:var(--font-body);font-weight:700;font-size:21px;line-height:1.3;margin:0 0 8px;letter-spacing:-.2px}
+  .tl-item p{font-family:var(--font-body);font-weight:500;font-size:15px;line-height:1.65;color:var(--ink-2);margin:0;max-width:60ch;text-wrap:pretty}
+  .tl-item p strong{color:var(--ink);font-weight:700}
+
+  /* achievement seals */
+  .medals{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+  .medal{border:var(--bw-rule) solid var(--ink);background:var(--card);padding:10px 14px;display:flex;flex-direction:column;gap:2px;box-shadow:var(--shadow-block-sm,2px 2px 0 var(--ink));min-width:150px}
+  .medal .rank{font-family:var(--font-display);font-size:17px;color:var(--accent);line-height:1;letter-spacing:.5px}
+  .medal .ev{font-family:var(--font-mono);font-size:10px;letter-spacing:.5px;color:var(--ink-2);text-transform:uppercase;line-height:1.4}
+
+  /* proof photos */
+  .journey-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:start}
+  .proof{display:grid;grid-template-columns:1fr 1fr;gap:14px;position:sticky;top:80px}
+  .proof figure{margin:0}
+  .proof .frame{position:relative;aspect-ratio:4/3;border:var(--bw-rule) solid var(--ink);box-shadow:var(--shadow-block);overflow:hidden;background:#221E17}
+  .proof .frame image-slot{position:absolute;inset:0;width:100%;height:100%}
+  .proof .frame .tag{position:absolute;left:0;bottom:0;z-index:2;font-family:var(--font-mono);font-size:9px;font-weight:600;letter-spacing:1.5px;color:#F5EEDF;background:var(--accent);padding:4px 8px}
+  .proof figcaption{font-family:var(--font-mono);font-size:10.5px;color:var(--ink-3);letter-spacing:.5px;margin-top:8px;line-height:1.4}
+
+  /* activities */
+  .acts{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .act{position:relative;background:var(--card);border:var(--bw-rule) solid var(--ink);box-shadow:var(--shadow-block);padding:24px 22px 22px;overflow:hidden;transition:transform .12s,box-shadow .12s}
+  .act:hover{transform:translate(-3px,-3px);box-shadow:var(--shadow-block-lg)}
+  .act::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent)}
+  .act .km{position:absolute;right:12px;top:8px;font-family:var(--font-jp);font-weight:800;font-size:42px;color:var(--ink);opacity:.06;letter-spacing:2px;line-height:1}
+  .act .no{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:2px;color:var(--accent);margin-bottom:14px}
+  .act h3{font-family:var(--font-body);font-weight:700;font-size:20px;line-height:1.25;margin:0 0 10px;letter-spacing:-.2px}
+  .act .jp{font-family:var(--font-jp);font-weight:700;font-size:11px;letter-spacing:3px;color:var(--ink-3);display:block;margin-bottom:12px}
+  .act p{font-family:var(--font-body);font-weight:500;font-size:14.5px;line-height:1.6;color:var(--ink-2);margin:0;text-wrap:pretty}
+
+  /* footer */
+  .foot{border-top:var(--bw-heavy) solid var(--ink)}
+  .foot .inner{max-width:var(--container);margin:0 auto;padding:34px var(--gutter);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .foot .wm{font-family:var(--font-display);font-size:20px;letter-spacing:1px}
+  .foot .wm .k{color:var(--accent)}
+  .foot .meta{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:1px;line-height:1.6;text-align:right}
+
+  .theme-tog{position:fixed;right:18px;bottom:18px;z-index:40;font-family:var(--font-mono);font-size:11px;letter-spacing:.5px;padding:7px 12px;cursor:pointer;border:var(--bw-rule) solid var(--ink);border-radius:var(--r-2);background:var(--paper);color:var(--ink)}
+
+  @media(max-width:820px){
+    .journey-grid{grid-template-columns:1fr;gap:30px}
+    .proof{position:static}
+    .acts{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="inner">
+      <div class="wm">CYBER<span class="k">KNIGHT</span></div>
+      <nav class="nav">
+        <a href="landing.html">HOME</a>
+        <a href="about.html" class="on">ABOUT</a>
+        <a href="members.html">MEMBERS</a>
+        <a href="index.html">ARCHIVE</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ===== WHO WE ARE (hero + mission merged) ===== -->
+  <section class="sec whoweare">
+    <div class="wrap">
+      <div class="sec-lbl"><span class="k">理念</span><span class="en">Who we are</span><span class="line"></span><span class="no">01</span></div>
+      <div class="who-body">
+        <p class="who-tag">Câu lạc bộ An toàn thông tin tập trung vào các cuộc thi bảo mật để rèn luyện kỹ năng thực chiến và nghiên cứu học thuật chuyên sâu. Trực thuộc <b>Khoa Công nghệ Thông tin — TDTU</b>.</p>
+        <p>Chúng mình đến với nhau bằng niềm đam mê và mong muốn học hỏi, trau dồi thêm kiến thức về các vấn đề bảo mật của ngành Công nghệ thông tin nói chung và An toàn thông tin nói riêng.</p>
+        <p>Một sân chơi để rèn luyện tư duy và xây dựng cộng đồng An toàn thông tin — dù xuất phát điểm từ những chuyên ngành khác nhau tại TDTU — cùng nhau phát triển kỹ năng đi đôi với <strong>trách nhiệm</strong>, hướng đến một tập thể vững mạnh.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== JOURNEY ===== -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-lbl"><span class="k">歩み</span><span class="en">Our Journey</span><span class="line"></span><span class="no">03</span></div>
+      <div class="journey-grid">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-date">Tiền thân</div>
+            <h3>CyberSecurity Lovers</h3>
+            <p>Trước khi có tên chính thức, chúng mình hoạt động dưới dạng nhóm <strong>CyberSecurity Lovers</strong> — quy tụ những thành viên cùng đam mê ngồi lại với nhau.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-date">2025 — 2026 · Khẳng định</div>
+            <h3>Non trẻ nhưng sớm ghi dấu</h3>
+            <p>Dù còn non trẻ, nhóm đã sớm khẳng định năng lực qua nhiều thứ hạng cao ở các giải CTF trong và ngoài nước.</p>
+            <div class="medals">
+              <div class="medal"><span class="rank">Khuyến khích</span><span class="ev">CTF HUTECH 2025</span></div>
+              <div class="medal"><span class="rank">Top 11 / 119</span><span class="ev">PUTCyberDays 2026</span></div>
+              <div class="medal"><span class="rank">Chung kết</span><span class="ev">CSCV · ATTT Quốc gia</span></div>
+              <div class="medal"><span class="rank">Vòng trong</span><span class="ev">HOLACTF</span></div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-date">2025 · Tự tổ chức</div>
+            <h3>CyberKnight Game — Season 1</h3>
+            <p>Nhóm tự tổ chức sân chơi riêng mang tên <strong>CyberKnight Game Season 1 (2025)</strong>, tạo môi trường thực chiến cho cộng đồng yêu bảo mật tại Trường Đại học Tôn Đức Thắng.</p>
+          </div>
+          <div class="tl-item big">
+            <div class="tl-date">04 · 12 · 2025 · Chính danh</div>
+            <h3>Trở thành CLB trực thuộc Khoa</h3>
+            <p>Với kết quả và tiềm năng đã thể hiện, CyberKnight nhận được sự ghi nhận và hỗ trợ từ Khoa Công nghệ Thông tin, chính thức trở thành <strong>Câu lạc bộ An toàn thông tin trực thuộc Khoa</strong> — đánh dấu bước chuyển mình từ một nhóm nhỏ tự phát thành một tổ chức chính danh.</p>
+          </div>
+        </div>
+
+        <div class="proof">
+          <figure>
+            <div class="frame"><image-slot id="about-hutech" placeholder="Ảnh HUTECH" fit="cover"></image-slot><span class="tag">CTF HUTECH 2025</span></div>
+            <figcaption>Giải Khuyến khích — CTF HUTECH 2025</figcaption>
+          </figure>
+          <figure>
+            <div class="frame"><image-slot id="about-cscv" placeholder="Ảnh CSCV" fit="cover"></image-slot><span class="tag">CSCV — CHUNG KẾT</span></div>
+            <figcaption>Vòng chung kết Giải ATTT Quốc gia (CSCV)</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ACTIVITIES ===== -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-lbl"><span class="k">活動</span><span class="en">What we do · Activities</span><span class="line"></span><span class="no">04</span></div>
+      <div class="acts">
+        <article class="act">
+          <span class="km">大会</span>
+          <div class="no">活動 01</div>
+          <h3>CyberKnight Game</h3>
+          <span class="jp">自主大会</span>
+          <p>Sân chơi CTF do chính CLB tổ chức. Season 1 (2025) đã diễn ra — môi trường thực chiến mở cho cộng đồng bảo mật tại TDTU.</p>
+        </article>
+        <article class="act">
+          <span class="km">週会</span>
+          <div class="no">活動 02</div>
+          <h3>Seminar hàng tuần</h3>
+          <span class="jp">毎週セミナー</span>
+          <p>Buổi chia sẻ định kỳ giữa các thành viên: mổ xẻ challenge, trao đổi kỹ thuật mới, cùng nhau tiến bộ đều đặn mỗi tuần.</p>
+        </article>
+        <article class="act">
+          <span class="km">師範</span>
+          <div class="no">活動 03</div>
+          <h3>Seminar cùng giảng viên</h3>
+          <span class="jp">講師セミナー</span>
+          <p>Những buổi seminar chuyên sâu có sự đồng hành của thầy cô trong Khoa — kết nối nền tảng học thuật với thực chiến.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="inner">
+      <div class="wm">CYBER<span class="k">KNIGHT</span></div>
+      <div class="meta">情報セキュリティ部 · TDTU<br>CyberKnight Security Club · since 2023</div>
+    </div>
+  </footer>
+
+  <button class="theme-tog" id="tog">反転 OFF</button>
+  <script>
+    const tog = document.getElementById('tog');
+    tog.addEventListener('click', () => {
+      const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+      document.documentElement.setAttribute('data-theme', dark ? 'light' : 'dark');
+      tog.textContent = dark ? '反転 OFF' : '反転 ON';
+    });
+  </script>
+</body>
+</html>

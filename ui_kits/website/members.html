@@ -1,0 +1,240 @@
+<!-- @dsCard group="Website" viewport="1180x900" name="Members — roster" subtitle="Tiered team roster: boss cover hero + lead flip cards + member grid" -->
+<!-- @startingPoint section="Website" subtitle="Team roster page — 3 tiers" viewport="1180x900" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBERKNIGHT — 名簿 / Members</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=Shippori+Mincho:wght@400;500;600;700;800&family=Noto+Serif:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+<script src="./image-slot.js"></script>
+<style>
+  html,body{margin:0}
+  body{background:var(--paper);background-image:var(--paper-grain);background-size:4px 4px;color:var(--ink);min-height:100vh}
+  .wrap{max-width:var(--container);margin:0 auto;padding:56px var(--gutter) 90px}
+
+  /* ---------- masthead ---------- */
+  .rost-head{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:var(--bw-heavy) solid var(--ink);padding-bottom:16px;margin-bottom:8px}
+  .rost-head .jp{font-family:var(--font-display);font-size:52px;line-height:.9;color:var(--ink);letter-spacing:2px;margin:0}
+  .rost-head .en{font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-top:10px;display:block}
+  .rost-head .count{font-family:var(--font-mono);font-size:12px;color:var(--ink-3);letter-spacing:1px;text-align:right;line-height:1.7}
+  .rost-head .count b{font-family:var(--font-display);font-size:34px;color:var(--accent);display:block;letter-spacing:1px}
+
+  /* ---------- section label ---------- */
+  .tier-lbl{display:flex;align-items:center;gap:14px;margin:52px 0 24px}
+  .tier-lbl .k{font-family:var(--font-display);font-size:30px;color:var(--accent);letter-spacing:3px;line-height:1}
+  .tier-lbl .en{font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--ink-2)}
+  .tier-lbl .no{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:1px}
+  .tier-lbl .line{flex:1;height:2px;background:var(--rule)}
+
+  /* ============ flip primitives (shared) ============ */
+  .flip{perspective:1500px}
+  .flip-inner{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.4,.15,.2,1);transform-style:preserve-3d}
+  .flip:hover .flip-inner,.flip:focus-within .flip-inner{transform:rotateY(180deg)}
+  .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);border:var(--bw-rule) solid var(--ink);box-shadow:var(--shadow-block);box-sizing:border-box;overflow:hidden}
+  .face.back{transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:space-between}
+  .face.back::before{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--accent)}
+  .links{display:flex;gap:8px}
+  .links a{display:flex;align-items:center;justify-content:center;border:1.5px solid var(--ink);color:var(--ink);background:var(--card);transition:background .12s,color .12s,transform .12s}
+  .links a:hover{background:var(--accent);color:#fff;transform:translateY(-2px)}
+  .links svg{fill:currentColor}
+  .tone::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(rgba(30,20,10,.15) 1px,transparent 1.4px),linear-gradient(rgba(190,70,45,.06),rgba(60,40,80,.09));background-size:3px 3px,auto;mix-blend-mode:multiply}
+
+  /* ============ BOSS — magazine cover hero ============ */
+  .boss{display:grid;grid-template-columns:392px 1fr;gap:40px;align-items:center}
+  .cover{position:relative;width:392px;aspect-ratio:1/1.14;border:var(--bw-heavy) solid var(--ink);box-shadow:var(--shadow-block-lg);overflow:hidden;background:#221E17}
+  .cover image-slot{position:absolute;inset:0;width:100%;height:100%}
+  .cover .edge{position:absolute;left:0;right:0;top:0;height:6px;background:var(--accent);z-index:3}
+  .cover .seal{position:absolute;right:14px;bottom:16px;z-index:4;width:96px;height:96px;border-radius:50%;background:var(--accent);color:#F5EEDF;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:2px solid #F5EEDF;box-shadow:0 3px 10px rgba(0,0,0,.3);transform:rotate(-5deg)}
+  .cover .seal .k{font-family:var(--font-display);font-size:24px;line-height:1;letter-spacing:2px}
+  .cover .seal .en{font-family:var(--font-mono);font-weight:700;font-size:8px;letter-spacing:2px;margin-top:4px}
+  .cover .no{position:absolute;top:16px;right:15px;z-index:3;font-family:var(--font-display);font-size:40px;color:#F5EEDF;letter-spacing:-1px;text-shadow:2px 2px 0 var(--accent)}
+  .boss-info .kick{font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  .boss-info .name{font-family:var(--font-display);font-size:64px;line-height:.9;color:var(--ink);letter-spacing:.5px;margin:0}
+  .boss-info .role{font-family:var(--font-mono);font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--ink-2);margin:16px 0 0}
+  .boss-info .note{font-family:var(--font-body);font-weight:500;font-size:16px;line-height:1.65;color:var(--ink-2);margin:20px 0 24px;max-width:46ch;text-wrap:pretty}
+  .boss-info .foot{display:flex;align-items:center;gap:20px}
+  .boss-info .links a{width:40px;height:40px}
+  .boss-info .links svg{width:18px;height:18px}
+  .boss-info .tenure{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:1px}
+
+  /* ============ MEMBER card — full-bleed affiche (same frame for everyone) ============ */
+  .lead-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:22px}
+  .lead{height:300px}
+  /* FRONT: photo fills the card, name/role overlaid on a bottom scrim */
+  .lead .face.front{background:#221E17}
+  .lead .face.front image-slot{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  .lead .face.front .tn-tone{position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:
+      radial-gradient(rgba(30,20,10,.15) 1px,transparent 1.4px),
+      linear-gradient(rgba(190,70,45,.06),rgba(60,40,80,.09)),
+      linear-gradient(to bottom, rgba(20,16,10,.5) 0%, rgba(20,16,10,0) 26%, rgba(20,16,10,0) 46%, rgba(20,16,10,.85) 100%);
+    background-size:3px 3px,auto,auto;mix-blend-mode:multiply}
+  .lead .face.front .edge{position:absolute;left:0;right:0;top:0;height:5px;background:var(--accent);z-index:3}
+  .lead .no{position:absolute;top:11px;left:13px;z-index:3;font-family:var(--font-mono);font-size:9.5px;font-weight:600;letter-spacing:1.5px;color:#F5EEDF;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+  .lead .km{position:absolute;top:9px;right:12px;z-index:3;font-family:var(--font-display);font-size:16px;color:#F5EEDF;letter-spacing:2px;opacity:.92;text-shadow:0 1px 4px rgba(0,0,0,.6)}
+  .lead .plate{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:15px 15px 14px}
+  .lead .nm{font-family:var(--font-display);font-size:30px;line-height:.92;color:#F5EEDF;margin:0;letter-spacing:.5px;text-shadow:2px 2px 0 var(--accent),2px 2px 8px rgba(0,0,0,.5)}
+  .lead .rl{font-family:var(--font-mono);font-size:9.5px;font-weight:600;letter-spacing:1.6px;text-transform:uppercase;color:#F5EEDF;margin-top:9px;line-height:1.4;text-shadow:0 1px 3px rgba(0,0,0,.7)}
+  .lead .hint{position:absolute;right:13px;bottom:14px;z-index:3;font-family:var(--font-mono);font-size:9px;letter-spacing:1px;color:#F5EEDF;opacity:.75;display:flex;gap:4px}
+  .lead .hint .r{transition:transform .3s}
+  .lead:hover .hint .r{transform:translateX(3px)}
+  /* BACK */
+  .lead .face.back{padding:20px 18px 16px}
+  .lead .face.back .lbl{font-family:var(--font-mono);font-weight:700;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:6px;margin-bottom:11px}
+  .lead .face.back .lbl::after{content:"";flex:1;height:1px;background:var(--rule)}
+  .lead .face.back .who{font-family:var(--font-display);font-size:18px;color:var(--ink);margin:0 0 9px}
+  .lead .face.back .q{font-family:var(--font-body);font-weight:500;font-size:13px;line-height:1.52;color:var(--ink-2);margin:0;text-wrap:pretty}
+  .lead .face.back .fb{display:flex;align-items:center;justify-content:space-between;padding-top:11px;border-top:1px solid var(--rule)}
+  .lead .face.back .links a{width:31px;height:31px}
+  .lead .face.back .links svg{width:15px;height:15px}
+  .lead .face.back .tn{font-family:var(--font-mono);font-size:9px;color:var(--ink-3);letter-spacing:.5px;text-align:right;line-height:1.3}
+
+  @media(max-width:720px){.boss{grid-template-columns:1fr;gap:26px}.cover,.boss-info .name{width:auto}.boss-info .name{font-size:48px}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="rost-head">
+      <div>
+        <h1 class="jp">名簿</h1>
+        <span class="en">CyberKnight · Roster</span>
+      </div>
+      <div class="count">現役隊員<b>34</b>1 隊長 · 33 隊員</div>
+    </header>
+
+    <div id="root"></div>
+  </div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel">
+  const { useState } = React;
+
+  const GH = () => <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>;
+  const TW = () => <svg viewBox="0 0 16 16"><path d="M12.6 1h2.2l-4.8 5.5L15.6 15h-4.4l-3.5-4.5L3.7 15H1.5l5.1-5.9L1 1h4.5l3.1 4.1L12.6 1zm-.8 12.6h1.2L5.3 2.3H4l7.8 11.3z"/></svg>;
+
+  // slot ids must be stable so dropped photos persist across reloads
+  const boss = {no:"隊長", name:"kaito", role:"Đại ca · Founder", km:"総督",
+    note:"Người dựng CyberKnight từ con số không. Không code exploit nữa — giờ chỉ mài giũa những kẻ sẽ làm điều đó. Kỷ luật trước, kỹ thuật sau.",
+    tenure:"創立 2023.09", slot:"boss"};
+
+  // one uniform roster — everyone below the boss is equal, same card.
+  // Real founders first, then sample leads/members (replace with real data).
+  const members = [
+    {no:"NO.01", nm:"vinhjaxt", rl:"Co-founder · Web Exploit", km:"攻性", photo:"../../assets/m-a.png", q:"Mọi deserializer đều dối trá cho đến khi bị chứng minh ngược lại.", tn:"2023.09"},
+    {no:"NO.02", nm:"tuedenn", rl:"Co-founder · Reverse", km:"解析", photo:"../../assets/m-b.png", q:"Thời gian sẽ thu hẹp mọi khoảng cách — kể cả với binary khó nhất.", tn:"2023.09"},
+    {no:"NO.03", nm:"h4niz", rl:"Co-founder · Pwnable", km:"爆破", photo:"../../assets/m-c.png", q:"Time will narrow every disparity. Một byte tràn là đủ.", tn:"2023.09"},
+    {no:"NO.04", nm:"m1raie", rl:"Crypto", km:"暗号", q:"Toán học không biết nói dối. Chỉ có triển khai mới sai.", tn:"2024.01"},
+    {no:"NO.05", nm:"z3ph", rl:"Forensics", km:"鑑識", q:"Mọi thứ đều để lại dấu vết. Việc của tôi là đọc chúng.", tn:"2024.02"},
+    {no:"NO.06", nm:"noctu", rl:"Network", km:"通信", q:"Gói tin không nói dối. Người cấu hình chúng thì có.", tn:"2024.03"},
+    {no:"NO.07", nm:"sable", rl:"OSINT", km:"諜報", q:"Câu trả lời luôn công khai — chỉ là chưa ai chịu ghép lại.", tn:"2024.03"},
+    {no:"NO.08", nm:"kryo", rl:"Mobile", km:"携帯", q:"Cái app trong túi bạn tin tưởng quá nhiều thứ.", tn:"2024.04"},
+    {no:"NO.09", nm:"vex", rl:"Hardware", km:"回路", q:"Firmware là phần mềm quên mất rằng nó đang bị nhìn.", tn:"2024.05"},
+    {no:"NO.10", nm:"orin", rl:"Blockchain", km:"連鎖", q:"Bất biến không có nghĩa là bất khả xâm phạm.", tn:"2024.06"},
+  ];
+
+  const M_KM = ["修","習","新","初","門","芽","若","進","志","礎","練","始","士","歩","勤","伸","望","炎","風","雷","華","刃","岩"];
+  const M_ROLES = ["Web","Pwn","Rev","Crypto","Forensics","Network","OSINT","Mobile","Misc"];
+  const M_Q = ["Chưa viết ghi chú. Đang mài kiếm.","Học để phá, phá để hiểu.","Mỗi CTF là một chương mới.","Còn noob, nhưng không còn lâu nữa."];
+  for (let i = 0; i < 23; i++) {
+    members.push({
+      no:"NO."+String(i+11).padStart(2,"0"),
+      nm:"kn_"+String(i+11).padStart(2,"0"),
+      rl:M_ROLES[i%M_ROLES.length],
+      km:M_KM[i%M_KM.length],
+      q:M_Q[i%M_Q.length],
+      tn:"2024."+String((i%12)+1).padStart(2,"0"),
+    });
+  }
+
+  function Slot({id,src}){ return <image-slot id={id} src={src} placeholder="Ảnh" fit="cover"></image-slot>; }
+
+  function Boss({d}){
+    return (
+      <div className="boss flip">
+        <div style={{position:"relative"}}>
+          <div className="cover tone">
+            <image-slot id={"member-"+d.slot} src="../../assets/cover-boss.png" placeholder="Cover" fit="cover"></image-slot>
+            <div className="edge"></div>
+            <span className="no">01</span>
+            <div className="seal"><span className="k">{d.no}</span><span className="en">BOSS</span></div>
+          </div>
+        </div>
+        <div className="boss-info">
+          <div className="kick">特集 · Cover Story</div>
+          <h2 className="name">{d.name}</h2>
+          <div className="role">{d.role}</div>
+          <p className="note">{d.note}</p>
+          <div className="foot">
+            <div className="links"><a href="#" aria-label="GitHub"><GH/></a><a href="#" aria-label="Twitter"><TW/></a></div>
+            <span className="tenure">{d.tenure}</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  function Lead({d,i}){
+    return (
+      <div className="lead flip" tabIndex="0">
+        <div className="flip-inner">
+          <div className="face front">
+            <image-slot id={"member-lead-"+i} src={d.photo} placeholder="Ảnh" fit="cover"></image-slot>
+            <div className="tn-tone"></div>
+            <div className="edge"></div>
+            <span className="no">{d.no}</span>
+            <span className="km">{d.km}</span>
+            <div className="plate">
+              <h3 className="nm">{d.nm}</h3>
+              <div className="rl">{d.rl}</div>
+            </div>
+            <span className="hint">note <span className="r">→</span></span>
+          </div>
+          <div className="face back">
+            <div>
+              <div className="lbl">Member Note · 手記</div>
+              <h4 className="who">{d.nm}</h4>
+              <p className="q">{d.q}</p>
+            </div>
+            <div className="fb">
+              <div className="links"><a href="#" aria-label="GitHub"><GH/></a><a href="#" aria-label="Twitter"><TW/></a></div>
+              <span className="tn">入隊<br/>{d.tn}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  function TierLabel({k,en,no}){
+    return (
+      <div className="tier-lbl">
+        <span className="k">{k}</span>
+        <span className="en">{en}</span>
+        <span className="line"></span>
+        <span className="no">{no}</span>
+      </div>
+    );
+  }
+
+  function App(){
+    return (
+      <div>
+        <TierLabel k="隊長" en="The Boss" no="01" />
+        <Boss d={boss} />
+
+        <TierLabel k="隊員" en="Members · Roster" no="33" />
+        <div className="lead-grid">{members.map((d,i)=><Lead key={i} d={d} i={i} />)}</div>
+      </div>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body>
+</html>

@@ -84,7 +84,12 @@
 
     /* ---- Masthead ---- */
     function Masthead({ theme, onToggleTheme }){
-      const nav = ["ARCHIVE","CTF","BUG BOUNTY","RESEARCH","ABOUT"];
+      const navItems = [
+        {lbl:"HOME", href:"landing.html"},
+        {lbl:"ABOUT", href:"about.html"},
+        {lbl:"MEMBERS", href:"members.html"},
+        {lbl:"ARCHIVE", href:"index.html"}
+      ];
       return (
         <header style={{borderBottom:"var(--bw-heavy) solid var(--ink)",background:"var(--paper)",position:"sticky",top:0,zIndex:20}}>
           <div style={{maxWidth:"var(--container)",margin:"0 auto",padding:"12px var(--gutter)",display:"flex",alignItems:"center",gap:"20px"}}>
@@ -93,7 +98,7 @@
               <span style={{fontFamily:"var(--font-jp)",fontWeight:700,fontSize:"12px",letterSpacing:"3px",color:"var(--ink-3)"}}>部</span>
             </div>
             <nav style={{display:"flex",gap:"18px",marginLeft:"8px"}}>
-              {nav.map(n=>(<a key={n} href="#" style={{fontFamily:"var(--font-mono)",fontSize:"11.5px",fontWeight:500,letterSpacing:"1px",color:"var(--ink-2)",textDecoration:"none"}}>{n}</a>))}
+              {navItems.map(n=>(<a key={n.lbl} href={n.href} style={{fontFamily:"var(--font-mono)",fontSize:"11.5px",fontWeight:500,letterSpacing:"1px",color:"var(--ink-2)",textDecoration:"none"}}>{n.lbl}</a>))}
             </nav>
             <div style={{marginLeft:"auto",display:"flex",alignItems:"center",gap:"12px"}}>
               <span style={{fontFamily:"var(--font-mono)",fontSize:"11px",color:"var(--ink-3)"}}>ISSUE&nbsp;#42</span>
