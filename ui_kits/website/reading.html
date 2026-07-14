@@ -7,9 +7,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=Shippori+Mincho:wght@400;500;600;700;800&family=Noto+Serif:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <link rel="stylesheet" href="../../styles.css">
 <style>
+  :root {
+    --font-body: "Lora", "Shippori Mincho", "Noto Serif", serif;
+  }
   html,body{margin:0}
   body{background:var(--paper);background-image:var(--paper-grain);background-size:4px 4px;color:var(--ink)}
 
@@ -20,7 +24,7 @@
   /* Vietnamese prose titles: Reggae One has partial/ambiguous glyph coverage for
      precomposed Vietnamese tone marks (e.g. "ế") that causes detached-diacritic
      rendering instead of a clean fallback, so article titles skip it entirely. */
-  h1.title{font-family:"Shippori Mincho","Noto Serif",serif;font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:.5px;margin:0 0 18px;color:var(--read-ink)}
+  h1.title{font-family:"Lora","Shippori Mincho","Noto Serif",serif;font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:.5px;margin:0 0 18px;color:var(--read-ink)}
   /* author: labelled + weighted so it reads clearly, no avatar */
   .byline{display:flex;align-items:center;gap:12px;padding-bottom:20px;margin-bottom:8px;border-bottom:var(--bw-rule) solid var(--read-ink)}
   .byline .who{display:flex;align-items:baseline;gap:9px;min-width:0}
@@ -40,7 +44,7 @@
   html[data-theme="dark"] .prose pre{border-color:#222}
   .prose pre code{background:transparent;color:inherit;padding:0;border-radius:0;font-size:inherit}
   /* Vietnamese chapter headings: same Reggae One glyph issue as h1.title above */
-  .prose h1{font-family:"Shippori Mincho","Noto Serif",serif;font-size:30px;line-height:1.2;margin:54px 0 22px;letter-spacing:-0.5px;padding-bottom:14px;border-bottom:var(--bw-heavy) solid var(--read-ink);color:var(--read-ink)}
+  .prose h1{font-family:"Lora","Shippori Mincho","Noto Serif",serif;font-size:30px;line-height:1.2;margin:54px 0 22px;letter-spacing:-0.5px;padding-bottom:14px;border-bottom:var(--bw-heavy) solid var(--read-ink);color:var(--read-ink)}
   .prose > h1:first-child{margin-top:8px}
   .prose h1 + .chapter-lead{margin:-14px 0 26px;font-family:var(--font-mono);font-size:13px;line-height:1.65;color:var(--read-ink-3);padding:12px 16px;border-left:var(--bw-heavy) solid var(--read-accent);background:var(--read-mark)}
   .prose .chapter-lead code{background:transparent;color:var(--read-accent);padding:0}
