@@ -188,7 +188,7 @@
           </div>
           <div style={{position:"relative",border:"var(--bw-rule) solid var(--ink)",background:"var(--card)",boxShadow:"var(--shadow-block-lg)",aspectRatio:"3/4",overflow:"hidden"}}>
             <div style={{position:"absolute",inset:0,backgroundImage:"repeating-linear-gradient(-45deg, transparent 0 11px, rgba(30,27,22,0.05) 11px 12px)"}} />
-            {HERO.cover && <img src={HERO.cover} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"50% 20%"}} alt="Cover" />}
+            {HERO.cover && <img src={HERO.cover} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"50% 40%"}} alt="Cover" />}
             <div style={{position:"absolute",top:"14px",left:"14px",fontFamily:"var(--font-mono)",fontSize:"11px",letterSpacing:"2px",color:"var(--ink-3)"}}>{HERO.vol}</div>
             <div style={{position:"absolute",top:"12px",right:"12px"}}><Seal jp={HERO.sealJp} en={HERO.sealEn} tone={HERO.sealTone} size="lg" /></div>
             {!HERO.cover && <div style={{position:"absolute",left:0,right:0,bottom:0,top:"20%",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"var(--font-jp)",fontWeight:800,fontSize:"clamp(70px,11vw,120px)",color:"var(--ink)",lineHeight:.9,letterSpacing:"6px",writingMode:"vertical-rl"}}>電脳騎士</div>}
@@ -203,7 +203,7 @@
       return (
         <a className="ac-card" href={href}>
           <div className="ac-thumb">
-            {cover && <img src={cover} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"50% 20%",opacity:0.8}} alt="cover" />}
+            {cover && <img src={cover} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"50% 40%",opacity:0.8}} alt="cover" />}
             <span className={"ac-chip"+(chipInk?" ink":"")}>{chip.jp}<small>{chip.en}</small></span>
             <span className="ac-kmark">{kmark}</span>
             {hanko && <span className={"ac-hanko "+(hanko.tone||"")}>{hanko.jp}<small>{hanko.en}</small></span>}
