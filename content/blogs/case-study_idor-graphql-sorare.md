@@ -7,7 +7,7 @@ categoryEn: "RESEARCH"
 categoryJp: "研究"
 difficulty: "hard"
 tags: ["bug bounty", "idor", "graphql"]
-hot: true
+hot: false
 cover: "../thumbs/blogVip.jpg"
 ---
 
