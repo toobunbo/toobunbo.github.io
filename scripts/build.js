@@ -42,7 +42,7 @@ async function build() {
   }
 
   // 1. Parse Markdown files
-  const resourceDir = path.join(__dirname, '../Resource');
+  const resourceDir = path.join(__dirname, '../content');
   const mdFiles = fs.existsSync(resourceDir) ? walkDir(resourceDir) : [];
   
   const posts = [];
@@ -61,7 +61,7 @@ async function build() {
     }).join(',');
 
     const attr = parsed.attributes;
-    const isBlog = file.includes('Research');
+    const isBlog = file.includes('blogs');
     const slug = path.basename(file, '.md');
     
     posts.push({
@@ -181,7 +181,7 @@ async function build() {
     }
 
     // 3. Update Checklist
-    const checklistPath = path.join(__dirname, '../Resource/checklist.json');
+    const checklistPath = path.join(__dirname, '../content/checklist.json');
     if (fs.existsSync(checklistPath)) {
       const cl = JSON.parse(fs.readFileSync(checklistPath, 'utf8'));
       const catsArray = JSON.stringify(cl.cats, null, 2);

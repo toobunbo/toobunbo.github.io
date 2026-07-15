@@ -29,14 +29,15 @@ jobs:
           mkdir -p public
           
           # Copy shared assets/styles
-          cp -r assets components explorations guidelines screenshots tokens uploads public/ || true
+          cp -r assets components explorations guidelines screenshots tokens public/ || true
           cp styles.css _ds_bundle.js _ds_manifest.json public/
           
           # Copy everything from ui_kits/website to the root public folder
           cp -r ui_kits/website/* public/
           
-          # Copy Resource assets if they exist
-          if [ -d "Resource/assets" ]; then cp -r Resource/assets public/; fi
+          # Copy content images and thumbs
+          cp -r content/images public/images || true
+          cp -r content/thumbs public/thumbs || true
           
           # Fix relative paths in HTML files (../../ to ./)
           find public -maxdepth 1 -name "*.html" -exec sed -i 's/\.\.\/\.\.\///g' {} +
