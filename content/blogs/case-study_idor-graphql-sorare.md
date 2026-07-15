@@ -8,7 +8,7 @@ categoryJp: "研究"
 difficulty: "hard"
 tags: ["bug bounty", "idor", "graphql"]
 hot: false
-cover: "../thumbs/blogVip.jpg"
+cover: "../thumbs/thumb_jojo.png"
 ---
 
 # Chương 1 — Cơ sở Lý thuyết
