@@ -148,7 +148,7 @@
       return (
         <a className="ac-card" href={href}>
           <div className="ac-thumb">
-            {cover && <img src={cover} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",opacity:0.8}} alt="cover" />}
+            {cover && <img src={cover} style={{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",objectPosition:"top",opacity:0.8}} alt="cover" />}
             <span className={"ac-chip"+(chipInk?" ink":"")}>{chip.jp}<small>{chip.en}</small></span>
             <span className="ac-kmark">{kmark}</span>
             {hanko && <span className={"ac-hanko "+(hanko.tone||"")}>{hanko.jp}<small>{hanko.en}</small></span>}
