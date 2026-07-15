@@ -76,7 +76,8 @@ async function build() {
       difficulty: attr.difficulty || 'mid', // easy, mid, hard
       tags: attr.tags || ['ctf'],
       hot: attr.hot || false,
-      cover: attr.cover || ''
+      cover: attr.cover || '',
+      coverPosition: attr.coverPosition || '50% 40%'
     });
 
     if (readingTemplate) {

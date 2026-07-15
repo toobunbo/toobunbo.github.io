@@ -8,7 +8,7 @@ categoryJp: "研究"
 difficulty: "hard"
 tags: ["assembly", "reverse-engineering", "x64"]
 hot: true
-cover: ""
+cover: "../thumbs/cover_vagabond.png"
 ---
 
 # Nền Tảng x86-64 (AMD64) Assembly cho Reverse Engineering trên Windows

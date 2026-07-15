@@ -9,6 +9,7 @@ difficulty: "hard"
 tags: ["bug bounty", "idor", "graphql"]
 hot: false
 cover: "../thumbs/thumb_jojo.png"
+coverPosition: "50% 100%"
 ---
 
 # Chương 1 — Cơ sở Lý thuyết
