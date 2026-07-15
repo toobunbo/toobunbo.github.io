@@ -140,7 +140,7 @@ async function build() {
       let d = "中";
       if (p.difficulty === 'hard') d = "難";
       if (p.difficulty === 'easy') d = "易";
-      return `<Card chip={{jp:"連載",en:"CH.X"}} hanko={{jp:"${d}",en:"${p.difficulty.toUpperCase()}",tone:"${p.difficulty}"}} title="${p.title}" author="${p.author}" meta="@${p.author} · ${p.categoryEn}" catEn="${p.categoryEn}" catJp="${p.categoryJp}" foot="READ " href="writeup/${p.slug}.html" cover="${p.cover}" />`;
+      return `<Card chip={{jp:"連載",en:"CH.X"}} hanko={{jp:"${d}",en:"${p.difficulty.toUpperCase()}",tone:"${p.difficulty}"}} title="${p.title}" author="${p.author}" meta="@${p.author} · ${p.categoryEn}" catEn="${p.categoryEn}" catJp="${p.categoryJp}" foot="READ " href="writeup/${p.slug}.html" cover="${p.cover}" coverPosition="${p.coverPosition}" />`;
     }
 
     if (blogArrayStr) {
@@ -176,7 +176,8 @@ async function build() {
       sealJp: "${d}",
       sealEn: "${hotPost.difficulty.toUpperCase()}",
       sealTone: "${dc}",
-      cover: "${hotPost.cover}"
+      cover: "${hotPost.cover}",
+      coverPosition: "${hotPost.coverPosition}"
     };`;
       indexHtml = indexHtml.replace(/const HERO = \{.*?\};/s, heroStr);
     }
