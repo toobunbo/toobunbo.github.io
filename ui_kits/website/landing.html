@@ -173,6 +173,30 @@
       letter-spacing: 1px
     }
 
+    .slogan {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+      padding-left: 8px
+    }
+
+    .slogan .bar {
+      width: 26px;
+      height: 3px;
+      background: var(--accent);
+      flex: none
+    }
+
+    .slogan .txt {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--ink-2)
+    }
+
     .wordmark .k {
       color: var(--accent)
     }
@@ -319,10 +343,6 @@
   <div class="storyboard">
     <div class="sb-panel" style="top:9%;left:3%;width:180px;height:135px;transform:rotate(-2deg)"></div>
     <div class="sb-panel" style="bottom:9%;left:6%;width:150px;height:120px;transform:rotate(1.5deg)"></div>
-    <div class="sb-slogan" style="top:8%;left:4%;transform:rotate(-3deg);font-size:clamp(22px,2.9vw,42px)">TRUE
-      FREEDOM<br>IS FORGED</div>
-    <div class="sb-slogan" style="bottom:8%;left:6%;transform:rotate(-2deg);font-size:clamp(22px,2.9vw,42px)">
-      WITHIN<br>DISCIPLINE</div>
   </div>
 
   <img class="mascot" src="../../assets/knight-mascot.png" alt="CYBERKNIGHT mascot">
@@ -342,6 +362,7 @@
       <div>
         <div class="kanji-sub">サイバーナイト</div>
         <div class="wordmark">CYBER<br><span class="k">KNIGHT</span></div>
+        <div class="slogan"><span class="bar"></span><span class="txt">Freedom within boundaries</span></div>
       </div>
       <div class="index">
         <div class="index-head">
