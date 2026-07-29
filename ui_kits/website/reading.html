@@ -739,7 +739,8 @@ Một bug có thể real và được vá nhưng vẫn được đánh giá th�
         <div>
           <div className="topbar">
             <div className="inner">
-              <a className="back" href="index.html">← ARCHIVE</a>
+              <a className="back" href="index.html">← MATERIAL</a>
+              <a className="back" href="landing.html" style={{marginLeft:"16px"}}>HOME</a>
               <div className="wm">CYBER<span className="wm-accent">KNIGHT</span></div>
               <div style={{marginLeft:"auto",display:"flex",alignItems:"center",gap:"12px"}}>
                 <span style={{fontFamily:"var(--font-mono)",fontSize:"11px",color:"var(--ink-3)"}}>{meta ? (meta.categoryEn||"RESEARCH") : ""}</span>
@@ -775,8 +776,8 @@ Một bug có thể real và được vá nhưng vẫn được đánh giá th�
                 {post.body}
               </Markdown>
               <div className="divider"><span className="jp">完</span></div>
-              <div style={{display:"flex",gap:"12px",alignItems:"center"}}>
-                <Button variant="secondary" as="a" href="index.html">← Back to archive</Button>
+              <div style={{marginTop:"32px",display:"flex",gap:"12px"}}>
+                <Button variant="secondary" as="a" href="index.html">← Back to material</Button>
                 <Button variant="primary">Next chapter →</Button>
               </div>
             </div>
