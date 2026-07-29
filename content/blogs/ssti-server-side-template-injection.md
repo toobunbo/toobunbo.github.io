@@ -8,7 +8,7 @@ categoryJp: "アクション"
 difficulty: "mid"
 tags: ["Web", "SSTI", "Template Injection"]
 hot: false
-cover: "../thumbs/ssti_thumb.png"
+cover: "../thumbs/Khai_thumb.png"
 ---
 
 # SSTI-Server-Side-Template-Injection
