@@ -15,7 +15,7 @@ window.members = [
   { no: "NO.04", nm: "toobunbo", rl: "Vice President · Crypto", km: "暗号", photo: "../../assets/pho-goat.png", q: "Toán học không biết nói dối. Chỉ có triển khai mới sai.", tn: "2024.01" },
   { no: "NO.05", nm: "codex", rl: "Mentor · Forensics", km: "鑑識", photo: "../../assets/mem5.2.png", q: "Mọi thứ đều để lại dấu vết. Việc của tôi là đọc chúng.", tn: "2024.02" },
   { no: "NO.06", nm: "Hoàng Chí Thiện", rl: "Management · Reverse", km: "解析", photo: "../../assets/hoang-thien.png", q: "Chưa viết ghi chú. Đang mài kiếm.", tn: "2024.07" },
-  { no: "NO.07", nm: "noctu", rl: "Network", km: "通信", q: "Gói tin không nói dối. Người cấu hình chúng thì có.", tn: "2024.03" },
+  { no: "NO.07", nm: "Võ Văn Khôi Nguyên", rl: "Network", km: "通信", photo: "../../assets/khoi-nguyen.png", q: "Gói tin không nói dối. Người cấu hình chúng thì có.", tn: "2024.03" },
   { no: "NO.08", nm: "sable", rl: "OSINT", km: "諜報", q: "Câu trả lời luôn công khai — chỉ là chưa ai chịu ghép lại.", tn: "2024.03" },
   { no: "NO.09", nm: "kryo", rl: "Mobile", km: "携帯", q: "Cái app trong túi bạn tin tưởng quá nhiều thứ.", tn: "2024.04" },
   { no: "NO.10", nm: "vex", rl: "Hardware", km: "回路", q: "Firmware là phần mềm quên mất rằng nó đang bị nhìn.", tn: "2024.05" },
