@@ -19,16 +19,17 @@ window.members = [
   { no: "NO.08", nm: "kryo", rl: "Mobile", km: "携帯", q: "Cái app trong túi bạn tin tưởng quá nhiều thứ.", tn: "2024.04" },
   { no: "NO.09", nm: "vex", rl: "Hardware", km: "回路", q: "Firmware là phần mềm quên mất rằng nó đang bị nhìn.", tn: "2024.05" },
   { no: "NO.10", nm: "orin", rl: "Blockchain", km: "連鎖", q: "Bất biến không có nghĩa là bất khả xâm phạm.", tn: "2024.06" },
+  { no: "NO.11", nm: "Trần Chí Thiện", rl: "Management · Reverse", km: "解析", photo: "../../assets/thien.png", q: "Chưa viết ghi chú. Đang mài kiếm.", tn: "2024.07" },
 ];
 
 const M_KM = ["修", "習", "新", "初", "門", "芽", "若", "進", "志", "礎", "練", "始", "士", "歩", "勤", "伸", "望", "炎", "風", "雷", "華", "刃", "岩"];
 const M_ROLES = ["Web", "Pwn", "Rev", "Crypto", "Forensics", "Network", "OSINT", "Mobile", "Misc"];
 const M_Q = ["Chưa viết ghi chú. Đang mài kiếm.", "Học để phá, phá để hiểu.", "Mỗi CTF là một chương mới.", "Còn noob, nhưng không còn lâu nữa."];
 
-for (let i = 0; i < 23; i++) {
+for (let i = 0; i < 22; i++) {
   window.members.push({
-    no: "NO." + String(i + 11).padStart(2, "0"),
-    nm: "kn_" + String(i + 11).padStart(2, "0"),
+    no: "NO." + String(i + 12).padStart(2, "0"),
+    nm: "kn_" + String(i + 12).padStart(2, "0"),
     rl: M_ROLES[i % M_ROLES.length],
     km: M_KM[i % M_KM.length],
     q: M_Q[i % M_Q.length],
