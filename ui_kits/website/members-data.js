@@ -11,7 +11,7 @@ window.boss = {
 window.members = [
   { no: "NO.01", nm: "trieudailuong", rl: "President · Web Exploit", km: "攻性", photo: "../../assets/lead.png", q: "Mọi deserializer đều dối trá cho đến khi bị chứng minh ngược lại.", tn: "2023.09" },
   { no: "NO.02", nm: "Katun", rl: "Head of Management · Reverse", km: "解析", photo: "../../assets/m-b.png", q: "Thời gian sẽ thu hẹp mọi khoảng cách — kể cả với binary khó nhất.", tn: "2023.09" },
-  { no: "NO.03", nm: "BouMiu", rl: "Point of contact · Pwnable", km: "爆破", photo: "../../assets/mem3.png", q: "Time will narrow every disparity. Một byte tràn là đủ.", tn: "2023.09" },
+  { no: "NO.03", nm: "BouMiu", rl: "secretary", km: "爆破", photo: "../../assets/mem3.png", email: "nguyenquynhanhbm@gmail.com", q: "Time will narrow every disparity. Một byte tràn là đủ.", tn: "2023.09" },
   { no: "NO.04", nm: "toobunbo", rl: "Vice President · Crypto", km: "暗号", photo: "../../assets/pho-goat.png", q: "Toán học không biết nói dối. Chỉ có triển khai mới sai.", tn: "2024.01" },
   { no: "NO.05", nm: "codex", rl: "Mentor · Forensics", km: "鑑識", photo: "../../assets/mem5.2.png", q: "Mọi thứ đều để lại dấu vết. Việc của tôi là đọc chúng.", tn: "2024.02" },
   { no: "NO.06", nm: "Hoàng Chí Thiện", rl: "Management · Reverse", km: "解析", photo: "../../assets/hoang-thien.png", q: "Chưa viết ghi chú. Đang mài kiếm.", tn: "2024.07" },
